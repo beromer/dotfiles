@@ -1,5 +1,8 @@
 #! /bin/bash
 
-ln -s .vimrc ~/.
-ln -s .bash_common ~/.
+rm -f ~/.vimrc
+rm -f ~/.bash_common
+
+ln -s "$(realpath .vimrc)" ~/.vimrc
+ln -s "$(realpath .bash_common)"  ~/.bash_common
 echo "source ~/.bash_common" >> ~/.bashrc
