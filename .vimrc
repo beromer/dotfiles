@@ -2,7 +2,7 @@
 set number
 syntax on
 set expandtab
-set tabstop=3
+set tabstop=4
 autocmd fileType tex setlocal spell spelllang=en_us
 set nocompatible
 set laststatus=2
