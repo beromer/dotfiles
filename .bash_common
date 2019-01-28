@@ -5,4 +5,4 @@ alias rm='rm -iv'
 alias cp='cp -v'
 alias grep='grep --color=auto'
 
-PS1="\[\033[34m\][\$(date +%H%M)][\u@\h:\w]$\[\033[0m\] "
+PS1="\[\033[33m\][\e[32m\]\$(date +%H%M)\e[33m\]][\u@\e[32m\]\h\e[33m\]:\w]$\[\033[0m\] "
