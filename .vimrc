@@ -2,7 +2,7 @@
 set number
 syntax on
 set expandtab
-set tabstop=3
+set tabstop=4
 autocmd fileType tex setlocal spell spelllang=en_us
 set nocompatible
 set laststatus=2
@@ -13,9 +13,6 @@ set hlsearch
 set wrapscan
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 set shiftwidth=4
-inoremap ;; <esc>
-cnoremap ;; <esc>
-vnoremap ;; <esc>
 nnoremap <F2> :w<ENTER>
 nnoremap <F3> :w !sudo tee %<ENTER>
 
