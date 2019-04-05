@@ -1,6 +1,6 @@
 set -o vi
 
-alias ls='ls --color=auto -lXhF --group-directories-first'
+alias ls='ls --color=auto -AXh --group-directories-first'
 alias rm='rm -iv'
 alias cp='cp -v'
 alias grep='grep --color=auto'
