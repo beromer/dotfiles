@@ -22,7 +22,7 @@ set statusline+=%{StatuslineGit()}
 "set statusline+=%{StatuslineGitMod()}
 set statusline+=%#StatusLineNC#
 set statusline+=\ %f\ %m%r\[%n\]
-set statusline+=%#LineNr#
+"set statusline+=%#LineNr#
 set statusline+=%=
 set statusline+=%#StatusLineNC#
 set statusline+=\ %y
@@ -35,10 +35,17 @@ set statusline+=\
 
 syntax enable
 try
-    colorscheme solarized
+  let g:gruvbox_italic=1
+  let g:gruvbox_italicize_strings=1
+  let g:gruvbox_contrast_dark="hard"
+  colorscheme gruvbox
 catch
 endtry
 set background=dark
+
+let &t_SI="\<Esc>[5 q"
+let &t_SR="\<Esc>[3 q"
+let &t_EI="\<Esc>[2 q"
 
 set nocompatible
 set showcmd
@@ -135,9 +142,6 @@ nnoremap <Space> :noh<CR>
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 set hidden
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
 
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
