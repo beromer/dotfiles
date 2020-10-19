@@ -18,6 +18,13 @@ powerline-daemon -q
 
 source /etc/profile.d/lmod.sh
 source /home/beromer/src/spack/share/spack/setup-env.sh
+#if [ -z "$__Init_Default_Modules" ]; then
+#   export __Init_Default_Modules=1;
+#
+#   module --initial_load restore
+#else
+#   module refresh
+#fi
 
 bindkey "^?" backward-delete-char
 
@@ -25,11 +32,9 @@ alias ls='ls -Alhp --group-directories-first --color=auto'
 alias rm='rm -iv'
 alias cp='cp -v'
 alias grep='grep --color=auto'
-alias less='less -R -S'
-#alias less='less -R --mouse -S'
+#alias less='less -R -S'
+alias less='less -R --mouse -S'
 alias fiesta='fiesta --color=auto'
-
-#export DISPLAY=localhost:0
 
 export PATH=$PATH:/home/beromer/local/bin
 export CMAKE_GENERATOR=Ninja

@@ -104,13 +104,13 @@ set mouse=a
 
 set laststatus=2
 set cursorline
-hi colorcolumn ctermbg=232
-hi cursorcolumn ctermbg=232
-hi cursorline ctermbg=232 cterm=none
+hi colorcolumn ctermbg=235
+hi cursorcolumn ctermbg=235
+hi cursorline ctermbg=235 cterm=none
 hi cursorlinenr cterm=none
 
 
-"hi VertSplit ctermbg=none cterm=none
+hi VertSplit ctermbg=none cterm=none
 set fillchars+=vert:\│
 "set fillchars+=vert:\▏
 
