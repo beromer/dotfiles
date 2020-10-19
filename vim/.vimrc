@@ -44,7 +44,9 @@ endtry
 set background=dark
 
 let &t_SI="\<Esc>[5 q"
-let &t_SR="\<Esc>[3 q"
+if v:version > 704
+  let &t_SR="\<Esc>[3 q"
+endif 
 let &t_EI="\<Esc>[2 q"
 
 set nocompatible
