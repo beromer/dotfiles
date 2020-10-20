@@ -1,37 +1,37 @@
-function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
-function! StatuslineGit()
-  let l:branchname = GitBranch()
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
-
-"function! GitBranchMod()
-"    return system("[[ -n \"$(git status --porcelain " . shellescape(expand("%")) . ")\" ]] && echo -n +")
-"endfunction
-"
-"function! StatuslineGitMod()
-"  let l:branchname = GitBranchMod()
-"  return strlen(l:branchname) < 2?'  '.l:branchname.' ':''
-"endfunction
-
-set statusline=
-set statusline+=%#StatusLine#
-set statusline+=%{StatuslineGit()}
-"set statusline+=%{StatuslineGitMod()}
-set statusline+=%#StatusLineNC#
-set statusline+=\ %f\ %m%r\[%n\]
-"set statusline+=%#LineNr#
-set statusline+=%=
-set statusline+=%#StatusLineNC#
-set statusline+=\ %y
-set statusline+=\[%{&fileformat}\]
-set statusline+=\[%{&fileencoding?&fileencoding:&encoding},%B\]
-set statusline+=\ 
-set statusline+=%#StatusLine#
-set statusline+=\ %l/%L:%v
-set statusline+=\ 
+""function! GitBranch()
+""  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+""endfunction
+""
+""function! StatuslineGit()
+""  let l:branchname = GitBranch()
+""  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+""endfunction
+""
+"""function! GitBranchMod()
+"""    return system("[[ -n \"$(git status --porcelain " . shellescape(expand("%")) . ")\" ]] && echo -n +")
+"""endfunction
+"""
+"""function! StatuslineGitMod()
+"""  let l:branchname = GitBranchMod()
+"""  return strlen(l:branchname) < 2?'  '.l:branchname.' ':''
+"""endfunction
+""
+""set statusline=
+""set statusline+=%#StatusLine#
+""set statusline+=%{StatuslineGit()}
+"""set statusline+=%{StatuslineGitMod()}
+""set statusline+=%#StatusLineNC#
+""set statusline+=\ %f\ %m%r\[%n\]
+"""set statusline+=%#LineNr#
+""set statusline+=%=
+""set statusline+=%#StatusLineNC#
+""set statusline+=\ %y
+""set statusline+=\[%{&fileformat}\]
+""set statusline+=\[%{&fileencoding?&fileencoding:&encoding},%B\]
+""set statusline+=\ 
+""set statusline+=%#StatusLine#
+""set statusline+=\ %l/%L:%v
+""set statusline+=\ 
 
 syntax enable
 try
@@ -42,6 +42,7 @@ try
 catch
 endtry
 set background=dark
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
 let &t_SI="\<Esc>[5 q"
 if v:version > 704
@@ -65,8 +66,35 @@ syntax on
 set expandtab
 set tabstop=4
 set shiftwidth=4
-set foldmethod=syntax
-set foldlevelstart=20
+"set foldmethod=syntax
+
+let s:middot='·'
+let s:raquo='»'
+let s:small_l='ℓ'
+
+" Override default `foldtext()`, which produces something like:
+"
+"   +---  2 lines: source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim--------------------------------
+"
+" Instead returning:
+"
+"   »··[2ℓ]··: source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim···································
+"
+function! Myfoldtext()
+  let l:lines='[' . (v:foldend - v:foldstart + 1) . s:small_l . ']'
+  let l:first=substitute(getline(v:foldstart), '\v *', '', '')
+  let l:dashes=substitute(v:folddashes, '-', s:middot, 'g')
+  return s:raquo . s:middot . s:middot . l:lines . l:dashes . ': ' . l:first
+endfunction
+
+if has('folding')
+  if has('windows')
+    set fillchars+=fold:·             " MIDDLE DOT (U+00B7, UTF-8: C2 B7)
+  endif
+  set foldmethod=indent               " not as cool as syntax, but faster
+  set foldlevelstart=0
+  set foldtext=Myfoldtext()
+endif
 
 set incsearch
 set hlsearch
@@ -98,10 +126,10 @@ set mouse=a
 
 "set colorcolumn=80
 
-"set rtp+=/usr/share/vim/addons/plugin/
-"python3 from powerline.vim import setup as powerline_setup
-"python3 powerline_setup()
-"python3 del powerline_setup
+set rtp+=/usr/share/vim/addons/plugin/
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
 
 
 set laststatus=2
@@ -146,6 +174,8 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 set hidden
 
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
+autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
 
 if !isdirectory($HOME."/.vim")
     call mkdir($HOME."/.vim","",0770)
