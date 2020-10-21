@@ -1,115 +1,81 @@
-""function! GitBranch()
-""  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-""endfunction
-""
-""function! StatuslineGit()
-""  let l:branchname = GitBranch()
-""  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-""endfunction
-""
-"""function! GitBranchMod()
-"""    return system("[[ -n \"$(git status --porcelain " . shellescape(expand("%")) . ")\" ]] && echo -n +")
-"""endfunction
-"""
-"""function! StatuslineGitMod()
-"""  let l:branchname = GitBranchMod()
-"""  return strlen(l:branchname) < 2?'  '.l:branchname.' ':''
-"""endfunction
-""
-""set statusline=
-""set statusline+=%#StatusLine#
-""set statusline+=%{StatuslineGit()}
-"""set statusline+=%{StatuslineGitMod()}
-""set statusline+=%#StatusLineNC#
-""set statusline+=\ %f\ %m%r\[%n\]
-"""set statusline+=%#LineNr#
-""set statusline+=%=
-""set statusline+=%#StatusLineNC#
-""set statusline+=\ %y
-""set statusline+=\[%{&fileformat}\]
-""set statusline+=\[%{&fileencoding?&fileencoding:&encoding},%B\]
-""set statusline+=\ 
-""set statusline+=%#StatusLine#
-""set statusline+=\ %l/%L:%v
-""set statusline+=\ 
-
-syntax enable
+" COLORSCHEME "
 try
   let g:gruvbox_italic=1
   let g:gruvbox_italicize_strings=1
   let g:gruvbox_contrast_dark="hard"
   colorscheme gruvbox
+  set background=dark
+  autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 catch
 endtry
-set background=dark
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
+" CURSORS "
 let &t_SI="\<Esc>[5 q"
 if v:version > 704
   let &t_SR="\<Esc>[3 q"
 endif 
 let &t_EI="\<Esc>[2 q"
 
+" OPTIONS "
 set nocompatible
 set showcmd
 set rnu
 set wildmenu
+set number
+set nowrap
+syntax on
+set backspace=indent,eol,start
+set nostartofline
+set confirm
+set ttyfast
+set so=3
+set mouse=a
+set laststatus=2
+set listchars=tab:▸\ ,eol:¬
+set hidden
+let fortran_free_source=1
 
+" FILE EXPLORER "
 let g:netrw_altv=1
 let g:netrw_liststyle=1
 let g:netrw_fastbrowse=0
 let g:netrw_sort_by="exten"
 
-set number
-set nowrap
-syntax on
-set expandtab
-set tabstop=4
-set shiftwidth=4
-"set foldmethod=syntax
 
+" FOLDING "
 let s:middot='·'
 let s:raquo='»'
 let s:small_l='ℓ'
-
-" Override default `foldtext()`, which produces something like:
-"
-"   +---  2 lines: source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim--------------------------------
-"
-" Instead returning:
-"
-"   »··[2ℓ]··: source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim···································
-"
 function! Myfoldtext()
   let l:lines='[' . (v:foldend - v:foldstart + 1) . s:small_l . ']'
   let l:first=substitute(getline(v:foldstart), '\v *', '', '')
   let l:dashes=substitute(v:folddashes, '-', s:middot, 'g')
   return s:raquo . s:middot . s:middot . l:lines . l:dashes . ': ' . l:first
 endfunction
-
 if has('folding')
   if has('windows')
-    set fillchars+=fold:·             " MIDDLE DOT (U+00B7, UTF-8: C2 B7)
+    set fillchars+=fold:·
   endif
-  set foldmethod=indent               " not as cool as syntax, but faster
+  set foldmethod=indent 
   set foldlevelstart=0
   set foldtext=Myfoldtext()
+  hi Folded ctermbg=234
 endif
 
+" VIEWS "
+autocmd BufWinLeave *.* mkview!
+autocmd BufWinEnter *.* silent loadview
+
+" SEARCHING "
 set incsearch
 set hlsearch
 set ignorecase
 set smartcase
 
-set autoindent
-set smartindent
-set backspace=indent,eol,start
-set nostartofline
-set confirm
-set ttyfast
-
+" SAVE BUFFER POSITION "
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" AUTOMATIC BRACKET MATCHING "
 inoremap ( ()<esc>i
 inoremap [ []<esc>i
 inoremap { {}<esc>i
@@ -117,39 +83,32 @@ inoremap {<CR> {<CR>}<esc>O
 inoremap ' ''<esc>i
 inoremap " ""<esc>i
 
-map Y y$
-set listchars=tab:▸\ ,eol:¬
-
-set so=3
-
-set mouse=a
-
-"set colorcolumn=80
-
+" POWERLINE "
 set rtp+=/usr/share/vim/addons/plugin/
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
 
-
-set laststatus=2
+" CURSORS AND COLUMNS "
 set cursorline
-hi colorcolumn ctermbg=235
-hi cursorcolumn ctermbg=235
-hi cursorline ctermbg=235 cterm=none
-hi cursorlinenr cterm=none
+hi colorcolumn ctermbg=234
+hi cursorcolumn ctermbg=234
+hi CursorLine ctermbg=234 cterm=none
+hi CursorLineNR ctermbg=234 cterm=none
 
-
+" VERTICAL SPLIT STYLING "
 hi VertSplit ctermbg=none cterm=none
 set fillchars+=vert:\│
-"set fillchars+=vert:\▏
 
-
+" MAPS "
 map <C-h> <C-W>h
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-l> <C-W>l
+map Y y$
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
+" LEADER MAPS "
 let mapleader=","
 nnoremap <Leader>b :ls<CR>:b<Space>
 nnoremap <Leader>n :bn<CR>
@@ -169,27 +128,28 @@ nnoremap <Leader>s :setlocal spell!<CR>
 nnoremap <Leader>/ :noh<CR>
 nnoremap <Space> :noh<CR>
 
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
-
-set hidden
-
+" TABS AND INDENTS "
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
+autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 foldignore=
 
+" BACKUP, SWAP AND UNDO DIRECTORIS "
 if !isdirectory($HOME."/.vim")
-    call mkdir($HOME."/.vim","",0770)
+  call mkdir($HOME."/.vim","",0770)
 endif
 if !isdirectory($HOME."/.vim/backupdir")
-    call mkdir($HOME."/.vim/backupdir","",0700)
+  call mkdir($HOME."/.vim/backupdir","",0700)
 endif
 if !isdirectory($HOME."/.vim/undodir")
-    call mkdir($HOME."/.vim/undodir","",0700)
+  call mkdir($HOME."/.vim/undodir","",0700)
 endif
-
 set backupdir=~/.vim/backupdir
 set directory=~/.vim/backupdir
 set undodir=~/.vim/undodir
 set undofile
-let fortran_free_source=1
-

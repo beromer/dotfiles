@@ -3,6 +3,7 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
 setopt autocd
 bindkey -v
 # End of lines configured by zsh-newuser-install
@@ -35,6 +36,8 @@ alias grep='grep --color=auto'
 #alias less='less -R -S'
 alias less='less -R --mouse -S'
 alias fiesta='fiesta --color=auto'
+alias glog="git log --pretty=format:'%C(yellow)%h%Creset - %Cgreen(%cd) %C(bold blue)<%an>%Creset%Creset %s %C(red)%d' --abbrev-commit"
 
 export PATH=$PATH:/home/beromer/local/bin
 export CMAKE_GENERATOR=Ninja
+
