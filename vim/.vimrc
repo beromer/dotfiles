@@ -85,9 +85,9 @@ inoremap " ""<esc>i
 
 " POWERLINE "
 set rtp+=/usr/share/vim/addons/plugin/
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+silent! python3 from powerline.vim import setup as powerline_setup
+silent! python3 powerline_setup()
+silent! python3 del powerline_setup
 
 " CURSORS AND COLUMNS "
 set cursorline
@@ -127,6 +127,13 @@ nnoremap <Leader>y :set list!<CR>
 nnoremap <Leader>s :setlocal spell!<CR>
 nnoremap <Leader>/ :noh<CR>
 nnoremap <Space> :noh<CR>
+nnoremap <silent> <leader>m :make!<CR>:cw 5<CR>
+nnoremap <leader>a :cn<CR>
+nnoremap <leader>s :cp<CR>
+nnoremap <leader>d :cr<CR>
+
+set makeprg=ninja
+set autowrite
 
 " TABS AND INDENTS "
 set expandtab
