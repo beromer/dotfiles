@@ -1,8 +1,10 @@
+set nocompatible
 " COLORSCHEME "
 try
   let g:gruvbox_italic=1
   let g:gruvbox_italicize_strings=1
   let g:gruvbox_contrast_dark="hard"
+  let g:gruvbox_guisp_fallback="bg"
   colorscheme gruvbox
   set background=dark
   autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
@@ -17,7 +19,6 @@ endif
 let &t_EI="\<Esc>[2 q"
 
 " OPTIONS "
-set nocompatible
 set showcmd
 set rnu
 set wildmenu
@@ -34,6 +35,9 @@ set laststatus=2
 set listchars=tab:▸\ ,eol:¬
 set hidden
 let fortran_free_source=1
+
+set spell
+set complete+=kspell
 
 " FILE EXPLORER "
 let g:netrw_altv=1
@@ -129,7 +133,7 @@ nnoremap <Leader>/ :noh<CR>
 nnoremap <Space> :noh<CR>
 nnoremap <silent> <leader>m :make!<CR>:cw 5<CR>
 nnoremap <leader>a :cn<CR>
-nnoremap <leader>s :cp<CR>
+nnoremap <leader>aa :cp<CR>
 nnoremap <leader>d :cr<CR>
 
 set makeprg=ninja
