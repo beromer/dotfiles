@@ -34,6 +34,7 @@ set mouse=a
 set laststatus=2
 set listchars=tab:▸\ ,eol:¬
 set hidden
+set autoread
 let fortran_free_source=1
 
 " LOAD SPELLING DICT FOR COMPLETION "
@@ -105,10 +106,10 @@ silent! python3 del powerline_setup
 
 " CURSORS AND COLUMNS "
 set cursorline
-hi colorcolumn ctermbg=234
-hi cursorcolumn ctermbg=234
-hi CursorLine ctermbg=234 cterm=none
-hi CursorLineNR ctermbg=234 cterm=none
+hi colorcolumn ctermbg=235
+hi cursorcolumn ctermbg=235
+hi CursorLine ctermbg=235 cterm=none
+hi CursorLineNR ctermbg=235 cterm=none
 
 " VERTICAL SPLIT STYLING "
 hi VertSplit ctermbg=none cterm=none
@@ -133,34 +134,39 @@ nnoremap <Leader>qa :qa<CR>
 nnoremap <Leader>wq :wq<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>w :w<CR>
+
 "buffers"
-nnoremap <Leader>b :ls<CR>:b<Space>
-nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>bl :ls<CR>:b<Space>
+nnoremap <Leader>bn :bn<CR>
+nnoremap <Leader>bp :bp<CR>
 "windows"
-nnoremap <Leader>l :Vex!<CR>
-nnoremap <Leader>h :Vex<CR>
-nnoremap <Leader>j :Hex<CR>
-nnoremap <Leader>k :Hex!<CR>
-nnoremap <Leader>t :Tex<CR>
-nnoremap <Leader>o :on<CR>
+nnoremap <Leader>wl :Vex!<CR>
+nnoremap <Leader>wh :Vex<CR>
+nnoremap <Leader>wj :Hex<CR>
+nnoremap <Leader>wk :Hex!<CR>
+nnoremap <Leader>wt :Tex<CR>
+nnoremap <Leader>wo :on<CR>
 "columns/cursors"
-nnoremap <leader>c :execute "set colorcolumn=" . (&colorcolumn == "" ? "80,120" : "")<CR>
-nnoremap <Leader>x :set cursorline!<CR>
-nnoremap <Leader>z :set cursorcolumn!<CR>
+nnoremap <leader>co :execute "set colorcolumn=" . (&colorcolumn == "" ? "80,120" : "")<CR>
+nnoremap <Leader>cl :set cursorline!<CR>
+nnoremap <Leader>cc :set cursorcolumn!<CR>
 "interface"
 nnoremap <Leader>r :set rnu!<CR>
-nnoremap <Leader>w :set wrap!<CR>
+nnoremap <Leader>wr :set wrap!<CR>
 nnoremap <Leader>y :set list!<CR>
 "spelling"
-nnoremap <Leader>s :setlocal spell!<CR>
+nnoremap <Leader>ss :setlocal spell!<CR>
+nnoremap <Leader>sn ]s
+nnoremap <Leader>sp [s
+nnoremap <Leader>sc z=
 "highlighting"
 nnoremap <Leader>/ :noh<CR>
 nnoremap <Space> :noh<CR>
 "quickfix"
 nnoremap <silent> <leader>m :make!<CR>:cw 5<CR>
-nnoremap <leader>a :cn<CR>
-nnoremap <leader>aa :cp<CR>
-nnoremap <leader>d :cr<CR>
+nnoremap <leader>en :cn<CR>
+nnoremap <leader>ep :cp<CR>
+nnoremap <leader>ef :cr<CR>
 
 " MAKE "
 set makeprg=ninja
