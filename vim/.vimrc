@@ -5,9 +5,9 @@ try
   let g:gruvbox_italicize_strings=1
   let g:gruvbox_contrast_dark="hard"
   let g:gruvbox_guisp_fallback="bg"
-  colorscheme gruvbox
   set background=dark
-  autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+  colorscheme gruvbox
+  ""autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 catch
 endtry
 
@@ -36,8 +36,10 @@ set listchars=tab:▸\ ,eol:¬
 set hidden
 let fortran_free_source=1
 
+" LOAD SPELLING DICT FOR COMPLETION "
 set spell
 set complete+=kspell
+set nospell
 
 " FILE EXPLORER "
 let g:netrw_altv=1
@@ -47,24 +49,32 @@ let g:netrw_sort_by="exten"
 
 
 " FOLDING "
-let s:middot='·'
-let s:raquo='»'
+let s:middot='↘'
+""let s:middot='·'
+let s:raquo='≣'
+""let s:raquo='⇶'
+""let s:raquo='⁆'
+""let s:raquo='»'
 let s:small_l='ℓ'
 function! Myfoldtext()
-  let l:lines='[' . (v:foldend - v:foldstart + 1) . s:small_l . ']'
+  let l:lines='[' . (v:foldend - v:foldstart + 1) . ']'
+  ""let l:lines='[' . (v:foldend - v:foldstart + 1) . s:small_l . ']'
   let l:first=substitute(getline(v:foldstart), '\v *', '', '')
   let l:dashes=substitute(v:folddashes, '-', s:middot, 'g')
-  return s:raquo . s:middot . s:middot . l:lines . l:dashes . ': ' . l:first
+  return s:raquo . l:lines . l:dashes . ': ' . l:first . ' '
+  ""return s:raquo . s:middot . s:middot . l:lines . l:dashes . ': ' . l:first
 endfunction
 if has('folding')
   if has('windows')
-    set fillchars+=fold:·
+    set fillchars+=fold:⇉
+    ""set fillchars+=fold:·
   endif
   set foldmethod=indent 
   set foldlevelstart=0
   set foldtext=Myfoldtext()
   hi Folded ctermbg=234
 endif
+set foldmethod=indent 
 
 " VIEWS "
 autocmd BufWinLeave *.* mkview!
@@ -102,7 +112,11 @@ hi CursorLineNR ctermbg=234 cterm=none
 
 " VERTICAL SPLIT STYLING "
 hi VertSplit ctermbg=none cterm=none
-set fillchars+=vert:\│
+set fillchars+=vert:\║
+""set fillchars+=vert:\│
+
+" DIFF STYLING"
+set fillchars+=diff:\╳
 
 " MAPS "
 map <C-h> <C-W>h
@@ -114,28 +128,41 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " LEADER MAPS "
 let mapleader=","
+"save/quit"
+nnoremap <Leader>qa :qa<CR>
+nnoremap <Leader>wq :wq<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>w :w<CR>
+"buffers"
 nnoremap <Leader>b :ls<CR>:b<Space>
 nnoremap <Leader>n :bn<CR>
+"windows"
 nnoremap <Leader>l :Vex!<CR>
 nnoremap <Leader>h :Vex<CR>
 nnoremap <Leader>j :Hex<CR>
 nnoremap <Leader>k :Hex!<CR>
 nnoremap <Leader>t :Tex<CR>
 nnoremap <Leader>o :on<CR>
+"columns/cursors"
 nnoremap <leader>c :execute "set colorcolumn=" . (&colorcolumn == "" ? "80,120" : "")<CR>
 nnoremap <Leader>x :set cursorline!<CR>
 nnoremap <Leader>z :set cursorcolumn!<CR>
+"interface"
 nnoremap <Leader>r :set rnu!<CR>
 nnoremap <Leader>w :set wrap!<CR>
 nnoremap <Leader>y :set list!<CR>
+"spelling"
 nnoremap <Leader>s :setlocal spell!<CR>
+"highlighting"
 nnoremap <Leader>/ :noh<CR>
 nnoremap <Space> :noh<CR>
+"quickfix"
 nnoremap <silent> <leader>m :make!<CR>:cw 5<CR>
 nnoremap <leader>a :cn<CR>
 nnoremap <leader>aa :cp<CR>
 nnoremap <leader>d :cr<CR>
 
+" MAKE "
 set makeprg=ninja
 set autowrite
 
@@ -148,7 +175,7 @@ set smartindent
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
-autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 foldignore=
+autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
 
 " BACKUP, SWAP AND UNDO DIRECTORIS "
 if !isdirectory($HOME."/.vim")
