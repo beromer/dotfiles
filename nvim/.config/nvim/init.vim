@@ -170,6 +170,7 @@ let mapleader=","
 nnoremap <Leader>q :bd<CR>
 nnoremap <Leader>Q :qa<CR>
 nnoremap <Leader>w :w<CR>
+nnoremap <Leader>ww :w<CR>
 nnoremap <Leader>wq :wqa<CR>
 "buffers"
 nnoremap <Leader>bl :ls<CR>:b<Space>
@@ -207,6 +208,7 @@ nnoremap <leader>ep :cp<CR>
 nnoremap <leader>ef :cr<CR>
 "fzf"
 nnoremap <leader>o :Files ..<CR>
+nnoremap <leader>O :Files ~<CR>
 nnoremap <leader>ff :Rg<CR>
 nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fl :BLines<CR>
