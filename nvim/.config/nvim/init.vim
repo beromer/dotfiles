@@ -9,6 +9,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
+Plug 'maxboisvert/vim-simple-complete'
 "Plug 'frazrepo/vim-rainbow'
 call plug#end()
 
@@ -16,14 +17,15 @@ let g:AutoPairsFlyMode = 1
 "au FileType c,cpp,objc,objcpp,h,hpp call rainbow#load()
 "let g:rainbow_active = 1
 
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 let g:NERDTreeDirArrowExpandable = '→'
 let g:NERDTreeDirArrowCollapsible = '↳'
 autocmd VimEnter * wincmd l
+let g:NERDTreeGitStatusConcealBrackets = 1
 let g:NERDTreeGitStatusIndicatorMapCustom = {
-                \ 'Modified'  :'✹',
-                \ 'Staged'    :'✚',
-                \ 'Untracked' :'✭',
+                \ 'Modified'  :'*',
+                \ 'Staged'    :'+',
+                \ 'Untracked' :'-',
                 \ 'Renamed'   :'➜',
                 \ 'Unmerged'  :'═',
                 \ 'Deleted'   :'✖',
@@ -44,6 +46,9 @@ try
   ""autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 catch
 endtry
+
+set timeoutlen=600
+set ttimeoutlen=0
 
 " CURSORS "
 let &t_SI="\<Esc>[5 q"
@@ -101,8 +106,8 @@ function! Myfoldtext()
 endfunction
 if has('folding')
   if has('windows')
-    set fillchars+=fold:⇉
-    ""set fillchars+=fold:·
+    ""set fillchars+=fold:⇉
+    set fillchars+=fold:·
   endif
   set foldmethod=indent 
   set foldlevelstart=0
@@ -214,7 +219,8 @@ nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fl :BLines<CR>
 nnoremap <leader>fa :Lines<CR>
 nnoremap <leader>fh :History:<CR>
-
+"nerdtree
+nnoremap <leader>nt :NERDTreeToggle<CR>
 
 " MAKE "
 set makeprg=ninja
