@@ -27,6 +27,12 @@ autocmd vimenter * wincmd l
 " AUTOPAIRS SETUP "
 let g:AutoPairsFlyMode = 1
 
+" FZF SETUP "
+let g:fzf_buffers_jump = 1
+let g:fzf_layout = { 'window': '10new' }
+
+set splitbelow
+
 " TIMEOUTS "
 set timeoutlen=600
 set ttimeoutlen=0
@@ -95,7 +101,7 @@ endif
 set foldmethod=indent 
 
 " VIEWS "
-autocmd BufWinLeave * mkview
+autocmd BufWinLeave * silent! mkview
 autocmd BufWinEnter * silent! loadview
 
 " SEARCHING "
@@ -139,15 +145,15 @@ set fillchars+=diff:\╳
 hi nractive ctermbg=233
 hi nrinactive ctermbg=234
 
-au WinLeave * let &colorcolumn=join(range(1,256),',')
-au winLeave * setlocal winhighlight=LineNr:nrinactive
-au WinEnter * set cc=
-au winEnter * setlocal winhighlight=LineNr:nractive
+au WinLeave * silent! let &colorcolumn=join(range(1,256),',')
+au winLeave * silent! setlocal winhighlight=LineNr:nrinactive
+au WinEnter * silent! set cc=
+au winEnter * silent! setlocal winhighlight=LineNr:nractive
 
-au FocusLost * let &colorcolumn=join(range(1,256),',')
-au FocusLost * setlocal winhighlight=LineNr:nrinactive
-au FocusGained * set cc=
-au FocusGained * setlocal winhighlight=LineNr:nractive
+au FocusLost * silent! let &colorcolumn=join(range(1,256),',')
+au FocusLost * silent! setlocal winhighlight=LineNr:nrinactive
+au FocusGained * silent! set cc=
+au FocusGained * silent! setlocal winhighlight=LineNr:nractive
 
 " MAPS "
 "map <C-h> <C-W>h
@@ -179,11 +185,7 @@ nnoremap <Leader>wj :Hex<CR>
 nnoremap <Leader>wk :Hex!<CR>
 nnoremap <Leader>wt :Tex<CR>
 nnoremap <Leader>wo :on<CR>
-nnoremap <Leader>wc :close<CR>
-"columns/cursors"
-nnoremap <leader>co :execute "set colorcolumn=" . (&colorcolumn == "" ? "80,120" : "")<CR>
-nnoremap <Leader>cl :set cursorline!<CR>
-nnoremap <Leader>cc :set cursorcolumn!<CR>
+nnoremap <Leader>c :close<CR>
 "interface"
 nnoremap <Leader>R :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>r :set rnu!<CR>
@@ -207,8 +209,10 @@ nnoremap <leader>en :cn<CR>
 nnoremap <leader>ep :cp<CR>
 nnoremap <leader>ef :cr<CR>
 "fzf"
-nnoremap <leader>o :Files ..<CR>
-nnoremap <leader>O :Files ~<CR>
+nnoremap <leader>o :FZF ..<CR>
+nnoremap <leader>fo :Files! ..<CR>
+nnoremap <leader>O :FZF ~<CR>
+nnoremap <leader>fO :Files! ~<CR>
 nnoremap <leader>ff :Rg<CR>
 nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fl :BLines<CR>
