@@ -2,39 +2,13 @@ set nocompatible
 
 call plug#begin()
 Plug 'morhetz/gruvbox'
-""Plug 'preservim/nerdtree'
-Plug 'preservim/nerdtree' |
-            \ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
 Plug 'maxboisvert/vim-simple-complete'
 Plug 'christoomey/vim-tmux-navigator'
-"Plug 'frazrepo/vim-rainbow'
 call plug#end()
-
-let g:AutoPairsFlyMode = 1
-"au FileType c,cpp,objc,objcpp,h,hpp call rainbow#load()
-"let g:rainbow_active = 1
-
-"autocmd vimenter * NERDTree
-let g:NERDTreeDirArrowExpandable = '→'
-let g:NERDTreeDirArrowCollapsible = '↳'
-autocmd VimEnter * wincmd l
-let g:NERDTreeGitStatusConcealBrackets = 1
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-                \ 'Modified'  :'*',
-                \ 'Staged'    :'+',
-                \ 'Untracked' :'-',
-                \ 'Renamed'   :'➜',
-                \ 'Unmerged'  :'═',
-                \ 'Deleted'   :'✖',
-                \ 'Dirty'     :'✗',
-                \ 'Ignored'   :'☒',
-                \ 'Clean'     :'✔︎',
-                \ 'Unknown'   :'?',
-                \ }
 
 " COLORSCHEME "
 try
@@ -48,9 +22,14 @@ try
 catch
 endtry
 
+" AUTOPAIRS SETUP "
+let g:AutoPairsFlyMode = 1
+
+" TIMEOUTS "
 set timeoutlen=600
 set ttimeoutlen=0
 
+" UNWANTED MAPPINGS "
 nnoremap Q <nop>
 nnoremap q: <nop>
 
@@ -93,24 +72,17 @@ let g:netrw_sort_by="exten"
 
 
 " FOLDING "
-let s:middot='↘'
-""let s:middot='·'
-let s:raquo='≣'
-""let s:raquo='⇶'
-""let s:raquo='⁆'
-""let s:raquo='»'
+let s:fsym='↘'
+let s:lsym='≣'
 let s:small_l='ℓ'
 function! Myfoldtext()
   let l:lines='[' . (v:foldend - v:foldstart + 1) . ']'
-  ""let l:lines='[' . (v:foldend - v:foldstart + 1) . s:small_l . ']'
   let l:first=substitute(getline(v:foldstart), '\v *', '', '')
-  let l:dashes=substitute(v:folddashes, '-', s:middot, 'g')
-  return s:raquo . l:lines . l:dashes . ': ' . l:first . ' '
-  ""return s:raquo . s:middot . s:middot . l:lines . l:dashes . ': ' . l:first
+  let l:dashes=substitute(v:folddashes, '-', s:fsym, 'g')
+  return s:lsym . l:lines . l:dashes . ': ' . l:first . ' '
 endfunction
 if has('folding')
   if has('windows')
-    ""set fillchars+=fold:⇉
     set fillchars+=fold:·
   endif
   set foldmethod=indent 
@@ -121,8 +93,8 @@ endif
 set foldmethod=indent 
 
 " VIEWS "
-""autocmd BufWinLeave *.* mkview!
-""autocmd BufWinEnter *.* silent loadview
+autocmd BufWinLeave *.* mkview!
+autocmd BufWinEnter *.* silent loadview
 
 " SEARCHING "
 set incsearch
@@ -149,10 +121,10 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " CURSORS AND COLUMNS "
 set cursorline
-hi colorcolumn ctermbg=235
-hi cursorcolumn ctermbg=235
-hi CursorLine ctermbg=235 cterm=none
-hi CursorLineNR ctermbg=235 cterm=none
+hi colorcolumn ctermbg=234
+hi cursorcolumn ctermbg=234
+hi CursorLine ctermbg=234 cterm=none
+hi CursorLineNR ctermbg=234 cterm=none
 
 " VERTICAL SPLIT STYLING "
 hi VertSplit ctermbg=none cterm=none
@@ -162,11 +134,19 @@ set fillchars+=vert:\║
 " DIFF STYLING"
 set fillchars+=diff:\╳
 
+hi nractive ctermbg=233
+hi nrinactive ctermbg=234
+
 "au WinLeave * call setwinvar(i,'&colorcolumn',join(range(1,256),','))
 au WinLeave * let &colorcolumn=join(range(1,256),',')
+au winLeave * setlocal winhighlight=LineNr:nrinactive
 au WinEnter * set cc=
+au winEnter * setlocal winhighlight=LineNr:nractive
+
 au FocusLost * let &colorcolumn=join(range(1,256),',')
+au FocusLost * setlocal winhighlight=LineNr:nrinactive
 au FocusGained * set cc=
+au FocusGained * setlocal winhighlight=LineNr:nractive
 
 " MAPS "
 "map <C-h> <C-W>h
