@@ -10,6 +10,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
 Plug 'maxboisvert/vim-simple-complete'
+Plug 'christoomey/vim-tmux-navigator'
 "Plug 'frazrepo/vim-rainbow'
 call plug#end()
 
@@ -161,11 +162,17 @@ set fillchars+=vert:\║
 " DIFF STYLING"
 set fillchars+=diff:\╳
 
+"au WinLeave * call setwinvar(i,'&colorcolumn',join(range(1,256),','))
+au WinLeave * let &colorcolumn=join(range(1,256),',')
+au WinEnter * set cc=
+au FocusLost * let &colorcolumn=join(range(1,256),',')
+au FocusGained * set cc=
+
 " MAPS "
-map <C-h> <C-W>h
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-l> <C-W>l
+"map <C-h> <C-W>h
+"map <C-j> <C-W>j
+"map <C-k> <C-W>k
+"map <C-l> <C-W>l
 map Y y$
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
@@ -192,6 +199,7 @@ nnoremap <Leader>wj :Hex<CR>
 nnoremap <Leader>wk :Hex!<CR>
 nnoremap <Leader>wt :Tex<CR>
 nnoremap <Leader>wo :on<CR>
+nnoremap <Leader>wc :close<CR>
 "columns/cursors"
 nnoremap <leader>co :execute "set colorcolumn=" . (&colorcolumn == "" ? "80,120" : "")<CR>
 nnoremap <Leader>cl :set cursorline!<CR>
