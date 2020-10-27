@@ -50,6 +50,9 @@ endtry
 set timeoutlen=600
 set ttimeoutlen=0
 
+nnoremap Q <nop>
+nnoremap q: <nop>
+
 " CURSORS "
 let &t_SI="\<Esc>[5 q"
 if v:version > 704
