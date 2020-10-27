@@ -38,7 +38,7 @@ KEYTIMEOUT=1
 function zle-keymap-select {
     if [[ ${KEYMAP} == vicmd ]] ||
         [[ $1 = 'block' ]]; then
-        echo -ne '\e[1 q'
+        echo -ne '\e[2 q'
     elif [[ ${KEYMAP} == main ]] ||
         [[ ${KEYMAP} == viins ]] ||
         [[ ${KEYMAP} = '' ]] ||
@@ -81,6 +81,16 @@ autoload -Uz vcs_info
 setopt prompt_subst
 precmd() { vcs_info }
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats ':%b'
-PROMPT='%B%F{11}[%F{9}%n%F{11}]%#%f%b '
-RPROMPT='%B%F{11}[%F{10}%~%F{4}${vcs_info_msg_0_}%F{11}][%F{9}%D{%L:%m%p}%F{11}]%f%b'
+zstyle ':vcs_info:git:*' formats '%F{11}[%F{4}%b%F{11}]%f'
+PROMPT=''
+RPROMPT=''
+PROMPT+='%B%F{11}[%F{9}%n%F{11}]%f%b'           # username
+PROMPT+='%B%F{11}%# %f%b'                       # prompt
+RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
+RPROMPT+='%B%F{11}[%F{10}%~%F{11}]%f%b'         # cwd
+#RPROMPT+='%D{%L:%M%p}'                          # time
+RPROMPT+='%B%F{11}[%F{9}%D{%L:%M%p}%F{11}]%f%b' # time
+#RPROMPT+='%B%F{11}[%F{9}%t%F{11}]%f%b'          # time
+
+
+
