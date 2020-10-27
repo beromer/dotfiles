@@ -57,6 +57,9 @@ preexec() {
 source /etc/profile.d/lmod.sh
 source /home/beromer/src/spack/share/spack/setup-env.sh
 
+### fzf bindings ###
+source /home/beromer/opt/fzf/completion.zsh
+
 ### normal backspace ###
 bindkey "^?" backward-delete-char
 
@@ -85,7 +88,7 @@ zstyle ':vcs_info:git:*' formats '%F{11}[%F{4}%b%F{11}]%f'
 PROMPT=''
 RPROMPT=''
 #PROMPT+='%B%F{11}[%F{9}%n%F{11}]%f%b'           # username
-PROMPT+='%B%F{11}[%F{10}%~%F{11}]%f%b'         # cwd
+PROMPT+='%B%F{11}[%F{10}%2~%F{11}]%f%b'         # cwd
 PROMPT+='%B%F{11}%# %f%b'                       # prompt
 RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
 #RPROMPT+='%B%F{11}[%F{9}%D{%L:%M%p}%F{11}]%f%b' # time
