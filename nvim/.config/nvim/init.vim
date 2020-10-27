@@ -235,18 +235,26 @@ autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
 autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
+autocmd FileType zsh set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
 
-" BACKUP, SWAP AND UNDO DIRECTORIS "
-if !isdirectory($HOME."/.vim")
-  call mkdir($HOME."/.vim","",0770)
-endif
-if !isdirectory($HOME."/.vim/backupdir")
-  call mkdir($HOME."/.vim/backupdir","",0700)
-endif
-if !isdirectory($HOME."/.vim/undodir")
-  call mkdir($HOME."/.vim/undodir","",0700)
-endif
-set backupdir=~/.vim/backupdir
-set directory=~/.vim/backupdir
-set undodir=~/.vim/undodir
-set undofile
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'['.l:branchname.']':''
+endfunction
+
+set statusline=
+set statusline+=%#CursorColumn#
+set statusline+=%{StatuslineGit()}
+set statusline+=\[%f\]
+set statusline+=%m
+set statusline+=%=
+set statusline+=\ %y
+set statusline+=\[%{&fileformat}\]
+set statusline+=\[%{&fileencoding?&fileencoding:&encoding}\]
+set statusline+=\[%B\]
+set statusline+=\ \[%v·%l/%L\]
+set statusline+=\ 
