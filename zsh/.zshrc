@@ -25,8 +25,8 @@ alias 4='cd ~4'
 alias 5='cd ~5'
 
 ### history searching in insert mode ###
-bindkey "^k" history-beginning-search-backward
-bindkey "^j" history-beginning-search-forward
+bindkey "^p" history-beginning-search-backward
+bindkey "^n" history-beginning-search-forward
 
 ### Activate vi mode ###
 bindkey -v
@@ -84,13 +84,11 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git:*' formats '%F{11}[%F{4}%b%F{11}]%f'
 PROMPT=''
 RPROMPT=''
-PROMPT+='%B%F{11}[%F{9}%n%F{11}]%f%b'           # username
+#PROMPT+='%B%F{11}[%F{9}%n%F{11}]%f%b'           # username
+PROMPT+='%B%F{11}[%F{10}%~%F{11}]%f%b'         # cwd
 PROMPT+='%B%F{11}%# %f%b'                       # prompt
 RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
-RPROMPT+='%B%F{11}[%F{10}%~%F{11}]%f%b'         # cwd
-#RPROMPT+='%D{%L:%M%p}'                          # time
-RPROMPT+='%B%F{11}[%F{9}%D{%L:%M%p}%F{11}]%f%b' # time
-#RPROMPT+='%B%F{11}[%F{9}%t%F{11}]%f%b'          # time
+#RPROMPT+='%B%F{11}[%F{9}%D{%L:%M%p}%F{11}]%f%b' # time
 
 
 
