@@ -22,6 +22,8 @@ try
 catch
 endtry
 
+autocmd vimenter * wincmd l
+
 " AUTOPAIRS SETUP "
 let g:AutoPairsFlyMode = 1
 
@@ -93,8 +95,8 @@ endif
 set foldmethod=indent 
 
 " VIEWS "
-autocmd BufWinLeave *.* mkview!
-autocmd BufWinEnter *.* silent loadview
+autocmd BufWinLeave * mkview
+autocmd BufWinEnter * silent! loadview
 
 " SEARCHING "
 set incsearch
@@ -137,7 +139,6 @@ set fillchars+=diff:\╳
 hi nractive ctermbg=233
 hi nrinactive ctermbg=234
 
-"au WinLeave * call setwinvar(i,'&colorcolumn',join(range(1,256),','))
 au WinLeave * let &colorcolumn=join(range(1,256),',')
 au winLeave * setlocal winhighlight=LineNr:nrinactive
 au WinEnter * set cc=
@@ -162,8 +163,7 @@ let mapleader=","
 ""nnoremap <Leader>qa :qa<CR>
 ""nnoremap <Leader>qq :q!<CR>
 ""nnoremap <Leader>wq :wq<CR>
-nnoremap <Leader>q :bd<CR>
-nnoremap <Leader>Q :qa<CR>
+nnoremap <Leader>q :qa<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>ww :w<CR>
 nnoremap <Leader>wq :wqa<CR>
@@ -194,6 +194,10 @@ nnoremap <Leader>ss :setlocal spell!<CR>
 nnoremap <Leader>sn ]s
 nnoremap <Leader>sp [s
 nnoremap <Leader>sc z=
+"diff"
+nnoremap <Leader>dn ]c
+nnoremap <Leader>dp [c
+nnoremap <Leader>do :diffget<CR>
 "highlighting"
 nnoremap <Leader>/ :noh<CR>
 nnoremap <Space> :noh<CR>
