@@ -59,6 +59,7 @@ source /home/beromer/src/spack/share/spack/setup-env.sh
 
 ### fzf bindings ###
 source /home/beromer/opt/fzf/completion.zsh
+source /home/beromer/opt/fzf/key-bindings.zsh
 
 ### normal backspace ###
 bindkey "^?" backward-delete-char
@@ -95,3 +96,24 @@ RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
 
 
 
+#  # re-wrote the script above
+#  #bindkey -x '"\C-x1": __fzf_history';
+#  
+#  function fhist {
+#      myehc $(history | fzf --tac --tiebreak=index | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
+#  }
+#  
+#  function myehc {
+#      if
+#          [[ -n $1 ]]
+#      then
+#         bindkey "r": redraw-current-line
+#         bindkey "^": magic-space
+#         READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${1}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
+#         READLINE_POINT=$(( READLINE_POINT + ${#1} ))
+#      else
+#          bindkey "r"
+#          bindkey "^"
+#      fi
+#  }
+#  bindkey "^r" fhist
