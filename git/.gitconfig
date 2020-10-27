@@ -1,0 +1,11 @@
+[core]
+	editor = nvim
+[user]
+	name = Brian Romero
+	email = bromero@unm.edu
+[mergetool "nvim"]
+    cmd = "nvim -d -u ~/.config/nvim/init.vim \"$LOCAL\" \"$REMOTE\""
+[merge]
+    tool = nvim
+[mergetool]
+    prompt = false
