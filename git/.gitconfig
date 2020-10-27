@@ -9,3 +9,6 @@
     tool = nvim
 [mergetool]
     prompt = false
+[alias]
+	d = difftool
+	s = status -s
