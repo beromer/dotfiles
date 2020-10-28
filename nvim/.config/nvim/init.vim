@@ -4,6 +4,7 @@ call plug#begin()
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
 Plug 'maxboisvert/vim-simple-complete'
@@ -29,7 +30,7 @@ let g:AutoPairsFlyMode = 1
 
 " FZF SETUP "
 let g:fzf_buffers_jump = 1
-let g:fzf_layout = { 'window': '10new' }
+"let g:fzf_layout = { 'window': '10new' }
 
 set splitbelow
 
@@ -136,8 +137,8 @@ hi CursorLineNR ctermbg=234 cterm=none
 
 " VERTICAL SPLIT STYLING "
 hi VertSplit ctermbg=none cterm=none
-set fillchars+=vert:\║
-""set fillchars+=vert:\│
+"set fillchars+=vert:\║
+set fillchars+=vert:\│
 
 " DIFF STYLING"
 set fillchars+=diff:\╳
@@ -147,13 +148,17 @@ hi nrinactive ctermbg=234
 
 au WinLeave * silent! let &colorcolumn=join(range(1,256),',')
 au winLeave * silent! setlocal winhighlight=LineNr:nrinactive
+au winLeave * silent! setlocal winhighlight=Normal:nrinactive
 au WinEnter * silent! set cc=
 au winEnter * silent! setlocal winhighlight=LineNr:nractive
+au winEnter * silent! setlocal winhighlight=Normal:nractive
 
 au FocusLost * silent! let &colorcolumn=join(range(1,256),',')
 au FocusLost * silent! setlocal winhighlight=LineNr:nrinactive
+au FocusLost * silent! setlocal winhighlight=Normal:nrinactive
 au FocusGained * silent! set cc=
 au FocusGained * silent! setlocal winhighlight=LineNr:nractive
+au FocusGained * silent! setlocal winhighlight=Normal:nractive
 
 " MAPS "
 "map <C-h> <C-W>h
@@ -236,6 +241,7 @@ autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
 autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
 autocmd FileType zsh set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
+autocmd FileType git set expandtab shiftwidth=4 tabstop=4 foldignore=
 
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -248,7 +254,8 @@ endfunction
 
 set statusline=
 set statusline+=%#CursorColumn#
-set statusline+=%{StatuslineGit()}
+"set statusline+=%{StatuslineGit()}
+set statusline+=%{FugitiveStatusline()}
 set statusline+=\[%f\]
 set statusline+=%m
 set statusline+=%=
