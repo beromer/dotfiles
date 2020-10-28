@@ -223,8 +223,8 @@ nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fl :BLines<CR>
 nnoremap <leader>fa :Lines<CR>
 nnoremap <leader>fh :History:<CR>
-"nerdtree
-nnoremap <leader>nt :NERDTreeToggle<CR>
+"fugitive"
+nnoremap <LEADER>gg :G<CR>
 
 " MAKE "
 set makeprg=ninja
