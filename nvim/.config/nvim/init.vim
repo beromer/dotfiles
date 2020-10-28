@@ -105,6 +105,8 @@ set foldmethod=indent
 autocmd BufWinLeave * silent! mkview
 autocmd BufWinEnter * silent! loadview
 
+cabbrev h vert bo h
+
 " SEARCHING "
 set incsearch
 set hlsearch
@@ -225,6 +227,8 @@ nnoremap <leader>fa :Lines<CR>
 nnoremap <leader>fh :History:<CR>
 "fugitive"
 nnoremap <LEADER>gg :G<CR>
+"autopairs"
+nnoremap <LEADER>ta :call AutoPairsToggle()<CR>
 
 " MAKE "
 set makeprg=ninja
