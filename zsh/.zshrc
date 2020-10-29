@@ -89,6 +89,9 @@ zstyle ':vcs_info:git:*' formats '%F{11}[%F{4}%b%F{11}]%f'
 PROMPT=''
 RPROMPT=''
 #PROMPT+='%B%F{11}[%F{9}%n%F{11}]%f%b'           # username
+if [ -n "${SSH_CLIENT}" ]; then
+  PROMPT+='%B%F{11}[%F{10}%m%F{11}]%f%b'         # cwd
+fi
 PROMPT+='%B%F{11}[%F{10}%2~%F{11}]%f%b'         # cwd
 PROMPT+='%B%F{11}%# %f%b'                       # prompt
 RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
