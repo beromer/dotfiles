@@ -94,6 +94,15 @@ PROMPT+='%B%F{11}%# %f%b'                       # prompt
 RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
 #RPROMPT+='%B%F{11}[%F{9}%D{%L:%M%p}%F{11}]%f%b' # time
 
+# shortcut to open pdf with zathura and detach from shell
+function z { command nohup zathura $1 > /dev/null 2>&1 & }
+compdef '_files -g "*.pdf"' z
+
+function ndir
+{
+  command mkdir $1 && cd $1
+}
+
 
 
 #  # re-wrote the script above
