@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Set Session Name
+SESSION="default"
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+
+# Only create tmux session if it doesn't already exist
+if [ "$SESSIONEXISTS" = "" ]
+then
+    # Start New Session with our name
+    tmux -f $TMX_CONF new-session -d -s $SESSION
+    tmux send-keys -t $SESSION 'nvim' C-m
+    tmux split-window -h -t $SESSION
+    tmux select-pane -t $SESSION:.1
+fi
+
+# Attach Session, on the Main window
+tmux attach -t $SESSION
