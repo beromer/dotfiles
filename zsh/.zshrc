@@ -73,6 +73,8 @@ alias grep='grep --color=auto'
 alias less='less -R --mouse -S'
 alias fiesta='fiesta --color=auto'
 alias glog="git log --pretty=format:'%C(yellow)%h%Creset - %Cgreen(%cd) %C(bold blue)<%an>%Creset%Creset %s %C(red)%d' --abbrev-commit"
+alias python="python3"
+alias pop="pip3"
 
 ### path ###
 export PATH=$PATH:/home/beromer/local/bin
@@ -103,7 +105,16 @@ compdef '_files -g "*.pdf"' z
 
 function ndir
 {
-  command mkdir $1 && cd $1
+  command mkdir -p $1 && cd $1
+}
+
+export TMX_CONF=/home/beromer/.config/tmux/tmux.conf
+function tmx {
+  if [ ! -f ./.tmx  ]; then
+    bash -c '/home/beromer/.config/tmux/default.tmx'
+  else
+    bash -c './.tmx'
+  fi
 }
 
 
