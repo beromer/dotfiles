@@ -90,7 +90,7 @@ PROMPT=''
 RPROMPT=''
 #PROMPT+='%B%F{11}[%F{9}%n%F{11}]%f%b'           # username
 if [ -n "${SSH_CLIENT}" ]; then
-  PROMPT+='%B%F{11}[%F{10}%m%F{11}]%f%b'         # cwd
+  PROMPT+='%B%F{11}[%F{1}%m%F{11}]%f%b'         # cwd
 fi
 PROMPT+='%B%F{11}[%F{10}%2~%F{11}]%f%b'         # cwd
 PROMPT+='%B%F{11}%# %f%b'                       # prompt
