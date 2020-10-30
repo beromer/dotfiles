@@ -7,10 +7,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
-Plug 'maxboisvert/vim-simple-complete'
+"Plug 'maxboisvert/vim-simple-complete'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'lervag/vimtex'
 call plug#end()
 
+let g:tex_flavor = 'latex'
+let g:vimtex_enabled = 1
+let g:vimtex_view_general_viewer='zathura'
 " COLORSCHEME "
 try
   let g:gruvbox_italic=1
@@ -186,12 +191,12 @@ nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bp :bp<CR>
 nnoremap <Leader>bb <C-^>
 "windows"
-nnoremap <Leader>wl :Vex!<CR>
-nnoremap <Leader>wh :Vex<CR>
-nnoremap <Leader>wj :Hex<CR>
-nnoremap <Leader>wk :Hex!<CR>
-nnoremap <Leader>wt :Tex<CR>
-nnoremap <Leader>wo :on<CR>
+nnoremap <Leader>sl :Vex!<CR>
+nnoremap <Leader>sh :Vex<CR>
+nnoremap <Leader>sj :Hex<CR>
+nnoremap <Leader>sk :Hex!<CR>
+nnoremap <Leader>st :Tex<CR>
+nnoremap <Leader>so :on<CR>
 nnoremap <Leader>c :close<CR>
 "interface"
 nnoremap <Leader>R :so ~/.config/nvim/init.vim<CR>
@@ -230,6 +235,11 @@ nnoremap <LEADER>gg :G<CR>
 "autopairs"
 nnoremap <LEADER>ta :call AutoPairsToggle()<CR>
 
+nnoremap <LEADER>vc :w<CR>:VimtexCompile<CR>:VimtexCompile<CR>
+nnoremap <LEADER>vv :w<CR>:VimtexCompile<CR>
+
+
+
 " MAKE "
 set makeprg=ninja
 set autowrite
@@ -246,6 +256,11 @@ autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
 autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
 autocmd FileType zsh set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
 autocmd FileType git set expandtab shiftwidth=4 tabstop=4 foldignore=
+autocmd FileType tex set textwidth=80 expandtab shiftwidth=2 tabstop=2 foldignore=
+autocmd FileType tex let maplocalleader='\'
+autocmd BufNewFile,BufRead *.tmx set filetype=sh
+
+set shortmess=I
 
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -258,8 +273,8 @@ endfunction
 
 set statusline=
 set statusline+=%#CursorColumn#
-"set statusline+=%{StatuslineGit()}
-set statusline+=%{FugitiveStatusline()}
+set statusline+=%{StatuslineGit()}
+"set statusline+=%{FugitiveStatusline()}
 set statusline+=\[%f\]
 set statusline+=%m
 set statusline+=%=
@@ -269,3 +284,51 @@ set statusline+=\[%{&fileencoding?&fileencoding:&encoding}\]
 set statusline+=\[%B\]
 set statusline+=\ \[%v·%l/%L\]
 set statusline+=\ 
+
+
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+"  " Always show the signcolumn, otherwise it would shift the text each time
+"  " diagnostics appear/become resolved.
+"  if has("patch-8.1.1564")
+"    " Recently vim can merge signcolumn and number column into one
+"    set signcolumn=number
+"  else
+"    set signcolumn=yes
+"  endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
