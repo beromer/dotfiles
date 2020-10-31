@@ -1,22 +1,28 @@
 set nocompatible
 
 call plug#begin()
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'machakann/vim-sandwich'
-"Plug 'jiangmiao/auto-pairs'
-"Plug 'maxboisvert/vim-simple-complete'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
 call plug#end()
 
+" VIMTEX "
 let g:tex_flavor = 'latex'
 let g:vimtex_enabled = 1
 let g:vimtex_view_general_viewer='zathura'
-" COLORSCHEME "
+
+vnoremap ] "sdi[]<esc>P
+vnoremap } "sdi{}<esc>P
+vnoremap ) "sdi()<esc>P
+vnoremap " "sdi""<esc>P
+vnoremap ' "sdi''<esc>P
+inoremap{<CR> {<CR>}<ESC>O<tab>
+
+" [COLORSCHEME] "
 try
   let g:gruvbox_italic=1
   let g:gruvbox_italicize_strings=1
@@ -24,20 +30,12 @@ try
   let g:gruvbox_guisp_fallback="bg"
   set background=dark
   colorscheme gruvbox
-  ""autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 catch
 endtry
-
-autocmd vimenter * wincmd l
-
-" AUTOPAIRS SETUP "
-"let g:AutoPairsFlyMode = 1
 
 " FZF SETUP "
 let g:fzf_buffers_jump = 1
 "let g:fzf_layout = { 'window': '10new' }
-
-set splitbelow
 
 " TIMEOUTS "
 set timeoutlen=600
@@ -72,6 +70,9 @@ set listchars=tab:▸\ ,eol:¬
 set hidden
 set autoread
 let fortran_free_source=1
+set splitbelow
+set shortmess=I
+autocmd vimenter * wincmd l
 
 " LOAD SPELLING DICT FOR COMPLETION "
 set spell
@@ -83,7 +84,6 @@ let g:netrw_altv=1
 let g:netrw_liststyle=1
 let g:netrw_fastbrowse=0
 let g:netrw_sort_by="exten"
-
 
 " FOLDING "
 let s:fsym='↘'
@@ -111,6 +111,8 @@ autocmd BufWinLeave * silent! mkview
 autocmd BufWinEnter * silent! loadview
 
 cabbrev h vert bo h
+map Y y$
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " SEARCHING "
 set incsearch
@@ -120,20 +122,6 @@ set smartcase
 
 " SAVE BUFFER POSITION "
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-"" AUTOMATIC BRACKET MATCHING "
-"inoremap ( ()<esc>i
-"inoremap [ []<esc>i
-"inoremap { {}<esc>i
-"inoremap {<CR> {<CR>}<esc>O
-"inoremap ' ''<esc>i
-"inoremap " ""<esc>i
-
-""" POWERLINE "
-""set rtp+=/usr/share/vim/addons/plugin/
-""silent! python3 from powerline.vim import setup as powerline_setup
-""silent! python3 powerline_setup()
-""silent! python3 del powerline_setup
 
 " CURSORS AND COLUMNS "
 set cursorline
@@ -152,35 +140,20 @@ set fillchars+=diff:\╳
 
 hi nractive ctermbg=233
 hi nrinactive ctermbg=234
-
-"au WinLeave * silent! let &colorcolumn=join(range(1,256),',')
+"dim when leaving
 au winLeave * silent! setlocal winhighlight=LineNr:nrinactive
 au winLeave * silent! setlocal winhighlight=Normal:nrinactive
-"au WinEnter * silent! set cc=
-au winEnter * silent! setlocal winhighlight=LineNr:nractive
-au winEnter * silent! setlocal winhighlight=Normal:nractive
-
-"au FocusLost * silent! let &colorcolumn=join(range(1,256),',')
 au FocusLost * silent! setlocal winhighlight=LineNr:nrinactive
 au FocusLost * silent! setlocal winhighlight=Normal:nrinactive
-"au FocusGained * silent! set cc=
+"brighten when entering
+au winEnter * silent! setlocal winhighlight=LineNr:nractive
+au winEnter * silent! setlocal winhighlight=Normal:nractive
 au FocusGained * silent! setlocal winhighlight=LineNr:nractive
 au FocusGained * silent! setlocal winhighlight=Normal:nractive
-
-" MAPS "
-"map <C-h> <C-W>h
-"map <C-j> <C-W>j
-"map <C-k> <C-W>k
-"map <C-l> <C-W>l
-map Y y$
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " LEADER MAPS "
 let mapleader=","
 "save/quit"
-""nnoremap <Leader>qa :qa<CR>
-""nnoremap <Leader>qq :q!<CR>
-""nnoremap <Leader>wq :wq<CR>
 nnoremap <Leader>q :qa<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>ww :w<CR>
@@ -232,16 +205,11 @@ nnoremap <leader>fa :Lines<CR>
 nnoremap <leader>fh :History:<CR>
 "fugitive"
 nnoremap <LEADER>gg :G<CR>
-"autopairs"
-"nnoremap <LEADER>ta :call AutoPairsToggle()<CR>
-
+"vimtex
 nnoremap <LEADER>vc :w<CR>:VimtexCompile<CR>:VimtexCompile<CR>
 nnoremap <LEADER>vv :w<CR>:VimtexCompile<CR>
-
-set tw=80
+"colorcolumn
 nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw,&tw+1000),',') : "")<CR>
-
-
 
 " MAKE "
 set makeprg=ninja
@@ -266,7 +234,6 @@ autocmd FileType tex set textwidth=80 expandtab shiftwidth=2 tabstop=2 foldignor
 autocmd FileType tex let maplocalleader='\'
 autocmd BufNewFile,BufRead *.tmx set filetype=sh
 
-set shortmess=I
 
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -292,12 +259,9 @@ set statusline+=\ \[%v·%l/%L\]
 set statusline+=\ 
 
 
-" TextEdit might fail if hidden is not set.
-set hidden
-
 " Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+"set nobackup
+"set nowritebackup
 
 " Give more space for displaying messages.
 set cmdheight=2
