@@ -6,7 +6,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 "Plug 'maxboisvert/vim-simple-complete'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -31,7 +31,7 @@ endtry
 autocmd vimenter * wincmd l
 
 " AUTOPAIRS SETUP "
-let g:AutoPairsFlyMode = 1
+"let g:AutoPairsFlyMode = 1
 
 " FZF SETUP "
 let g:fzf_buffers_jump = 1
@@ -153,17 +153,17 @@ set fillchars+=diff:\╳
 hi nractive ctermbg=233
 hi nrinactive ctermbg=234
 
-au WinLeave * silent! let &colorcolumn=join(range(1,256),',')
+"au WinLeave * silent! let &colorcolumn=join(range(1,256),',')
 au winLeave * silent! setlocal winhighlight=LineNr:nrinactive
 au winLeave * silent! setlocal winhighlight=Normal:nrinactive
-au WinEnter * silent! set cc=
+"au WinEnter * silent! set cc=
 au winEnter * silent! setlocal winhighlight=LineNr:nractive
 au winEnter * silent! setlocal winhighlight=Normal:nractive
 
-au FocusLost * silent! let &colorcolumn=join(range(1,256),',')
+"au FocusLost * silent! let &colorcolumn=join(range(1,256),',')
 au FocusLost * silent! setlocal winhighlight=LineNr:nrinactive
 au FocusLost * silent! setlocal winhighlight=Normal:nrinactive
-au FocusGained * silent! set cc=
+"au FocusGained * silent! set cc=
 au FocusGained * silent! setlocal winhighlight=LineNr:nractive
 au FocusGained * silent! setlocal winhighlight=Normal:nractive
 
@@ -233,10 +233,13 @@ nnoremap <leader>fh :History:<CR>
 "fugitive"
 nnoremap <LEADER>gg :G<CR>
 "autopairs"
-nnoremap <LEADER>ta :call AutoPairsToggle()<CR>
+"nnoremap <LEADER>ta :call AutoPairsToggle()<CR>
 
 nnoremap <LEADER>vc :w<CR>:VimtexCompile<CR>:VimtexCompile<CR>
 nnoremap <LEADER>vv :w<CR>:VimtexCompile<CR>
+
+set tw=80
+nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw,&tw+1000),',') : "")<CR>
 
 
 
@@ -253,9 +256,12 @@ set smartindent
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
-autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
+autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 nofoldenable
 autocmd FileType zsh set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
 autocmd FileType git set expandtab shiftwidth=4 tabstop=4 foldignore=
+autocmd FileType mail set textwidth=0 nofoldenable
+autocmd FileType mail setlocal spell
+autocmd FileType text setlocal spell wrap linebreak tw=0 showbreak=…
 autocmd FileType tex set textwidth=80 expandtab shiftwidth=2 tabstop=2 foldignore=
 autocmd FileType tex let maplocalleader='\'
 autocmd BufNewFile,BufRead *.tmx set filetype=sh
