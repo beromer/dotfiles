@@ -75,6 +75,7 @@ alias fiesta='fiesta --color=auto'
 alias glog="git log --pretty=format:'%C(yellow)%h%Creset - %Cgreen(%cd) %C(bold blue)<%an>%Creset%Creset %s %C(red)%d' --abbrev-commit"
 alias python="python3"
 alias pop="pip3"
+alias nless="nvim -u ~/.config/nvim/less.vim"
 
 ### path ###
 export PATH=$PATH:/home/beromer/local/bin
