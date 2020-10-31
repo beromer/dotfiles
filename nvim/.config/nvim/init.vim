@@ -209,7 +209,7 @@ nnoremap <LEADER>gg :G<CR>
 nnoremap <LEADER>vc :w<CR>:VimtexCompile<CR>:VimtexCompile<CR>
 nnoremap <LEADER>vv :w<CR>:VimtexCompile<CR>
 "colorcolumn
-nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw,&tw+1000),',') : "")<CR>
+nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw+1,&tw+1000),',') : "")<CR>
 
 " MAKE "
 set makeprg=ninja
