@@ -6,19 +6,30 @@ set spoolfile= +INBOX
 #set postponed= +$my_drafts_noquote
 #set record = +$my_sent_noquote
 #set trash = +$my_trash_noquote
-mailboxes += INBOX
+mailboxes = +INBOX +"Sent Items"
 
-set header_cache = "~/.cache/mutt"
-set message_cachedir = "~/.cache/mutt"
+set autoedit=yes
+#set edit_headers=yes
+
+set index_format="[%2C][%Z] [%[%a %b %e %Y]] [%[%I:%M%p]] [%X] [%-20.20L] %s"
+#set index_format="[%Z] [%[%a %b %e %l:%M%p]] [%-20.20L] : %50s"
+#set index_format="[%Z] [%-20.20L] %s %>· [%[%a %b %e %l:%M%p]] "
+
+#set sidebar_visible
+#set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+#set mail_check_stats
+
+set header_cache = "~/.cache/mutt/hcache"
+set message_cachedir = "~/.cache/mutt/bcache"
 
 unset imap_passive
 
-set imap_check_subscribed="yes"
-set imap_list_subscribed="yes"
+set imap_check_subscribed="no"
+set imap_list_subscribed="no"
 set timeout=15
 set mail_check=90
 set imap_keepalive=180
-set imap_idle
+#set imap_idle
 unset mark_old
 set ssl_use_sslv3=yes
 
@@ -51,3 +62,4 @@ set sort=reverse-date-received
 #set sort_aux=reverse-last-date-received
 
 #source ~/.mutt/contacts.list
+source ~/.config/mutt/colors.mutrc
