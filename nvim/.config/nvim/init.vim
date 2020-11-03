@@ -153,6 +153,7 @@ au FocusGained * silent! setlocal winhighlight=Normal:nractive
 
 " LEADER MAPS "
 let mapleader=","
+nnoremap <Leader>V :e $MYVIMRC<CR>
 "save/quit"
 nnoremap <Leader>q :qa<CR>
 nnoremap <Leader>w :w<CR>
@@ -163,6 +164,8 @@ nnoremap <Leader>bl :ls<CR>:b<Space>
 nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bp :bp<CR>
 nnoremap <Leader>bb <C-^>
+nnoremap <Leader>bq :bd<CR>
+
 "windows"
 nnoremap <Leader>sl :Vex!<CR>
 nnoremap <Leader>sh :Vex<CR>
