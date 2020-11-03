@@ -141,3 +141,6 @@ function tmx {
 #      fi
 #  }
 #  bindkey "^r" fhist
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
+source .config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^ ' autosuggest-accept
