@@ -76,9 +76,11 @@ alias glog="git log --pretty=format:'%C(yellow)%h%Creset - %Cgreen(%cd) %C(bold 
 alias python="python3"
 alias pop="pip3"
 alias nless="nvim -u ~/.config/nvim/less.vim"
+alias define='dict'
 
 ### path ###
 export PATH=$PATH:/home/beromer/local/bin
+export PATH=/home/beromer/opt/neovim/nvim-linux64/bin:$PATH
 
 ### personal env variables ###
 export CMAKE_GENERATOR=Ninja
@@ -103,6 +105,8 @@ RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
 # shortcut to open pdf with zathura and detach from shell
 function z { command nohup zathura $1 > /dev/null 2>&1 & }
 compdef '_files -g "*.pdf"' z
+function zc { command nohup zathura -c ~ $1 > /dev/null 2>&1 & }
+compdef '_files -g "*.pdf"' zc
 
 function ndir
 {
@@ -142,5 +146,9 @@ function tmx {
 #  }
 #  bindkey "^r" fhist
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
-source .config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/beromer/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
+if ! { [ -n "$TMUX" ]; } then
+  cowthink $(fortune -s)
+fi
+alias cowfortune='cowthink $(fortune -s)'
