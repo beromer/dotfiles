@@ -33,6 +33,21 @@ try
 catch
 endtry
 
+"augroup highlight_yank
+"    autocmd!
+"    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+"augroup END
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=700 }
+augroup END
+"
+"au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
+"let g:highlightedyank_highlight_duration = 1000
+
+"autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank('IncSearch', 200)
+set noshowmode
+
 " FZF SETUP "
 let g:fzf_buffers_jump = 1
 "let g:fzf_layout = { 'window': '10new' }
@@ -66,13 +81,15 @@ set ttyfast
 set so=3
 set mouse=a
 set laststatus=2
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸-
+"set listchars=tab:▸\ ,eol:¬
 set hidden
 set autoread
 let fortran_free_source=1
 set splitbelow
 set shortmess=I
 autocmd vimenter * wincmd l
+set undofile
 
 " LOAD SPELLING DICT FOR COMPLETION "
 set spell
@@ -153,6 +170,7 @@ au FocusGained * silent! setlocal winhighlight=Normal:nractive
 
 " LEADER MAPS "
 let mapleader=","
+nnoremap <Leader>V :e $MYVIMRC<CR>
 "save/quit"
 nnoremap <Leader>q :qa<CR>
 nnoremap <Leader>w :w<CR>
@@ -163,6 +181,8 @@ nnoremap <Leader>bl :ls<CR>:b<Space>
 nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bp :bp<CR>
 nnoremap <Leader>bb <C-^>
+nnoremap <Leader>bq :bd<CR>
+
 "windows"
 nnoremap <Leader>sl :Vex!<CR>
 nnoremap <Leader>sh :Vex<CR>
@@ -189,10 +209,14 @@ nnoremap <Leader>do :diffget<CR>
 nnoremap <Leader>/ :noh<CR>
 nnoremap <Space> :noh<CR>
 "quickfix"
-nnoremap <silent> <leader>m :make!<CR>:cw 5<CR>
-nnoremap <leader>en :cn<CR>
-nnoremap <leader>ep :cp<CR>
-nnoremap <leader>ef :cr<CR>
+"nnoremap <silent> <leader>m :make!<CR>:cw 5<CR>
+"nnoremap <leader>en :cn<CR>
+"nnoremap <leader>ep :cp<CR>
+"nnoremap <leader>ef :cr<CR>
+"coc.nvim"
+nmap <silent> <leader>en <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>ep <Plug>(coc-diagnostic-next)
+
 "fzf"
 nnoremap <leader>o :FZF ..<CR>
 nnoremap <leader>fo :Files! ..<CR>
@@ -209,7 +233,7 @@ nnoremap <LEADER>gg :G<CR>
 nnoremap <LEADER>vc :w<CR>:VimtexCompile<CR>:VimtexCompile<CR>
 nnoremap <LEADER>vv :w<CR>:VimtexCompile<CR>
 "colorcolumn
-nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw+1,&tw+1000),',') : "")<CR>
+nnoremap <leader>gc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw+1,&tw+1000),',') : "")<CR>
 
 " MAKE "
 set makeprg=ninja
@@ -223,7 +247,8 @@ set autoindent
 set smartindent
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
-autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
+autocmd FileType python set noexpandtab shiftwidth=4 tabstop=4 foldignore=
+"autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
 autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 nofoldenable
 autocmd FileType zsh set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
 autocmd FileType git set expandtab shiftwidth=4 tabstop=4 foldignore=
