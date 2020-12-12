@@ -148,7 +148,7 @@ function tmx {
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
 source /home/beromer/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
-if ! { [ -n "$TMUX" ]; } then
-  cowthink $(fortune -s)
-fi
-alias cowfortune='cowthink $(fortune -s)'
+#if ! { [ -n "$TMUX" ]; } then
+#  cowthink $(fortune -s)
+#fi
+#alias cowfortune='cowthink $(fortune -s)'
