@@ -7,12 +7,19 @@
 ! -----------------------------------------------------------------------------
 
 URxvt.scrollBar: false
-urxvt*font: xft:Hack:pixelsize=16:antialias=true:hinting=true:style=bold
+URxvt*font: xft:Hack:pixelsize=16:antialias=true:hinting=true:style=bold
+!urxvt.depth: 32
+!urxvt.background: rgba:1c00/1c00/1c00/9900
+
+URxvt.transparent: true
+URxvt.shading: 40
+!URxvt.tintColor: #333333
+URxvt.blurRadius: 20
 
 ! hard contrast: *background: #1d2021
-*background: #1c1c1c
+!*background: #1c1c1c
 ! soft contrast: *background: #32302f
-*foreground: #ebdbb2
+URxvt.foreground: #ebdbb2
 URxvt.color24:  #076678
 URxvt.color66:  #427b58
 URxvt.color88:  #9d0006
