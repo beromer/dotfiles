@@ -16,7 +16,7 @@ let g:vimtex_enabled = 1
 let g:vimtex_view_general_viewer='zathura'
 
 vnoremap ] "sdi[]<esc>P
-vnoremap } "sdi{}<esc>P
+vnoremap i} "sdi{}<esc>P
 vnoremap ) "sdi()<esc>P
 vnoremap " "sdi""<esc>P
 vnoremap ' "sdi''<esc>P
