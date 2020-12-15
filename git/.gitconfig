@@ -12,3 +12,5 @@
 [alias]
 	d = difftool
 	s = status -s
+[pull]
+	rebase = true
