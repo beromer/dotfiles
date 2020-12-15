@@ -86,6 +86,7 @@ set listchars=tab:▸-
 set hidden
 set autoread
 let fortran_free_source=1
+let fortran_do_enddo=1
 set splitbelow
 set shortmess=I
 autocmd vimenter * wincmd l
@@ -247,6 +248,7 @@ set autoindent
 set smartindent
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
+autocmd FileType fortran set expandtab shiftwidth=2 tabstop=2
 autocmd FileType python set noexpandtab shiftwidth=4 tabstop=4 foldignore=
 "autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
 autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 nofoldenable
