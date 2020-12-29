@@ -80,7 +80,7 @@ alias nless="nvim -u ~/.config/nvim/less.vim"
 alias define='dict'
 
 ### path ###
-export PATH=$PATH:/home/beromer/local/bin
+export PATH=$PATH:/home/beromer/local/bin:/home/beromer/.local/bin
 export PATH=/home/beromer/opt/neovim/nvim-linux64/bin:$PATH
 
 ### personal env variables ###
