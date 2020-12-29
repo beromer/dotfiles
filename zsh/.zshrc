@@ -36,15 +36,15 @@ KEYTIMEOUT=1
 
 ### Change cursor shape for different vi modes. ###
 function zle-keymap-select {
-    if [[ ${KEYMAP} == vicmd ]] ||
-        [[ $1 = 'block' ]]; then
-        echo -ne '\e[2 q'
-    elif [[ ${KEYMAP} == main ]] ||
-        [[ ${KEYMAP} == viins ]] ||
-        [[ ${KEYMAP} = '' ]] ||
-        [[ $1 = 'beam' ]]; then
-        echo -ne '\e[5 q'
-    fi
+  if [[ ${KEYMAP} == vicmd ]] ||
+    [[ $1 = 'block' ]]; then
+    echo -ne '\e[2 q'
+  elif [[ ${KEYMAP} == main ]] ||
+    [[ ${KEYMAP} == viins ]] ||
+    [[ ${KEYMAP} = '' ]] ||
+    [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
 }
 zle -N zle-keymap-select
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
@@ -74,7 +74,8 @@ alias less='less -R --mouse -S'
 alias fiesta='fiesta --color=auto'
 alias glog="git log --pretty=format:'%C(yellow)%h%Creset - %Cgreen(%cd) %C(bold blue)<%an>%Creset%Creset %s %C(red)%d' --abbrev-commit"
 alias python="python3"
-alias pop="pip3"
+alias py="python3"
+alias pip="pip3"
 alias nless="nvim -u ~/.config/nvim/less.vim"
 alias define='dict'
 
@@ -108,6 +109,8 @@ compdef '_files -g "*.pdf"' z
 function zc { command nohup zathura -c ~ $1 > /dev/null 2>&1 & }
 compdef '_files -g "*.pdf"' zc
 
+compdef '_files -g "*.py"' py
+
 function ndir
 {
   command mkdir -p $1 && cd $1
@@ -122,33 +125,8 @@ function tmx {
   fi
 }
 
-
-
-#  # re-wrote the script above
-#  #bindkey -x '"\C-x1": __fzf_history';
-#  
-#  function fhist {
-#      myehc $(history | fzf --tac --tiebreak=index | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
-#  }
-#  
-#  function myehc {
-#      if
-#          [[ -n $1 ]]
-#      then
-#         bindkey "r": redraw-current-line
-#         bindkey "^": magic-space
-#         READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${1}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
-#         READLINE_POINT=$(( READLINE_POINT + ${#1} ))
-#      else
-#          bindkey "r"
-#          bindkey "^"
-#      fi
-#  }
-#  bindkey "^r" fhist
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
 source /home/beromer/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
-#if ! { [ -n "$TMUX" ]; } then
-#  cowthink $(fortune -s)
-#fi
-#alias cowfortune='cowthink $(fortune -s)'
+
+alias cowfortune='cowthink $(fortune -s)'

@@ -1,23 +1,12 @@
 set nocompatible
-
 call plug#begin()
-"Plug 'morhetz/gruvbox'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'lervag/vimtex'
 call plug#end()
 
-" VIMTEX "
-let g:tex_flavor = 'latex'
-let g:vimtex_enabled = 1
-let g:vimtex_view_general_viewer='zathura'
-
-vnoremap ] "sdi[]<esc>P
+" [BRACKETS] '
+vnoremap i] "sdi[]<esc>P
 vnoremap i} "sdi{}<esc>P
-vnoremap ) "sdi()<esc>P
+vnoremap i) "sdi()<esc>P
 vnoremap " "sdi""<esc>P
 vnoremap ' "sdi''<esc>P
 inoremap{<CR> {<CR>}<ESC>O<tab>
@@ -33,41 +22,59 @@ try
 catch
 endtry
 
-"augroup highlight_yank
-"    autocmd!
-"    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
-"augroup END
+" [HIGHLIGHT YANK] "
 augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=700 }
 augroup END
-"
-"au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
-"let g:highlightedyank_highlight_duration = 1000
 
-"autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank('IncSearch', 200)
-set noshowmode
 
-" FZF SETUP "
-let g:fzf_buffers_jump = 1
-"let g:fzf_layout = { 'window': '10new' }
+" AUTOCOMPLETE "
+set path+=**
+set completeopt+=longest,menuone,noinsert
+" Minimalist-TabComplete-Plugin
+inoremap <expr> <Tab> TabComplete()
+fun! TabComplete()
+    "if getline('.')[col('.') - 2] =~ '\K' || pumvisible()
+    if pumvisible()
+        return "\<C-n>"
+    else
+        return "\<Tab>"
+    endif
+endfun
 
-" TIMEOUTS "
-set timeoutlen=600
+" Minimalist-AutoCompletePop-Plugin
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+autocmd InsertCharPre * call AutoComplete()
+fun! AutoComplete()
+    if v:char =~ '\K'
+        \ && getline('.')[col('.') - 4] !~ '\K'
+        \ && getline('.')[col('.') - 3] =~ '\K'
+        \ && getline('.')[col('.') - 2] =~ '\K' " last char
+        \ && getline('.')[col('.') - 1] !~ '\K'
+
+        call feedkeys("\<C-n>", 'n')
+    end
+endfun
+
+
+" [TIMEOUTS] "
+set timeoutlen=750
 set ttimeoutlen=0
 
-" UNWANTED MAPPINGS "
+" [UNWANTED MAPPINGS] "
 nnoremap Q <nop>
 nnoremap q: <nop>
 
-" CURSORS "
+" [CURSORS] "
 let &t_SI="\<Esc>[5 q"
 if v:version > 704
   let &t_SR="\<Esc>[3 q"
 endif 
 let &t_EI="\<Esc>[2 q"
 
-" OPTIONS "
+" [OPTIONS] "
+set noshowmode
 set showcmd
 set rnu
 set wildmenu
@@ -82,24 +89,26 @@ set so=3
 set mouse=a
 set laststatus=2
 set listchars=tab:▸-
-"set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸-,eol:¬
 set hidden
 set autoread
 let fortran_free_source=1
 let fortran_do_enddo=1
 set splitbelow
-set shortmess=I
+set splitright
+set shortmess=IcF
 autocmd vimenter * wincmd l
 set undofile
 
-" LOAD SPELLING DICT FOR COMPLETION "
+" [LOAD SPELLING DICT FOR COMPLETION] "
 set spell
-set complete+=kspell
 set nospell
 
-" FILE EXPLORER "
+" [FILE EXPLORER] "
 let g:netrw_altv=1
-let g:netrw_liststyle=1
+let g:netrw_browse_split=4
+"let g:netrw_liststyle=1
+let g:netrw_liststyle=3
 let g:netrw_fastbrowse=0
 let g:netrw_sort_by="exten"
 
@@ -125,10 +134,10 @@ endif
 set foldmethod=indent 
 
 " VIEWS "
+set viewoptions=cursor,folds
 autocmd BufWinLeave * silent! mkview
 autocmd BufWinEnter * silent! loadview
 
-cabbrev h vert bo h
 map Y y$
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
@@ -137,9 +146,6 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
-
-" SAVE BUFFER POSITION "
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " CURSORS AND COLUMNS "
 set cursorline
@@ -150,8 +156,9 @@ hi CursorLineNR ctermbg=234 cterm=none
 
 " VERTICAL SPLIT STYLING "
 hi VertSplit ctermbg=none cterm=none
-"set fillchars+=vert:\║
 set fillchars+=vert:\│
+
+set fillchars=stl:=
 
 " DIFF STYLING"
 set fillchars+=diff:\╳
@@ -169,72 +176,41 @@ au winEnter * silent! setlocal winhighlight=Normal:nractive
 au FocusGained * silent! setlocal winhighlight=LineNr:nractive
 au FocusGained * silent! setlocal winhighlight=Normal:nractive
 
+function! CloseOnLast()
+    bdelete
+    let cnt = 0
+    for i in range(0, bufnr("$"))
+        if buflisted(i) && ! empty(bufname(i))
+            let cnt += 1
+        endif
+    endfor
+    if cnt <= 1
+        quit
+    endif
+endfunction
+
+function! Quitiflast()
+    let bufcnt = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+    if bufcnt < 2
+        echo 'shutting everything down'
+        quit
+    else
+        bdelete
+    endif
+endfun
+
 " LEADER MAPS "
-let mapleader=","
-nnoremap <Leader>V :e $MYVIMRC<CR>
-"save/quit"
-nnoremap <Leader>q :qa<CR>
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>ww :w<CR>
-nnoremap <Leader>wq :wqa<CR>
+nnoremap <Leader>v :e $MYVIMRC<CR>
+
 "buffers"
-nnoremap <Leader>bl :ls<CR>:b<Space>
-nnoremap <Leader>bn :bn<CR>
-nnoremap <Leader>bp :bp<CR>
-nnoremap <Leader>bb <C-^>
-nnoremap <Leader>bq :bd<CR>
+nnoremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
 
-"windows"
-nnoremap <Leader>sl :Vex!<CR>
-nnoremap <Leader>sh :Vex<CR>
-nnoremap <Leader>sj :Hex<CR>
-nnoremap <Leader>sk :Hex!<CR>
-nnoremap <Leader>st :Tex<CR>
-nnoremap <Leader>so :on<CR>
-nnoremap <Leader>c :close<CR>
 "interface"
-nnoremap <Leader>R :so ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>r :set rnu!<CR>
-nnoremap <Leader>wr :set wrap!<CR>
-nnoremap <Leader>y :set list!<CR>
-"spelling"
-nnoremap <Leader>ss :setlocal spell!<CR>
-nnoremap <Leader>sn ]s
-nnoremap <Leader>sp [s
-nnoremap <Leader>sc z=
-"diff"
-nnoremap <Leader>dn ]c
-nnoremap <Leader>dp [c
-nnoremap <Leader>do :diffget<CR>
-"highlighting"
-nnoremap <Leader>/ :noh<CR>
-nnoremap <Space> :noh<CR>
-"quickfix"
-"nnoremap <silent> <leader>m :make!<CR>:cw 5<CR>
-"nnoremap <leader>en :cn<CR>
-"nnoremap <leader>ep :cp<CR>
-"nnoremap <leader>ef :cr<CR>
-"coc.nvim"
-nmap <silent> <leader>en <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>ep <Plug>(coc-diagnostic-next)
+nnoremap <Leader>r :so ~/.config/nvim/init.vim<CR>
 
-"fzf"
-nnoremap <leader>o :FZF ..<CR>
-nnoremap <leader>fo :Files! ..<CR>
-nnoremap <leader>O :FZF ~<CR>
-nnoremap <leader>fO :Files! ~<CR>
-nnoremap <leader>ff :Rg<CR>
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fl :BLines<CR>
-nnoremap <leader>fa :Lines<CR>
-nnoremap <leader>fh :History:<CR>
-"fugitive"
-nnoremap <LEADER>gg :G<CR>
-"vimtex
-nnoremap <LEADER>vc :w<CR>:VimtexCompile<CR>:VimtexCompile<CR>
-nnoremap <LEADER>vv :w<CR>:VimtexCompile<CR>
 "colorcolumn
-nnoremap <leader>gc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw+1,&tw+1000),',') : "")<CR>
+nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw+1,&tw+1000),',') : "")<CR>
 
 " MAKE "
 set makeprg=ninja
@@ -246,21 +222,17 @@ set tabstop=4
 set shiftwidth=4
 set autoindent
 set smartindent
-autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-autocmd FileType cpp set expandtab shiftwidth=2 tabstop=2
-autocmd FileType fortran set expandtab shiftwidth=2 tabstop=2
-autocmd FileType python set noexpandtab shiftwidth=4 tabstop=4 foldignore=
-"autocmd FileType python set expandtab shiftwidth=4 tabstop=4 foldignore=
-autocmd FileType vim set expandtab shiftwidth=2 tabstop=2 softtabstop=2 nofoldenable
-autocmd FileType zsh set expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
-autocmd FileType git set expandtab shiftwidth=4 tabstop=4 foldignore=
-autocmd FileType mail set textwidth=0 nofoldenable
-autocmd FileType mail setlocal spell
-autocmd FileType text setlocal spell wrap linebreak tw=0 showbreak=…
-autocmd FileType tex set textwidth=80 expandtab shiftwidth=2 tabstop=2 foldignore=
-autocmd FileType tex let maplocalleader='\'
+autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
+autocmd FileType cpp setlocal expandtab shiftwidth=2 tabstop=2
+autocmd FileType fortran setlocal expandtab shiftwidth=2 tabstop=2
+autocmd FileType python setlocal noexpandtab shiftwidth=4 tabstop=4 foldignore=
+autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 nofoldenable
+autocmd FileType zsh setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
+autocmd FileType git setlocal expandtab shiftwidth=4 tabstop=4 foldignore= spell complete+=kspell
+autocmd FileType mail setlocal textwidth=0 nofoldenable spell complete+=kspell
+autocmd FileType text setlocal spell wrap linebreak tw=0 showbreak=… complete+=kspell
+autocmd FileType tex setlocal textwidth=80 expandtab shiftwidth=2 tabstop=2 foldignore= spell complete+=kspell
 autocmd BufNewFile,BufRead *.tmx set filetype=sh
-
 
 function! GitBranch()
   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -278,54 +250,9 @@ set statusline+=%{StatuslineGit()}
 set statusline+=\[%f\]
 set statusline+=%m
 set statusline+=%=
-set statusline+=\ %y
+set statusline+=\%y
 set statusline+=\[%{&fileformat}\]
 set statusline+=\[%{&fileencoding?&fileencoding:&encoding}\]
 set statusline+=\[%B\]
 set statusline+=\ \[%v·%l/%L\]
 set statusline+=\ 
-
-
-" Some servers have issues with backup files, see #649.
-"set nobackup
-"set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-"  " Always show the signcolumn, otherwise it would shift the text each time
-"  " diagnostics appear/become resolved.
-"  if has("patch-8.1.1564")
-"    " Recently vim can merge signcolumn and number column into one
-"    set signcolumn=number
-"  else
-"    set signcolumn=yes
-"  endif
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
