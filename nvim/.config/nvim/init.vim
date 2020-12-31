@@ -208,6 +208,7 @@ nnoremap <S-Tab> :bp<CR>
 
 "interface"
 nnoremap <Leader>r :so ~/.config/nvim/init.vim<CR>
+nnoremap <Space> <C-f>
 
 "colorcolumn
 nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw+1,&tw+1000),',') : "")<CR>
