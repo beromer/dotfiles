@@ -58,7 +58,7 @@ au winEnter * silent! setlocal winhighlight=Normal:nractive
 au FocusGained * silent! setlocal winhighlight=LineNr:nractive
 au FocusGained * silent! setlocal winhighlight=Normal:nractive
 
-nnoremap <Space> <C-d>
+nnoremap <Space> <C-f>
 
 "set nowrite
 set nobackup nowritebackup

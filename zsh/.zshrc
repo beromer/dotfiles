@@ -10,6 +10,7 @@ setopt autocd
 setopt autopushd
 setopt pushdignoredups
 setopt correct
+setopt interactivecomments
 bindkey -v
 zstyle :compinstall filename '/home/beromer/.zshrc'
 bindkey ' ' magic-space
@@ -52,14 +53,13 @@ preexec() {
     echo -ne '\e[5 q' # Use beam shape cursor for each new prompt.
 }
 
-
 ### spack and modules ###
 source /etc/profile.d/lmod.sh
 source /home/beromer/src/spack/share/spack/setup-env.sh
 
 ### fzf bindings ###
-source /home/beromer/opt/fzf/completion.zsh
-source /home/beromer/opt/fzf/key-bindings.zsh
+#source /home/beromer/opt/fzf/completion.zsh
+#source /home/beromer/opt/fzf/key-bindings.zsh
 
 ### normal backspace ###
 bindkey "^?" backward-delete-char
@@ -79,7 +79,7 @@ alias pip="pip3"
 alias less="nvim -u ~/.config/nvim/less.vim"
 alias define='dict'
 alias icat='kitty +kitten icat'
-alias feh='feh --scale-down --auto-zoom *.png'
+alias feh='feh --scale-down --auto-zoom'
 
 ### path ###
 export PATH=$PATH:/home/beromer/local/bin:/home/beromer/.local/bin
@@ -102,6 +102,7 @@ RPROMPT=''
 #PROMPT+='%B%F{11}[%F{9}%n%F{11}]%f%b'           # username
 if [ -n "${SSH_CLIENT}" ]; then
   PROMPT+='%B%F{11}[%F{1}%m%F{11}]%f%b'         # cwd
+  export TERM=xterm-256color
 fi
 PROMPT+='%B%F{11}[%F{10}%2~%F{11}]%f%b'         # cwd
 PROMPT+='%B%F{11}%# %f%b'                       # prompt
@@ -130,8 +131,13 @@ function tmx {
   fi
 }
 
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
-source /home/beromer/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^ ' autosuggest-accept
+#export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
+#source /home/beromer/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#bindkey '^ ' autosuggest-accept
 
 alias cowfortune='cowthink $(fortune -s)'
+#theme google-dark
+#theme terminix-dark
+#theme espresso
+theme gruvbox-dark
+#theme soft-server
