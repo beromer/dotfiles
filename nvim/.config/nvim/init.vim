@@ -1,5 +1,13 @@
 set nocompatible
 
+
+call plug#begin()
+  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf.vim'
+call plug#end()
+
+set makeprg=ninja\ -C\ ../build
+
 " [BRACKETS] '
 vnoremap i] "sdi[]<esc>P
 vnoremap i} "sdi{}<esc>P
@@ -14,7 +22,7 @@ if has('nvim')
       autocmd!
       au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=700 }
   augroup END
-endif 
+endif
 
 " AUTOCOMPLETE "
 set path+=**
@@ -57,6 +65,10 @@ endif
 let &t_EI="\<Esc>[2 q"
 
 " [OPTIONS] "
+set title
+set titlestring=%t\ %M
+set exrc
+set secure
 set autowrite
 set noshowmode
 set showcmd
@@ -146,6 +158,7 @@ set fillchars+=diff:\╳
 " LEADER MAPS "
 nnoremap <Leader>v :e $MYVIMRC<CR>
 nnoremap <Leader>r :so ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>o :Files<CR>
 
 "colorcolumn
 nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw+1,&tw+1000),',') : "")<CR>
@@ -206,7 +219,8 @@ highlight Title          ctermfg=5
 highlight WarningMsg     ctermfg=1
 highlight WildMenu       ctermfg=0 ctermbg=11
 highlight Conceal        ctermfg=7 ctermbg=7
-highlight SpellBad       ctermbg=9
+highlight SpellBad       ctermbg=NONE ctermfg=NONE cterm=undercurl
+"highlight SpellBad       ctermbg=9
 highlight SpellRare      ctermbg=13
 highlight SpellLocal     ctermbg=14
 highlight PmenuSbar      ctermbg=8

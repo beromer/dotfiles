@@ -6,6 +6,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_ALL_DUPS
 
 ### options ###
+setopt rmstarsilent
 setopt autocd
 setopt autopushd
 setopt pushdignoredups
@@ -54,8 +55,9 @@ preexec() {
 }
 
 ### spack and modules ###
-source /etc/profile.d/lmod.sh
 source /home/beromer/src/spack/share/spack/setup-env.sh
+source /etc/profile.d/lmod.sh
+export LMOD_PAGER=none
 
 ### fzf bindings ###
 #source /home/beromer/opt/fzf/completion.zsh
@@ -80,6 +82,7 @@ alias less="nvim -u ~/.config/nvim/less.vim"
 alias define='dict'
 alias icat='kitty +kitten icat'
 alias feh='feh --scale-down --auto-zoom'
+alias ccmake='TERM=xterm-256color ccmake'
 
 ### path ###
 export PATH=$PATH:/home/beromer/local/bin:/home/beromer/.local/bin
@@ -105,6 +108,8 @@ if [ -n "${SSH_CLIENT}" ]; then
   export TERM=xterm-256color
 fi
 PROMPT+='%B%F{11}[%F{10}%2~%F{11}]%f%b'         # cwd
+PROMPT+='%(1j.%B%F{11}[%F{9}%j%F{11}].%f%b)'    # number of bg processes
+#PROMPT+='%B%F{11}[%F{9}%(1j.%j.)%F{11}]%f%b'    # number of bg processes
 PROMPT+='%B%F{11}%# %f%b'                       # prompt
 RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
 #RPROMPT+='%B%F{11}[%F{9}%D{%L:%M%p}%F{11}]%f%b' # time
@@ -139,5 +144,8 @@ alias cowfortune='cowthink $(fortune -s)'
 #theme google-dark
 #theme terminix-dark
 #theme espresso
-theme gruvbox-dark
+theme brgv
+#theme gruvbox-dark
+#theme dimmed-monokai
 #theme soft-server
+#theme afterglow
