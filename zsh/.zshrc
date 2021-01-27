@@ -83,6 +83,9 @@ alias define='dict'
 alias icat='kitty +kitten icat'
 alias feh='feh --scale-down --auto-zoom'
 alias ccmake='TERM=xterm-256color ccmake'
+#alias weather='curl wttr.in/Albuquerque\?format=4'
+alias forecast='curl wttr.in/Albuquerque'
+alias weather='curl wttr.in/Albuquerque\?format="%C\n%t+%w\nSunrise:+%S\nSunset:+%s\n"'
 
 ### path ###
 export PATH=$PATH:/home/beromer/local/bin:/home/beromer/.local/bin
@@ -149,3 +152,4 @@ theme brgv
 #theme dimmed-monokai
 #theme soft-server
 #theme afterglow
+
