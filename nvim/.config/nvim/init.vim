@@ -4,6 +4,7 @@ set nocompatible
 call plug#begin()
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
+  Plug 'JuliaEditorSupport/julia-vim'
 call plug#end()
 
 set makeprg=ninja\ -C\ ../build
@@ -12,9 +13,9 @@ set makeprg=ninja\ -C\ ../build
 vnoremap i] "sdi[]<esc>P
 vnoremap i} "sdi{}<esc>P
 vnoremap i) "sdi()<esc>P
-vnoremap " "sdi""<esc>P
-vnoremap ' "sdi''<esc>P
-inoremap{<CR> {<CR>}<ESC>O<tab>
+vnoremap i" "sdi""<esc>P
+vnoremap i' "sdi''<esc>P
+inoremap{<CR> {<CR>}<ESC>O
 
 " [HIGHLIGHT YANK] "
 if has('nvim')
@@ -188,7 +189,7 @@ set statusline+=\%y
 set statusline+=\[%f\]
 set statusline+=%m
 set statusline+=%=
-set statusline+=\[%l/%L\]
+set statusline+=\[%v·%l/%L\]
 
 nnoremap <Space> <C-f>
 nnoremap <Tab> :bn<CR>
@@ -242,7 +243,7 @@ highlight Ignore         ctermfg=15
 highlight Error          ctermfg=15 ctermbg=9
 highlight Todo           ctermfg=0 ctermbg=11
 highlight LineNr         ctermfg=8
-highlight Comment        ctermfg=8
+highlight Comment        cterm=italic ctermfg=8
 highlight ColorColumn    ctermfg=7    ctermbg=8
 highlight Folded         ctermfg=7    ctermbg=0
 highlight FoldColumn     ctermfg=7    ctermbg=8

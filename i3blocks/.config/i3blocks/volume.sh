@@ -4,15 +4,15 @@ volume=$(pacmd list-sinks|grep -A 15 '* index'| awk '/volume: front/{ print $5 }
 mute=$(pacmd list-sinks|grep -A 15 '* index'|awk '/muted:/{ print $2 }')
 sinks=$(pactl list sinks)
 hasbt=$(echo "$sinks" | grep bluez)
+vollvl="${volume}%"
+
+if [ "$mute" = "yes" ]; then
+    vollvl="Muted ${vollvl}"
+fi
 
 if ! [ -z "$hasbt" ]; then
-volstr="H${volume}%"
+  echo "<span foreground='#3971ED'>${vollvl}</span>"
 else
-volstr="${volume}%"
+  echo "${vollvl}"
 fi
 
-if [ "$mute" = "no" ]; then
-    echo "[<span foreground='#b8bb26'>V·${volstr}</span>]"
-else
-    echo "[<span foreground='#cc241d'>V·${volstr}</span>]"
-fi

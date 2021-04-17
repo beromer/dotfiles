@@ -12,6 +12,7 @@ setopt autopushd
 setopt pushdignoredups
 setopt correct
 setopt interactivecomments
+setopt noclobber
 bindkey -v
 zstyle :compinstall filename '/home/beromer/.zshrc'
 bindkey ' ' magic-space
@@ -60,8 +61,8 @@ source /etc/profile.d/lmod.sh
 export LMOD_PAGER=none
 
 ### fzf bindings ###
-#source /home/beromer/opt/fzf/completion.zsh
-#source /home/beromer/opt/fzf/key-bindings.zsh
+source /home/beromer/opt/fzf/completion.zsh
+source /home/beromer/opt/fzf/key-bindings.zsh
 
 ### normal backspace ###
 bindkey "^?" backward-delete-char
@@ -86,10 +87,14 @@ alias ccmake='TERM=xterm-256color ccmake'
 #alias weather='curl wttr.in/Albuquerque\?format=4'
 alias forecast='curl wttr.in/Albuquerque'
 alias weather='curl wttr.in/Albuquerque\?format="%C\n%t+%w\nSunrise:+%S\nSunset:+%s\n"'
+alias config='git -C ~/dotfiles'
 
 ### path ###
 export PATH=$PATH:/home/beromer/local/bin:/home/beromer/.local/bin
 export PATH=/home/beromer/opt/neovim/nvim-linux64/bin:$PATH
+
+### qt theme ###
+export QT_QPA_PLATFORMTHEME=qt5ct
 
 ### use vim as manpager ###
 export MANPAGER=/home/beromer/.config/nvim/manpager.sh
@@ -120,8 +125,8 @@ RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
 # shortcut to open pdf with zathura and detach from shell
 function z { command nohup zathura $1 > /dev/null 2>&1 & }
 compdef '_files -g "*.pdf"' z
-function zc { command nohup zathura -c ~ $1 > /dev/null 2>&1 & }
-compdef '_files -g "*.pdf"' zc
+function zd { command nohup zathura -c ~/.config/zathura/darkrc $1 > /dev/null 2>&1 & }
+compdef '_files -g "*.pdf"' zd
 
 compdef '_files -g "*.py"' py
 
@@ -139,17 +144,19 @@ function tmx {
   fi
 }
 
-#export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
-#source /home/beromer/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-#bindkey '^ ' autosuggest-accept
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
+source /home/beromer/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^ ' autosuggest-accept
 
 alias cowfortune='cowthink $(fortune -s)'
 #theme google-dark
 #theme terminix-dark
 #theme espresso
-theme brgv
+#theme brgv
+theme dark
 #theme gruvbox-dark
 #theme dimmed-monokai
 #theme soft-server
 #theme afterglow
 
+source /home/beromer/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
