@@ -78,10 +78,10 @@ setlocal iskeyword+=-
 setlocal nonumber norelativenumber
 setlocal foldcolumn=0 colorcolumn=0 nolist nofoldenable
 
-setlocal tagfunc=man#goto_tag
+"setlocal tagfunc=man#goto_tag
 
-nnoremap <silent> <buffer> j          <C-e>
-nnoremap <silent> <buffer> k          <C-y>
+"nnoremap <silent> <buffer> j          <C-e>
+"nnoremap <silent> <buffer> k          <C-y>
 nnoremap <silent> <buffer> gO         :call man#show_toc()<CR>
 nnoremap <silent> <buffer> <nowait> q :lclose<CR>:q<CR>
 

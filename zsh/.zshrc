@@ -1,3 +1,11 @@
+#           _              
+#   _______| |__  _ __ ___ 
+#  |_  / __| '_ \| '__/ __|
+#   / /\__ \ | | | | | (__ 
+#  /___|___/_| |_|_|  \___|
+#                          
+
+
 ### history ###
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -68,18 +76,19 @@ source /home/beromer/opt/fzf/key-bindings.zsh
 bindkey "^?" backward-delete-char
 
 ### personal aliases ###
-alias ls='ls -Alhp --group-directories-first --color=auto'
+#alias ls='ls -Alhp --group-directories-first --color=auto'
+alias ls='exa --long --no-user --no-permissions --git --group-directories-first -F'
 alias rm='rm -iv'
 alias vim='nvim'
 alias cp='cp -v'
 alias grep='grep --color=auto'
-#alias less='less -R --mouse -S'
+alias less='less -R --mouse -S'
 alias fiesta='fiesta --color=auto'
 alias glog="git log --pretty=format:'%C(yellow)%h%Creset - %Cgreen(%cd) %C(bold blue)<%an>%Creset%Creset %s %C(red)%d' --abbrev-commit"
 alias python="python3"
 alias py="python3"
 alias pip="pip3"
-alias less="nvim -u ~/.config/nvim/less.vim"
+#alias less="nvim -u ~/.config/nvim/less.vim"
 alias define='dict'
 alias icat='kitty +kitten icat'
 alias feh='feh --scale-down --auto-zoom'
@@ -88,6 +97,7 @@ alias ccmake='TERM=xterm-256color ccmake'
 alias forecast='curl wttr.in/Albuquerque'
 alias weather='curl wttr.in/Albuquerque\?format="%C\n%t+%w\nSunrise:+%S\nSunset:+%s\n"'
 alias config='git -C ~/dotfiles'
+alias bat='bat --paging=never --style=numbers,changes --theme gruvbox-dark'
 
 ### path ###
 export PATH=$PATH:/home/beromer/local/bin:/home/beromer/.local/bin
@@ -101,6 +111,9 @@ export MANPAGER=/home/beromer/.config/nvim/manpager.sh
 
 ### personal env variables ###
 export CMAKE_GENERATOR=Ninja
+
+export EDITOR=nvim
+export BROWSER=firefox
 
 ### prompt ###
 autoload -Uz vcs_info
@@ -125,7 +138,7 @@ RPROMPT+='%B${vcs_info_msg_0_}%b'               # branch
 # shortcut to open pdf with zathura and detach from shell
 function z { command nohup zathura $1 > /dev/null 2>&1 & }
 compdef '_files -g "*.pdf"' z
-function zd { command nohup zathura -c ~/.config/zathura/darkrc $1 > /dev/null 2>&1 & }
+function zd { command nohup zathura -c ~/.config/zathura/dark $1 > /dev/null 2>&1 & }
 compdef '_files -g "*.pdf"' zd
 
 compdef '_files -g "*.py"' py
@@ -160,3 +173,17 @@ theme dark
 #theme afterglow
 
 source /home/beromer/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+p () {
+    local open
+    open=zathura   # on OSX, "open" opens a pdf in preview
+    ag -U -g ".pdf$" \
+    | /home/beromer/opt/fast-p/fast-p \
+    | fzf --read0 --reverse -e -d $'\t'  \
+        --preview-window down:80% --preview '
+            v=$(echo {q} | tr " " "|"); 
+            echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
+        ' \
+    | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
+}

@@ -1,13 +1,20 @@
 set nocompatible
 
-
 call plug#begin()
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
+  Plug 'bfrg/vim-cpp-modern'
   Plug 'JuliaEditorSupport/julia-vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'morhetz/gruvbox'
 call plug#end()
 
+autocmd vimenter * ++nested colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
+
+
 set makeprg=ninja\ -C\ ../build
+set cursorline
 
 " [BRACKETS] '
 vnoremap i] "sdi[]<esc>P
@@ -157,13 +164,25 @@ set fillchars+=stl:=
 set fillchars+=diff:\╳
 
 " LEADER MAPS "
+let mapleader=","
 nnoremap <Leader>v :e $MYVIMRC<CR>
 nnoremap <Leader>r :so ~/.config/nvim/init.vim<CR>
+
 nnoremap <Leader>o :Files<CR>
+
+nnoremap <Leader>a :G add %:p<CR>
+nnoremap <Leader>c :G commit -v -q<CR>
+nnoremap <Leader>s :Gstatus<CR>
+nnoremap <Leader>g :G<Space>
+
 
 "colorcolumn
 nnoremap <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? join(range(&tw+1,&tw+1000),',') : "")<CR>
 
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 " TABS AND INDENTS "
 set expandtab
@@ -187,6 +206,7 @@ set statusline=
 set statusline+=%#Normal#
 set statusline+=\%y
 set statusline+=\[%f\]
+set statusline+=\[%{FugitiveHead()}\]
 set statusline+=%m
 set statusline+=%=
 set statusline+=\[%v·%l/%L\]
@@ -200,57 +220,57 @@ highlight clear
 if exists("syntax_on")
   syntax reset
 endif
-highlight DiffAdd        ctermfg=0    ctermbg=2
-highlight DiffChange     ctermfg=0    ctermbg=3
-highlight DiffDelete     ctermfg=0    ctermbg=1
-highlight DiffText       ctermfg=0    ctermbg=11   cterm=bold
-highlight Visual         ctermfg=NONE ctermbg=NONE cterm=inverse
-highlight Search         ctermfg=0    ctermbg=11
-highlight SpecialKey     ctermfg=4
-highlight TermCursor     cterm=reverse
-highlight NonText        ctermfg=12
-highlight Directory      ctermfg=4
-highlight ErrorMsg       ctermfg=15 ctermbg=1
-highlight IncSearch      cterm=reverse
-highlight MoreMsg        ctermfg=2
-highlight ModeMsg        cterm=bold
-highlight CursorLineNr   ctermfg=3
-highlight Question       ctermfg=2
-highlight Title          ctermfg=5
-highlight WarningMsg     ctermfg=1
-highlight WildMenu       ctermfg=0 ctermbg=11
-highlight Conceal        ctermfg=7 ctermbg=7
-highlight SpellBad       ctermbg=NONE ctermfg=NONE cterm=undercurl
-"highlight SpellBad       ctermbg=9
-highlight SpellRare      ctermbg=13
-highlight SpellLocal     ctermbg=14
-highlight PmenuSbar      ctermbg=8
-highlight PmenuThumb     ctermbg=0
-highlight TabLine        cterm=underline ctermfg=0 ctermbg=7
-highlight TabLineSel     cterm=bold
-highlight TabLineFill    cterm=reverse
-highlight CursorColumn   ctermbg=7
-highlight CursorLine     cterm=underline
-highlight MatchParen     ctermbg=14
-highlight Constant       ctermfg=5
-highlight Special        ctermfg=5
-highlight Identifier     cterm=NONE ctermfg=6
-highlight Statement      ctermfg=3
-highlight PreProc        ctermfg=5
-highlight Type           ctermfg=2
-highlight Underlined     cterm=underline ctermfg=5
-highlight Ignore         ctermfg=15
-highlight Error          ctermfg=15 ctermbg=9
-highlight Todo           ctermfg=0 ctermbg=11
-highlight LineNr         ctermfg=8
-highlight Comment        cterm=italic ctermfg=8
-highlight ColorColumn    ctermfg=7    ctermbg=8
-highlight Folded         ctermfg=7    ctermbg=0
-highlight FoldColumn     ctermfg=7    ctermbg=8
-highlight Pmenu          ctermfg=15   ctermbg=8
-highlight PmenuSel       ctermfg=8    ctermbg=15
-highlight SpellCap       ctermfg=7    ctermbg=8
-highlight StatusLine     ctermfg=15   ctermbg=8    cterm=bold
-highlight StatusLineNC   ctermfg=7    ctermbg=8    cterm=NONE
-highlight VertSplit      ctermfg=7    ctermbg=8    cterm=NONE
-highlight SignColumn                  ctermbg=8
+"highlight DiffAdd        ctermfg=0    ctermbg=2
+"highlight DiffChange     ctermfg=0    ctermbg=3
+"highlight DiffDelete     ctermfg=0    ctermbg=1
+"highlight DiffText       ctermfg=0    ctermbg=11   cterm=bold
+"highlight Visual         ctermfg=NONE ctermbg=NONE cterm=inverse
+"highlight Search         ctermfg=0    ctermbg=11
+"highlight SpecialKey     ctermfg=4
+"highlight TermCursor     cterm=reverse
+"highlight NonText        ctermfg=12
+"highlight Directory      ctermfg=4
+"highlight ErrorMsg       ctermfg=15 ctermbg=1
+"highlight IncSearch      cterm=reverse
+"highlight MoreMsg        ctermfg=2
+"highlight ModeMsg        cterm=bold
+"highlight CursorLineNr   ctermfg=3
+"highlight Question       ctermfg=2
+"highlight Title          ctermfg=5
+"highlight WarningMsg     ctermfg=1
+"highlight WildMenu       ctermfg=0 ctermbg=11
+"highlight Conceal        ctermfg=7 ctermbg=7
+"highlight SpellBad       ctermbg=NONE ctermfg=NONE cterm=undercurl
+""highlight SpellBad       ctermbg=9
+"highlight SpellRare      ctermbg=13
+"highlight SpellLocal     ctermbg=14
+"highlight PmenuSbar      ctermbg=8
+"highlight PmenuThumb     ctermbg=0
+"highlight TabLine        cterm=underline ctermfg=0 ctermbg=7
+"highlight TabLineSel     cterm=bold
+"highlight TabLineFill    cterm=reverse
+"highlight CursorColumn   ctermbg=7
+"highlight CursorLine     cterm=underline
+"highlight MatchParen     ctermbg=14
+"highlight Constant       ctermfg=5
+"highlight Special        ctermfg=5
+"highlight Identifier     cterm=NONE ctermfg=6
+"highlight Statement      ctermfg=3
+"highlight PreProc        ctermfg=5
+"highlight Type           ctermfg=2
+"highlight Underlined     cterm=underline ctermfg=5
+"highlight Ignore         ctermfg=15
+"highlight Error          ctermfg=15 ctermbg=9
+"highlight Todo           ctermfg=0 ctermbg=11
+"highlight LineNr         ctermfg=8
+"highlight Comment        cterm=italic ctermfg=8
+"highlight ColorColumn    ctermfg=7    ctermbg=8
+"highlight Folded         ctermfg=7    ctermbg=0
+"highlight FoldColumn     ctermfg=7    ctermbg=8
+"highlight Pmenu          ctermfg=15   ctermbg=8
+"highlight PmenuSel       ctermfg=8    ctermbg=15
+"highlight SpellCap       ctermfg=7    ctermbg=8
+"highlight StatusLine     ctermfg=15   ctermbg=8    cterm=bold
+"highlight StatusLineNC   ctermfg=7    ctermbg=8    cterm=NONE
+"highlight VertSplit      ctermfg=7    ctermbg=8    cterm=NONE
+"highlight SignColumn                  ctermbg=8
