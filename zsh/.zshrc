@@ -22,7 +22,7 @@ setopt correct
 setopt interactivecomments
 setopt noclobber
 bindkey -v
-zstyle :compinstall filename '/home/beromer/.zshrc'
+zstyle :compinstall filename '/.zshrc'
 bindkey ' ' magic-space
 autoload -Uz compinit
 compinit
@@ -64,20 +64,27 @@ preexec() {
 }
 
 ### spack and modules ###
-source /home/beromer/src/spack/share/spack/setup-env.sh
-source /etc/profile.d/lmod.sh
+if [[ -f ~/src/spack/share/spack/setup-env.sh ]]; then
+  source ~/src/spack/share/spack/setup-env.sh
+fi
+if [[ -f /etc/profile.d/lmod.sh ]]; then
+  source /etc/profile.d/lmod.sh
+fi
 export LMOD_PAGER=none
 
 ### fzf bindings ###
-source /home/beromer/opt/fzf/completion.zsh
-source /home/beromer/opt/fzf/key-bindings.zsh
+source ~/opt/fzf/completion.zsh
+source ~/opt/fzf/key-bindings.zsh
 
 ### normal backspace ###
 bindkey "^?" backward-delete-char
 
 ### personal aliases ###
-#alias ls='ls -Alhp --group-directories-first --color=auto'
-alias ls='exa --long --no-user --no-permissions --git --group-directories-first -F'
+if ! type "$exa" > /dev/null; then
+  alias ls='ls -Alhp --group-directories-first --color=auto'
+else
+  alias ls='exa --long --no-user --no-permissions --git --group-directories-first -F'
+fi
 alias rm='rm -iv'
 alias vim='nvim'
 alias cp='cp -v'
@@ -100,14 +107,14 @@ alias config='git -C ~/dotfiles'
 alias bat='bat --paging=never --style=numbers,changes --theme gruvbox-dark'
 
 ### path ###
-export PATH=$PATH:/home/beromer/local/bin:/home/beromer/.local/bin
-export PATH=/home/beromer/opt/neovim/nvim-linux64/bin:$PATH
+export PATH=$PATH:/local/bin:/.local/bin
+export PATH=~/opt/neovim/nvim-linux64/bin:$PATH
 
 ### qt theme ###
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 ### use vim as manpager ###
-export MANPAGER=/home/beromer/.config/nvim/manpager.sh
+export MANPAGER=/.config/nvim/manpager.sh
 
 ### personal env variables ###
 export CMAKE_GENERATOR=Ninja
@@ -148,38 +155,26 @@ function ndir
   command mkdir -p $1 && cd $1
 }
 
-export TMX_CONF=/home/beromer/.config/tmux/tmux.conf
+export TMX_CONF=/.config/tmux/tmux.conf
 function tmx {
   if [ ! -f ./.tmx  ]; then
-    bash -c '/home/beromer/.config/tmux/default.tmx'
+    bash -c '/.config/tmux/default.tmx'
   else
     bash -c './.tmx'
   fi
 }
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
-source /home/beromer/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
 
-alias cowfortune='cowthink $(fortune -s)'
-#theme google-dark
-#theme terminix-dark
-#theme espresso
-#theme brgv
-theme dark
-#theme gruvbox-dark
-#theme dimmed-monokai
-#theme soft-server
-#theme afterglow
-
-source /home/beromer/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+source ~/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 p () {
     local open
     open=zathura   # on OSX, "open" opens a pdf in preview
     ag -U -g ".pdf$" \
-    | /home/beromer/opt/fast-p/fast-p \
+    | ~/opt/fast-p/fast-p \
     | fzf --read0 --reverse -e -d $'\t'  \
         --preview-window down:80% --preview '
             v=$(echo {q} | tr " " "|"); 
