@@ -165,7 +165,7 @@ function tmx {
 }
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -f -g ""'
-source /.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
 
 source ~/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
