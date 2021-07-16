@@ -1,2 +1,2 @@
-nvim -c 'set ft=man'  -u /home/beromer/.config/nvim/less.vim -
+nvim -c 'set ft=man'  -u ~/.config/nvim/less.vim -
 
