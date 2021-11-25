@@ -1,8 +1,10 @@
 set nocompatible
 
-call plug#begin()
-  Plug 'altercation/vim-colors-solarized'
-call plug#end()
+lua << EOF
+require('packer').startup(function()
+    use 'altercation/vim-colors-solarized'
+  end)
+EOF
 
 " [COLORSCHEME] "
 syntax enable
