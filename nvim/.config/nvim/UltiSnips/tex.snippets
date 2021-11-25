@@ -1,0 +1,308 @@
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+snippet begin "Latex Environment" b
+\begin{${1:env}}
+  ${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+snippet example "Beamer Example Block" b
+\begin{example}{$1}
+  ${0:${VISUAL}}
+\end{example}
+endsnippet
+
+snippet alert "Beamer Alert Block" b
+\begin{alertblock}{$1}
+  ${0:${VISUAL}}
+\end{alertblock}
+endsnippet
+
+snippet block "Beamer Generic Block" b
+\begin{block}{$1}
+  ${0:${VISUAL}}
+\end{block}
+endsnippet
+snippet list "Code Listing Figure" b
+\begin{lstlisting}[caption={${1:caption}},label={lst:${2:label}},captionpos=${3:b}]
+$0
+\end{lstlisting}
+endsnippet
+
+
+snippet eq "Latex Equation" b
+\begin{equation}\label{eq:${1:label}e}
+  $2
+\end{equation}
+endsnippet
+
+snippet seq "Latex Subequation Wrapper"
+\begin{subequations}{\label{eq:${1:label}}}
+  $0
+\end{subequations}
+endsnippet 
+
+snippet math "Latex Math" b
+\[
+  ${0:${VISUAL}}
+\]
+endsnippet
+
+snippet imath "Latex inline math" i
+$${1:${VISUAL}}$
+endsnippet
+
+snippet frac "Latex Fractions"
+\frac{$1}{$2}
+endsnippet
+
+snippet fig "Latex Figure" b
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=0.${4:5}\textwidth]{./figures/${1:filename}}
+  \caption{\label{fig:${2:label}} ${3:caption}}
+\end{figure}
+endsnippet
+
+snippet ffig "Latex Subfigure Surround" b
+\begin{figure}
+  \centering
+  $3
+  \caption{\label{fig:${1:label}} ${2:caption}}
+\end{figure}
+endsnippet
+
+snippet sfig "Latex Subfigure" b
+\begin{subfigure}[b]{0.${1:3}\textwidth}
+  \centering
+  \includegraphics[width=0.${5:5}\textwidth]{./figures/${2:filename}}
+  \caption{\label{fig:${3:label}} ${4:caption}}
+\end{subfigure}
+endsnippet
+
+snippet graphic "Latex Graphic" b
+\includegraphics[width=0.${2:5}\textwidth]{./figures/${1:filename}}
+endsnippet
+
+snippet sec "Latex Section" b
+\section{${1:Section Title}}
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet sub "Latex Subsection" b
+\subsection{${1:Subsection Title}}
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet ssub "Latex Subsubection" b
+\subsubsection{${1:Subsubsection Title}}
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet todo "Todo Note" b
+\todo{$1}$0
+endsnippet
+
+snippet todoc "Todo Comment" w
+% TODO: $0
+endsnippet
+
+snippet frame "Beamer Frame" b
+\begin{frame}{${1:Title}}
+  ${0:${VISUAL}}
+\end{frame}
+endsnippet
+
+snippet bf "Bold"
+\textbf{${1:${VISUAL}}}$0
+endsnippet
+
+snippet ita "Italic"
+\textit{${1:${VISUAL}}}$0
+endsnippet
+
+snippet tt "Teletype"
+\texttt{${1:${VISUAL}}}$0
+endsnippet
+
+snippet ul "Underline"
+\underline{${1:${VISUAL}}}$0
+endsnippet
+
+
+snippet cite "Latex Citation"
+\cite{${1:key}}$0
+endsnippet
+
+snippet ref "Latex Reference"
+\ref{${1:label}}$0
+endsnippet
+
+snippet eqref "Latex Reference"
+\eqref{${1:label}}$0
+endsnippet
+
+snippet cframe "Beamer Two Column Frame" b
+\begin{frame}{${1:Title}}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+	  $2
+    \end{column}
+    \begin{column}{0.5\textwidth}
+	  $3
+    \end{column}
+  \end{columns}
+\end{frame}
+endsnippet
+
+snippet cols "columns" b
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    ${1:${VISUAL}}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    $2
+  \end{column}
+\end{columns}
+endsnippet
+
+snippet item "Latex Itemize" b
+\begin{itemize}
+  \item $1
+\end{itemize}
+endsnippet
+
+snippet enum "Latex Enumerate" b
+\begin{enumerate}
+  \item $1
+\end{enumerate}
+endsnippet
+
+snippet desc "Description" b
+\begin{description}
+\item[$1] $2
+\end{description}
+endsnippet
+
+snippet mat "matrix" w
+\begin{${1:p}matrix}
+  $0
+\end{$1matrix}
+endsnippet
+
+#### FASTMATH ####
+priority 101
+
+context "math()"
+snippet approx "Latex approx" A
+\approx$0
+endsnippet
+
+context "math()"
+snippet ... "Latex ldots" A
+\ldots$0
+endsnippet
+
+context "math()"
+snippet rho "Latex Rho" A
+\rho$0
+endsnippet
+
+context "math()"
+snippet alpha "Latex Alpha" A
+\alpha$0
+endsnippet
+
+context "math()"
+snippet beta "Latex beta" A
+\beta$0
+endsnippet
+
+context "math()"
+snippet sub "Math Subscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet to "Math superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet tau "Latex tau" A
+\tau$0
+endsnippet
+
+context "math()"
+snippet mu "Latex mu" A
+\mu$0
+endsnippet
+
+context "math()"
+snippet cdot "Latex cdot" A
+\cdot$0
+endsnippet
+
+context "math()"
+snippet times "Latex times" A
+\times$0
+endsnippet
+
+context "math()"
+snippet sum "Latex Sum" A
+\sum_{$1}^{$2}$0
+endsnippet
+
+context "math()"
+snippet bold "Math Bold" A
+\mathbf{$1}$0
+endsnippet
+
+context "math()"
+snippet text "Math Text" A
+\text{$1}$0
+endsnippet
+
+context "math()"
+snippet '(\\?\w+)(hat)' "Math Hat" wrA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet '(\\?\w+)(bat)' "Math Bar" wrA
+\overline{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet '(\\?\w+)(tilde)' "Math Tilde" wrA
+\tilde{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet hat "hat" wA
+\hat{$1}$0
+endsnippet
+
+context "math()"
+snippet bar "bar" wA
+\overline{$1}$0
+endsnippet
+
+context "math()"
+snippet tilde "tilde" wA
+\tilde{$1}$0
+endsnippet
+
+context "math()"
+snippet lp "Long parenthesis"
+\left(${1:${VISUAL:expression}}\right)$0
+endsnippet
