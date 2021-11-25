@@ -1,15 +1,15 @@
 set nocompatible
 
+lua << EOF
+require('packer').startup(function()
+    use 'altercation/vim-colors-solarized'
+  end)
+EOF
+
 " [COLORSCHEME] "
-try
-  let g:gruvbox_italic=1
-  let g:gruvbox_italicize_strings=1
-  let g:gruvbox_contrast_dark="hard"
-  let g:gruvbox_guisp_fallback="bg"
-  set background=dark
-  colorscheme gruvbox
-catch
-endtry
+syntax enable
+set background=dark
+colorscheme solarized
 
 " TIMEOUTS "
 set timeoutlen=600
@@ -33,9 +33,9 @@ set autoread
 let fortran_free_source=1
 
 " LOAD SPELLING DICT FOR COMPLETION "
-set spell
-set complete+=kspell
-set nospell
+"set spell
+"set complete+=kspell
+"set nospell
 
 " SEARCHING "
 set incsearch
@@ -44,19 +44,6 @@ set ignorecase
 set smartcase
 
 set nofoldenable
-
-hi nractive ctermbg=233
-hi nrinactive ctermbg=234
-"dim when leaving
-au winLeave * silent! setlocal winhighlight=LineNr:nrinactive
-au winLeave * silent! setlocal winhighlight=Normal:nrinactive
-au FocusLost * silent! setlocal winhighlight=LineNr:nrinactive
-au FocusLost * silent! setlocal winhighlight=Normal:nrinactive
-"brighten when entering
-au winEnter * silent! setlocal winhighlight=LineNr:nractive
-au winEnter * silent! setlocal winhighlight=Normal:nractive
-au FocusGained * silent! setlocal winhighlight=LineNr:nractive
-au FocusGained * silent! setlocal winhighlight=Normal:nractive
 
 nnoremap <Space> <C-f>
 
