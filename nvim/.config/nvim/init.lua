@@ -29,165 +29,23 @@ require("indent_blankline").setup {
     --char = "┊",
     show_trailing_blankline_indent = false,
     --show_first_indent_level = false,
-    buftype_exclude = {"terminal"}
+    buftype_exclude = {"terminal"},
+    filetype = {"python"}
 }
+
 require('nvim_comment').setup()
+
 require('nvim-autopairs').setup{}
+
 require'lualine'.setup{
     options={icons_enabled=false, theme='solarized'},
     sections={lualine_b={'branch','diff'}}
 }
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    highlight = {
-        enable = true,              -- false will disable the whole extension
-        disable = {"latex"},
-    },
-}
-require "nvim-treesitter.configs".setup {
-    playground = {
-        enable = true,
-        disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false, -- Whether the query persists across vim sessions
-        keybindings = {
-            toggle_query_editor = 'o',
-            toggle_hl_groups = 'i',
-            toggle_injected_languages = 't',
-            toggle_anonymous_nodes = 'a',
-            toggle_language_display = 'I',
-            focus_language = 'f',
-            unfocus_language = 'F',
-            update = 'R',
-            goto_node = '<cr>',
-            show_help = '?',
-        },
-    }
-}
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.texlab.setup{}
--- Setup nvim-cmp.
-local cmp = require("cmp")
-local has_any_words_before = function()
-    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-        return false
-    end
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
 
-local press = function(key)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
-end
 
-local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-local cmp = require'cmp'
+require('beromer/lsp')
+require('beromer/treesitter')
 
-cmp.setup( {
-    completion = {
-        completeopt = 'menu,menuone,noinsert,noselect'
-    },
-    snippet = {
-        expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body)
-        end,
-    },
-    mapping = {
-        ["<C-Space>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-                    return press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-                end
-
-                cmp.select_next_item()
-            elseif has_any_words_before() then
-                press("<Space>")
-            else
-                fallback()
-            end
-        end, {
-        "i",
-        "s",
-    }),
-    ["<Tab>"] = cmp.mapping({
-        i = function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-            elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-                --vim.api.nvim_feedkeys(t("<C-t>"), 'm', true)
-            else
-                fallback()
-            end
-        end,
-        s = function(fallback)
-            if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-            else
-                fallback()
-            end
-        end
-    }),
-    ["<S-Tab>"] = cmp.mapping({
-        i = function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-            elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-            else
-                fallback()
-            end
-        end,
-        s = function(fallback)
-            if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-            else
-                fallback()
-            end
-        end
-    }),
-    ['<C-n>'] = cmp.mapping({
-        i = function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-            else
-                fallback()
-            end
-        end
-    }),
-    ['<C-p>'] = cmp.mapping({
-        i = function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-            else
-                fallback()
-            end
-        end
-    }),
-    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i'}),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i'}),
-    ['<C-e>'] = cmp.mapping({ i = cmp.mapping.close()}),
-    ['<CR>'] = cmp.mapping({
-        i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
-    }),
-},
-sources = {
-    { name = 'nvim_lsp' },
-    { name = 'ultisnips' },
-    { name = 'buffer' },
-    { name = 'path' },
-    { name = 'spell' },
-}
-})
-
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-require'lspconfig'.clangd.setup {
-    capabilities = capabilities
-}
 vim.o.cursorline = true
 vim.o.compatible = false
 vim.o.title = true
@@ -197,24 +55,17 @@ vim.o.autowrite = true
 vim.o.showmode = false
 vim.o.showcmd = true
 vim.o.rnu = true
-vim.o.wildmenu = true
 vim.o.number = true
 vim.o.wrap = false
-vim.o.hidden = true
-vim.o.autoread = true
-vim.o.startofline = false
 vim.o.confirm = true
 vim.o.ttyfast = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.undofile = true
 vim.o.shiftround = true
-vim.o.incsearch = true
-vim.o.hlsearch = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.expandtab = true
-vim.o.autoindent = true
 vim.o.smartindent = true
 
 vim.o.completeopt='menu,menuone,noselect'
@@ -227,23 +78,20 @@ vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
 vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
 vim.g.UltiSnipsRemoveSelectModeMappings = 0
 vim.g.UltiSnipsEditSplit="horizontal"
-vim.o.encoding='utf-8'
 
 vim.o.fillchars = 'fold:≣,vert:│,diff:╳'
 vim.o.foldlevelstart=0
--- vim.o.foldmethod='indent'
 function _G.custom_fold_text()
     return string.format("[%d]",vim.v.foldend-vim.v.foldstart+1)
 end
 vim.o.foldtext = 'v:lua.custom_fold_text()'
--- vim.o.foldmethod='indent'
 vim.o.foldmethod='expr'
 vim.o.foldexpr='nvim_treesitter#foldexpr'
+-- use // vor c and cpp comments instead of /* */
 vim.cmd [[
 augroup set-commentstring-ag
 autocmd!
 autocmd BufEnter *.cpp,*.h :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
-" when you've changed the name of a file opened in a buffer, the file type may have changed
 autocmd BufFilePost *.cpp,*.h :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
 augroup END
 ]]
@@ -255,7 +103,6 @@ augroup END
 ]]
 
 vim.cmd[[colorscheme solarized]]
-vim.o.background='dark'
 
 vim.o.makeprg='ninja -C ../build'
 
@@ -263,100 +110,127 @@ vim.o.timeoutlen=750
 vim.o.ttimeoutlen=0
 vim.o.tabstop=4
 vim.o.shiftwidth=4
-vim.o.backspace='indent,eol,start'
 vim.o.so=3
 vim.o.mouse='a'
-vim.o.laststatus=2
 vim.o.listchars=vim.o.listchars..",extends:,precedes:,trail:█"
 vim.o.shortmess='IcF'
 vim.o.clipboard='unnamed'
 vim.o.backupcopy='yes'
 vim.o.titlestring="%t %M"
 vim.cmd[[autocmd vimenter * wincmd l]]
-vim.cmd[[
-let &t_SI="\<Esc>[5 q"
-if v:version > 704
-let &t_SR="\<Esc>[3 q"
-endif
-let &t_EI="\<Esc>[2 q"
-]]
+-- vim.cmd[[
+-- let &t_SI="\<Esc>[5 q"
+-- if v:version > 704
+-- let &t_SR="\<Esc>[3 q"
+-- endif
+-- let &t_EI="\<Esc>[2 q"
+-- ]]
 vim.g.fortran_free_source=1
 vim.g.fortran_do_enddo=1
-vim.cmd[[
-syntax on
-filetype plugin indent on
-]]
+vim.g.syntax='on'
 vim.g.netrw_altv=1
 vim.g.netrw_browse_split=4
 vim.g.netrw_liststyle=3
 vim.g.netrw_fastbrowse=0
 vim.g.netrw_sort_by='exten'
 vim.o.viewoptions='cursor,folds'
-vim.cmd[[
-autocmd BufWinLeave * silent! mkview | filetype detect
-autocmd BufWinEnter * silent! loadview | filetype detect
-autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
-autocmd FileType cpp setlocal expandtab shiftwidth=2 tabstop=2
-autocmd FileType fortran setlocal expandtab shiftwidth=2 tabstop=2
-autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 list
-autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 nofoldenable
-autocmd FileType zsh setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 foldignore=
-autocmd FileType git setlocal expandtab shiftwidth=4 tabstop=4 foldignore= spell complete+=kspell
-autocmd FileType mail setlocal textwidth=0 nofoldenable spell complete+=kspell
-autocmd FileType text setlocal spell wrap linebreak tw=0 showbreak=… complete+=kspell
-autocmd FileType tex setlocal textwidth=80 expandtab shiftwidth=4 tabstop=4 spell
-autocmd FileType rst setlocal textwidth=80 expandtab shiftwidth=4 tabstop=4 foldignore= spell complete+=kspell
-]]
+local function auft(name,opts)
+    vim.cmd('autocmd FileType '..name..' setlocal '..opts)
+end
+vim.cmd('autocmd BufWinLeave * silent! mkview | filetype detect')
+vim.cmd('autocmd BufWinEnter * silent! loadview | filetype detect')
+auft('fortran','et sw=2 ts=2')
+auft('python', 'et sw=4 ts=4 list')
+auft('make','noet sw=8 sts=0')
+auft('cpp', 'et sw=2 ts=2')
+auft('vim', 'et sw=2 ts=2 sts=2 nofen')
+auft('zsh', 'et sw=2 ts=2 sts=2 fdi=')
+auft('git', 'et sw=4 ts=4 fdi= spell cpt+=kspell')
+auft('mail','tw=0 nofen spell cpt+=kspell')
+auft('text','spell wrap lbr tw=0 sbr=… cpt+=kspell')
+auft('tex', 'tw=80 et sw=4 ts=4 spell')
+auft('rst',' tw=80 et sw=4 ts=4 fdi= spell cpt+=kspell')
+
 vim.highlight.create('SignColumn',{ctermbg='NONE'},false)
 vim.highlight.create('Folded',{cterm='bold',ctermbg='NONE'},false)
 
-
+local function mapd(mode,cmd,exec,opts)
+    opts = opts or {noremap=true, silent=true}
+    vim.api.nvim_set_keymap(mode,cmd,exec,opts)
+end
 vim.g.mapleader=","
-vim.api.nvim_set_keymap('','Y','y$', {noremap=false,silent=false})
-vim.api.nvim_set_keymap('i','{<CR>','{<CR>}<ESC>O',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','Q','<nop>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','q:','<nop>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('v',"<Leader>'","s''<esc>P",{noremap=true,silent=true})
-vim.api.nvim_set_keymap('v','<Leader>"','s""<esc>P',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','gD',':lua vim.lsp.buf.declaration()<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','gd',':lua vim.lsp.buf.definition()<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('','<C-h>','<C-w>h',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('','<C-j>','<C-w>j',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('','<C-k>','<C-w>k',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('','<C-l>','<C-w>l',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','n','nzzzv',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','N','Nzzzv',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Space>','<C-f>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Tab>',':bn<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<S-Tab>',':bp<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>v',':e $MYVIMRC<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>r',':so $MYVIMRC<CR>',{noremap=true,silent=false})
-vim.api.nvim_set_keymap('n','<Leader>q',':bd<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>;','A;<ESC>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>w',':w<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>m',':make<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>ue',':UltiSnipsEdit<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>o',':Telescope find_files<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>b',':Telescope buffers<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>f',':Telescope live_grep<CR>',{noremap=true,silent=true})
+mapd('i', '{<CR>',   '{<CR>}<ESC>O')
+mapd('n', 'Q',       '<nop>')
+mapd('n', 'q:',      '<nop>')
+mapd('n', 'gD',      ':lua vim.lsp.buf.declaration()<CR>')
+mapd('n', 'gd',      ':lua vim.lsp.buf.definition()<CR>')
 
-vim.api.nvim_set_keymap('n','<Leader>gg',':Git<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>gl',':Gclog<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>pu',':G push<Space>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>gs',':GitGutterStageHunk<CR>"',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>gu',':GitGutterUndoHunk<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>gn',':GitGutterNextHunk<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>gp',':GitGutterPrevHunk<CR>',{noremap=true,silent=true})
+-- center selected search term
+mapd('n', 'n',       'nzzzv')
+mapd('n', 'N',       'Nzzzv')
 
-vim.api.nvim_set_keymap('n','<Leader>co',':copen<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>cq',':ccl<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>cn',':cnext<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>cp',':cprev<CR>',{noremap=true,silent=true})
+-- navigation
+mapd('n', '<Space>', '<C-f>')
+mapd('n', '<Tab>',   ':bn<CR>')
+mapd('n', '<S-Tab>', ':bp<CR>')
+mapd('',  '<C-h>',   '<C-w>h')
+mapd('',  '<C-j>',   '<C-w>j')
+mapd('',  '<C-k>',   '<C-w>k')
+mapd('',  '<C-l>',   '<C-w>l')
 
-vim.api.nvim_set_keymap('n','<Leader>lo',':lopen<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>lq',':lcl<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>ln',':lnext<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>lp',':lprev<CR>',{noremap=true,silent=true})
+mapd('n', '<Leader>v', ':e $MYVIMRC<CR>')
+-- mapd('n', '<Leader>r', ':so $MYVIMRC<CR>')
+mapd('n', '<Leader>r', ':so $MYVIMRC<CR>')
+mapd('n', '<Leader>q', ':bd<CR>')
+mapd('n', '<Leader>;', 'A;<ESC>')
+mapd('n', '<Leader>m', ':make<CR>')
+mapd('n', '<Leader>w', ':w<CR>')
 
-vim.api.nvim_set_keymap('n','<Leader>tc',':VimtexCountWords<CR>',{noremap=true,silent=true})
-vim.api.nvim_set_keymap('n','<Leader>to',':VimtexTocToggle<CR>',{noremap=true,silent=true})
+-- surroung visual text with ' or "
+mapd('v', "<Leader>'", "s''<esc>P")
+mapd('v', '<Leader>"', 's""<esc>P')
+
+-- ultisnips
+mapd('n','<Leader>ue',':UltiSnipsEdit<CR>')
+
+-- tscope
+mapd('n','<Leader>o',':Telescope find_files<CR>')
+mapd('n','<Leader>b',':Telescope buffers<CR>')
+mapd('n','<Leader>f',':Telescope live_grep<CR>')
+
+-- indent blankline
+mapd('n','<Leader>il',':IndentBlanklineToggle<CR>')
+mapd('n','<Leader>ir',':IndentBlanklineRefresh<CR>')
+
+-- fugitive and gitgutter
+mapd('n','<Leader>gg',':Git<CR>')
+mapd('n','<Leader>gl',':Gclog<CR>')
+mapd('n','<Leader>pu',':G push<Space>')
+mapd('n','<Leader>gs',':GitGutterStageHunk<CR>"')
+mapd('n','<Leader>gu',':GitGutterUndoHunk<CR>')
+mapd('n','<Leader>gn',':GitGutterNextHunk<CR>')
+mapd('n','<Leader>gp',':GitGutterPrevHunk<CR>')
+
+-- quick fix list
+mapd('n','<Leader>co',':copen<CR>')
+mapd('n','<Leader>cq',':ccl<CR>')
+mapd('n','<Leader>cn',':cnext<CR>')
+mapd('n','<Leader>cp',':cprev<CR>')
+
+-- local list
+mapd('n','<Leader>lo',':lopen<CR>')
+mapd('n','<Leader>lq',':lcl<CR>')
+mapd('n','<Leader>ln',':lnext<CR>')
+mapd('n','<Leader>lp',':lprev<CR>')
+
+-- vimtex
+mapd('n','<Leader>to',':VimtexTocToggle<CR>')
+mapd('n','<Leader>tc',':VimtexCountWords<CR>')
+
+-- in visual mode, swap line up or down
+mapd('v','J',":m '>+1<CR>gv=gv")
+mapd('v','K',":m '<-2<CR>gv=gv")
+
+-- add numbered movements to jumplist
+vim.cmd([[nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k']])
+vim.cmd([[nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j']])
