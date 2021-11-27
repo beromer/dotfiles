@@ -1,4 +1,4 @@
-require('packer').startup(function()
+require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     use 'terrortylor/nvim-comment'
     use 'lukas-reineke/indent-blankline.nvim'
@@ -20,9 +20,16 @@ require('packer').startup(function()
     use 'quangnguyen30192/cmp-nvim-ultisnips'
     use 'tpope/vim-fugitive'
     use 'airblade/vim-gitgutter'
-    use 'altercation/vim-colors-solarized'
+    use 'beromer/solarized.nvim'
     use 'hoob3rt/lualine.nvim'
 end)
+
+local color_scheme = require('solarized')
+color_scheme.load{
+    theme = 'dark',
+    italic_comments = true,
+    italic_strings = true
+}
 
 require("indent_blankline").setup {
     char = "|",
@@ -38,8 +45,22 @@ require('nvim_comment').setup()
 require('nvim-autopairs').setup{}
 
 require'lualine'.setup{
-    options={icons_enabled=false, theme='solarized'},
-    sections={lualine_b={'branch','diff'}}
+    options={icons_enabled=true, theme='solarized'},
+    sections={
+        -- lualine_b = {'branch'},--,{'diff',colored = false}}
+        lualine_b = {'branch'},--,{'diff',colored = false}}
+        lualine_z = {},
+        lualine_x = {'filetype'},
+        lualine_y = {'location'},
+    },
+    inactive_sections = {
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {},
+        lualine_y = {'progress'},
+        lualine_z = {}
+    },
+    extensions = {'fugitive'}
 }
 
 
@@ -72,7 +93,7 @@ vim.o.completeopt='menu,menuone,noselect'
 vim.g.vimtex_view_method='zathura'
 vim.o.conceallevel = 0
 
-vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'      
+vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
 vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
 vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
 vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
@@ -101,8 +122,6 @@ autocmd!
 au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=700 }
 augroup END
 ]]
-
-vim.cmd[[colorscheme solarized]]
 
 vim.o.makeprg='ninja -C ../build'
 
