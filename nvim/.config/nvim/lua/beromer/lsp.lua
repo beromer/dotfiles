@@ -1,6 +1,24 @@
 
-require('lspconfig').pyright.setup{}
-require('lspconfig').texlab.setup{}
+local lspconfig = require('lspconfig')
+
+lspconfig.pyright.setup{}
+lspconfig.texlab.setup{}
+-- lspconfig.lua.setup{}
+lspconfig.sumneko_lua.setup{
+	cmd = { 'lua-language-server' , "-E", "/Users/beromer/.local/share/lua-language-server/main.lua"},
+	settings = {
+		Lua = {
+			diagnostics = {
+                -- recognize certain globals
+				globals = { 'vim', 'fiesta'}
+			},
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
+            }
+		}
+	},
+}
 
 -- Setup nvim-cmp.
 local cmp = require('cmp')
