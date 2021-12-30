@@ -2,14 +2,15 @@ set nocompatible
 
 lua << EOF
 require('packer').startup(function()
-    use 'altercation/vim-colors-solarized'
+    use 'beromer/solarized.nvim'
   end)
+local color_scheme = require('solarized')
+color_scheme.load{
+    theme = 'dark',
+    italic_comments = true,
+    italic_strings = true
+}
 EOF
-
-" [COLORSCHEME] "
-syntax enable
-set background=dark
-colorscheme solarized
 
 " TIMEOUTS "
 set timeoutlen=600

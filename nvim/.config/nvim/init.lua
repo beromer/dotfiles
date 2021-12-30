@@ -1,3 +1,8 @@
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     use 'terrortylor/nvim-comment'
@@ -22,14 +27,35 @@ require('packer').startup(function(use)
     use 'airblade/vim-gitgutter'
     use 'beromer/solarized.nvim'
     use 'hoob3rt/lualine.nvim'
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
 
 local color_scheme = require('solarized')
+local stheme = os.getenv("ITERM_PROFILE")=="Light" and "light" or "dark"
 color_scheme.load{
-    theme = 'dark',
+    theme = stheme,
     italic_comments = true,
     italic_strings = true
 }
+
+require('telescope').setup{
+    defaults = {
+        file_ignore_patterns = {".git"},
+        path_display = {"truncate"},
+    }
+}
+
+_G.search_dotfiles = function()
+    require("telescope.builtin").find_files({
+        prompt_title = "< VimRC >",
+        cwd = '~',
+        search_dirs = {'~/.local/share/nvim/site/pack/packer/','~/.config/','~/dotfiles'},
+        hidden = true,
+        follow = true,
+    })
+end
 
 require("indent_blankline").setup {
     char = "|",
@@ -106,8 +132,10 @@ function _G.custom_fold_text()
     return string.format("[%d]",vim.v.foldend-vim.v.foldstart+1)
 end
 vim.o.foldtext = 'v:lua.custom_fold_text()'
-vim.o.foldmethod='expr'
-vim.o.foldexpr='nvim_treesitter#foldexpr'
+vim.o.foldmethod='indent'
+-- vim.o.foldmethod='expr'
+-- vim.o.foldexpr='nvim_treesitter#foldexpr'
+
 -- use // vor c and cpp comments instead of /* */
 vim.cmd [[
 augroup set-commentstring-ag
@@ -197,7 +225,7 @@ mapd('',  '<C-j>',   '<C-w>j')
 mapd('',  '<C-k>',   '<C-w>k')
 mapd('',  '<C-l>',   '<C-w>l')
 
-mapd('n', '<Leader>v', ':e $MYVIMRC<CR>')
+-- mapd('n', '<Leader>v', ':e $MYVIMRC<CR>')
 -- mapd('n', '<Leader>r', ':so $MYVIMRC<CR>')
 mapd('n', '<Leader>r', ':so $MYVIMRC<CR>')
 mapd('n', '<Leader>q', ':bd<CR>')
@@ -216,6 +244,7 @@ mapd('n','<Leader>ue',':UltiSnipsEdit<CR>')
 mapd('n','<Leader>o',':Telescope find_files<CR>')
 mapd('n','<Leader>b',':Telescope buffers<CR>')
 mapd('n','<Leader>f',':Telescope live_grep<CR>')
+mapd('n','<Leader>v',':lua search_dotfiles()<CR>')
 
 -- indent blankline
 mapd('n','<Leader>il',':IndentBlanklineToggle<CR>')

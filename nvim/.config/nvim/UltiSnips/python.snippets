@@ -3,3 +3,19 @@ import logging as log
 
 log.basicConfig(format='[%(asctime)s] %(levelname)s: %(message)s',level=log.INFO)
 endsnippet
+
+snippet linfo "Log Info" w
+log.info(f"$1")$0
+endsnippet
+
+snippet lwarn "Log Info" w
+log.warning(f"$1")$0
+endsnippet
+
+snippet lerror "Log Info" w
+log.error(f"$1")$0
+endsnippet
+
+snippet ldebug "Log Info" w
+log.debug(f"$1")$0
+endsnippet

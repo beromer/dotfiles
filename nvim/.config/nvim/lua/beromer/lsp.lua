@@ -66,6 +66,7 @@ cmp.setup( {
                 if cmp.visible() then
                     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
                 elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                -- if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
                     vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
                     --vim.api.nvim_feedkeys(t("<C-t>"), 'm', true)
                 else
@@ -85,6 +86,7 @@ cmp.setup( {
                 if cmp.visible() then
                     cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
                 elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+                -- if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
                     return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
                 else
                     fallback()

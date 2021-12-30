@@ -3,6 +3,19 @@ def math():
 	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 endglobal
 
+snippet table "Captioned table" b
+\begin{table}
+  \centering
+  \begin{tabular}{c|c|c}
+      label & label & label \\
+      \hline
+      1 & 1 & 1$0
+  \end{tabular}
+  \caption{This is a table.}
+  \label{table:label}
+\end{table}
+endsnippet
+
 snippet begin "Latex Environment" b
 \begin{${1:env}}
   ${0:${VISUAL}}
@@ -34,9 +47,9 @@ endsnippet
 
 
 snippet eq "Latex Equation" b
-\begin{equation}\label{eq:${1:label}e}
+\begin{equation}\label{eq:${1:label}}
   $2
-\end{equation}
+\end{equation}$0
 endsnippet
 
 snippet seq "Latex Subequation Wrapper"
@@ -51,8 +64,8 @@ snippet math "Latex Math" b
 \]
 endsnippet
 
-snippet imath "Latex inline math" i
-$${1:${VISUAL}}$
+snippet imath "Latex inline math" wA
+$ ${1:${VISUAL}}$$0
 endsnippet
 
 snippet frac "Latex Fractions"
@@ -62,7 +75,7 @@ endsnippet
 snippet fig "Latex Figure" b
 \begin{figure}[hbt!]
   \centering
-  \includegraphics[width=0.${4:5}\textwidth]{./figures/${1:filename}}
+  \includegraphics[width=${4:1.0}\textwidth]{./figures/${1:filename}}
   \caption{\label{fig:${2:label}} ${3:caption}}
 \end{figure}
 endsnippet
@@ -70,7 +83,7 @@ endsnippet
 snippet ffig "Latex Subfigure Surround" b
 \begin{figure}
   \centering
-  $3
+  $0
   \caption{\label{fig:${1:label}} ${2:caption}}
 \end{figure}
 endsnippet
@@ -148,7 +161,7 @@ snippet ref "Latex Reference"
 endsnippet
 
 snippet eqref "Latex Reference"
-\eqref{${1:label}}$0
+\eqref{eq:${1:label}}$0
 endsnippet
 
 snippet cframe "Beamer Two Column Frame" b
@@ -238,8 +251,18 @@ snippet to "Math superscript" iA
 endsnippet
 
 context "math()"
+snippet pi "Latex pi" A
+\pi$0
+endsnippet
+
+context "math()"
 snippet tau "Latex tau" A
 \tau$0
+endsnippet
+
+context "math()"
+snippet theta "Latex theta" A
+\theta$0
 endsnippet
 
 context "math()"
@@ -305,4 +328,9 @@ endsnippet
 context "math()"
 snippet lp "Long parenthesis"
 \left(${1:${VISUAL:expression}}\right)$0
+endsnippet
+
+context "math()"
+snippet deg "Degree symbol" wA
+\degree$0
 endsnippet
