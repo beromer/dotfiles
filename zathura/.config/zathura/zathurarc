@@ -40,3 +40,5 @@ set recolor-lightcolor          "#002b36" # base02
 set recolor-darkcolor           "#93a1a1" # base1
 # set recolor-keephue             true      # keep original color
 map <C-i> recolor
+set scroll-step 1
+set scroll-hstep 1

@@ -151,8 +151,9 @@ au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeo
 augroup END
 ]]
 
-vim.o.makeprg='ninja -C ../build'
+vim.o.makeprg='ninja -C ../build install'
 
+vim.o.updatetime=100
 vim.o.timeoutlen=750
 vim.o.ttimeoutlen=0
 vim.o.tabstop=4
@@ -202,15 +203,25 @@ vim.highlight.create('SignColumn',{ctermbg='NONE'},false)
 vim.highlight.create('Folded',{cterm='bold',ctermbg='NONE'},false)
 
 local function mapd(mode,cmd,exec,opts)
-    opts = opts or {noremap=true, silent=true}
+    opts = opts or {noremap=true, silent=false}
     vim.api.nvim_set_keymap(mode,cmd,exec,opts)
 end
 vim.g.mapleader=","
 mapd('i', '{<CR>',   '{<CR>}<ESC>O')
 mapd('n', 'Q',       '<nop>')
 mapd('n', 'q:',      '<nop>')
-mapd('n', 'gD',      ':lua vim.lsp.buf.declaration()<CR>')
-mapd('n', 'gd',      ':lua vim.lsp.buf.definition()<CR>')
+
+-- lsp
+mapd('n', '<leader>gD',      ':lua vim.lsp.buf.declaration()<CR>')
+mapd('n', '<leader>gd',      ':lua vim.lsp.buf.definition()<CR>')
+mapd('n', '<leader>gi',      ':lua vim.lsp.buf.implementation()<CR>')
+mapd('n', '<leader>en',      ':lua vim.diagnostic.goto_next()<CR>')
+mapd('n', '<leader>ep',      ':lua vim.diagnostic.goto_prev()<CR>')
+mapd('n', '<leader>eu',      ':lua vim.lsp.buf.references()<CR>')
+mapd('n', '<leader>er',      ':lua vim.lsp.buf.rename()<CR>')
+mapd('n', '<leader>es',      ':lua vim.lsp.buf.signature_help()<CR>')
+mapd('n', '<leader>ee',      ':lua vim.diagnostic.open_float()<CR>')
+mapd('n', 'K',      ':lua vim.lsp.buf.hover()<CR>')
 
 -- center selected search term
 mapd('n', 'n',       'nzzzv')
