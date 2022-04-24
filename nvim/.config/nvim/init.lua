@@ -21,6 +21,7 @@ require('packer').startup(function(use)
     use 'f3fora/cmp-spell'
     use 'ggandor/lightspeed.nvim'
     use 'windwp/nvim-autopairs'
+    use 'ur4ltz/surround.nvim'
     use 'sirver/ultisnips'
     use 'quangnguyen30192/cmp-nvim-ultisnips'
     use 'tpope/vim-fugitive'
@@ -69,6 +70,10 @@ require("indent_blankline").setup {
 require('nvim_comment').setup()
 
 require('nvim-autopairs').setup{}
+require("surround").setup{
+    mapping_style = "sandwich",
+    prefix = "o"
+}
 
 require'lualine'.setup{
     options={icons_enabled=true, theme='solarized'},
@@ -93,6 +98,7 @@ require'lualine'.setup{
 require('beromer/lsp')
 require('beromer/treesitter')
 
+vim.o.laststatus = 3
 vim.o.cursorline = true
 vim.o.compatible = false
 vim.o.title = true
@@ -245,8 +251,8 @@ mapd('n', '<Leader>m', ':make<CR>')
 mapd('n', '<Leader>w', ':w<CR>')
 
 -- surroung visual text with ' or "
-mapd('v', "<Leader>'", "s''<esc>P")
-mapd('v', '<Leader>"', 's""<esc>P')
+-- mapd('v', "<Leader>'", "s''<esc>P")
+-- mapd('v', '<Leader>"', 's""<esc>P')
 
 -- ultisnips
 mapd('n','<Leader>ue',':UltiSnipsEdit<CR>')
