@@ -28,6 +28,7 @@ require('packer').startup(function(use)
     use 'airblade/vim-gitgutter'
     use 'beromer/solarized.nvim'
     use 'hoob3rt/lualine.nvim'
+    use 'ellisonleao/gruvbox.nvim'
     if packer_bootstrap then
         require('packer').sync()
     end
@@ -40,6 +41,10 @@ color_scheme.load{
     italic_comments = true,
     italic_strings = true
 }
+
+-- vim.opt.background = "dark"
+-- vim.cmd([[colorscheme gruvbox]])
+-- vim.g.gruvbox_transparent_bg = 1
 
 require('telescope').setup{
     defaults = {
