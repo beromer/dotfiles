@@ -18,7 +18,7 @@ lspconfig.pyright.setup{}
 lspconfig.texlab.setup{}
 -- lspconfig.lua.setup{}
 lspconfig.sumneko_lua.setup{
-	cmd = { 'lua-language-server' , "-E", "/Users/beromer/.local/share/lua-language-server/main.lua"},
+	cmd = {vim.fn.stdpath("data").."/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"},
 	settings = {
 		Lua = {
 			diagnostics = {

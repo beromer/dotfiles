@@ -21,28 +21,36 @@ require('packer').startup(function(use)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/nvim-cmp'
     use 'f3fora/cmp-spell'
-    use 'ggandor/lightspeed.nvim'
     use 'windwp/nvim-autopairs'
-    use 'ur4ltz/surround.nvim'
     use 'sirver/ultisnips'
     use 'quangnguyen30192/cmp-nvim-ultisnips'
     use 'tpope/vim-fugitive'
     use 'airblade/vim-gitgutter'
     use 'beromer/solarized.nvim'
     use 'hoob3rt/lualine.nvim'
-    use 'ellisonleao/gruvbox.nvim'
-    use 'tanvirtin/monokai.nvim'
     use 'kyazdani42/nvim-web-devicons'
     use 'kyazdani42/nvim-tree.lua'
+    use 'williamboman/nvim-lsp-installer'
+    use 'nvim-treesitter/nvim-treesitter-context'
     if packer_bootstrap then
         require('packer').sync()
     end
 end)
 
--- require('monokai').setup {}
--- require('monokai').setup {
---     palette = require('monokai').pro
--- }
+require("treesitter-context").setup{
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+    zindex = 20, -- The Z-index of the context window
+    mode = 'topline',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+    -- Separator between context and content. Should be a single character string, like '-'.
+    -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+    -- separator = '═',
+    -- separator = '─',
+    -- separator = '-',
+    separator = nil,
+}
 
 local color_scheme = require('solarized')
 local stheme = os.getenv("ITERM_PROFILE")=="Light" and "light" or "dark"
@@ -51,11 +59,6 @@ color_scheme.load{
     italic_comments = true,
     italic_strings = true
 }
-
--- vim.opt.background = "dark"
--- vim.cmd([[colorscheme gruvbox]])
--- vim.g.gruvbox_transparent_bg = 1
--- vim.g.gruvbox_contrast_dark = 'hard'
 
 require('telescope').setup{
     defaults = {
@@ -68,7 +71,7 @@ _G.search_dotfiles = function()
     require("telescope.builtin").find_files({
         prompt_title = "< VimRC >",
         cwd = '~',
-        search_dirs = {'~/.local/share/nvim/site/pack/packer/','~/.config/','~/dotfiles'},
+        search_dirs = {vim.fn.stdpath('config')},
         hidden = true,
         follow = true,
     })
@@ -86,10 +89,6 @@ require("indent_blankline").setup {
 require('nvim_comment').setup()
 
 require('nvim-autopairs').setup{}
-require("surround").setup{
-    mapping_style = "sandwich",
-    prefix = "o"
-}
 
 require'lualine'.setup{
     options={icons_enabled=true, theme='solarized'},
@@ -116,6 +115,7 @@ require('beromer/treesitter')
 require('beromer/nvimtree')
 
 vim.o.laststatus = 3
+vim.o.winbar='%=%m %t'
 vim.o.cursorline = true
 vim.o.compatible = false
 vim.o.title = true
@@ -222,8 +222,10 @@ auft('text','spell wrap lbr tw=0 sbr=… cpt+=kspell')
 auft('tex', 'tw=80 et sw=4 ts=4 spell')
 auft('rst',' tw=80 et sw=4 ts=4 fdi= spell cpt+=kspell')
 
-vim.highlight.create('SignColumn',{ctermbg='NONE'},false)
-vim.highlight.create('Folded',{cterm='bold',ctermbg='NONE'},false)
+-- vim.highlight.create('SignColumn',{ctermbg='NONE'},false)
+-- vim.highlight.create('Folded',{cterm='bold',ctermbg='NONE'},false)
+-- vim.api.nvim_set_hl(0,'SignColumn',{bg='NONE'})
+-- vim.api.nvim_set_hl(0,'Folded',{bold=true,bg='NONE'})
 
 local function mapd(mode,cmd,exec,opts)
     opts = opts or {noremap=true, silent=false}
