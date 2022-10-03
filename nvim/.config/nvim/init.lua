@@ -1,3 +1,5 @@
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -29,10 +31,18 @@ require('packer').startup(function(use)
     use 'beromer/solarized.nvim'
     use 'hoob3rt/lualine.nvim'
     use 'ellisonleao/gruvbox.nvim'
+    use 'tanvirtin/monokai.nvim'
+    use 'kyazdani42/nvim-web-devicons'
+    use 'kyazdani42/nvim-tree.lua'
     if packer_bootstrap then
         require('packer').sync()
     end
 end)
+
+-- require('monokai').setup {}
+-- require('monokai').setup {
+--     palette = require('monokai').pro
+-- }
 
 local color_scheme = require('solarized')
 local stheme = os.getenv("ITERM_PROFILE")=="Light" and "light" or "dark"
@@ -45,6 +55,7 @@ color_scheme.load{
 -- vim.opt.background = "dark"
 -- vim.cmd([[colorscheme gruvbox]])
 -- vim.g.gruvbox_transparent_bg = 1
+-- vim.g.gruvbox_contrast_dark = 'hard'
 
 require('telescope').setup{
     defaults = {
@@ -102,6 +113,7 @@ require'lualine'.setup{
 
 require('beromer/lsp')
 require('beromer/treesitter')
+require('beromer/nvimtree')
 
 vim.o.laststatus = 3
 vim.o.cursorline = true
@@ -234,6 +246,8 @@ mapd('n', '<leader>es',      ':lua vim.lsp.buf.signature_help()<CR>')
 mapd('n', '<leader>ee',      ':lua vim.diagnostic.open_float()<CR>')
 mapd('n', 'K',      ':lua vim.lsp.buf.hover()<CR>')
 
+mapd('n', '<leader>et',     ':NvimTreeToggle<CR>')
+
 -- center selected search term
 mapd('n', 'n',       'nzzzv')
 mapd('n', 'N',       'Nzzzv')
@@ -275,11 +289,11 @@ mapd('n','<Leader>ir',':IndentBlanklineRefresh<CR>')
 -- fugitive and gitgutter
 mapd('n','<Leader>gg',':Git<CR>')
 mapd('n','<Leader>gl',':Gclog<CR>')
-mapd('n','<Leader>pu',':G push<Space>')
-mapd('n','<Leader>gs',':GitGutterStageHunk<CR>"')
-mapd('n','<Leader>gu',':GitGutterUndoHunk<CR>')
-mapd('n','<Leader>gn',':GitGutterNextHunk<CR>')
-mapd('n','<Leader>gp',':GitGutterPrevHunk<CR>')
+mapd('n','<Leader>gp',':G push<Space>')
+mapd('n','<Leader>hs',':GitGutterStageHunk<CR>"')
+mapd('n','<Leader>hu',':GitGutterUndoHunk<CR>')
+mapd('n','<Leader>hn',':GitGutterNextHunk<CR>')
+mapd('n','<Leader>hp',':GitGutterPrevHunk<CR>')
 
 -- quick fix list
 mapd('n','<Leader>co',':copen<CR>')
@@ -297,9 +311,9 @@ mapd('n','<Leader>lp',':lprev<CR>')
 mapd('n','<Leader>to',':VimtexTocToggle<CR>')
 mapd('n','<Leader>tc',':VimtexCountWords<CR>')
 
--- in visual mode, swap line up or down
-mapd('v','J',":m '>+1<CR>gv=gv")
-mapd('v','K',":m '<-2<CR>gv=gv")
+-- in visual mode, swap line up or down <- interferes with multiple line joine
+-- mapd('v','J',":m '>+1<CR>gv=gv")
+-- mapd('v','K',":m '<-2<CR>gv=gv")
 
 -- add numbered movements to jumplist
 vim.cmd([[nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k']])

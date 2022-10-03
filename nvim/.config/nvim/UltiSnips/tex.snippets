@@ -107,14 +107,14 @@ snippet sec "Latex Section" b
 $0
 endsnippet
 
-snippet sub "Latex Subsection" b
+snippet subsec "Latex Subsection" b
 \subsection{${1:Subsection Title}}
 \label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 
 $0
 endsnippet
 
-snippet ssub "Latex Subsubection" b
+snippet ssubsec "Latex Subsubection" b
 \subsubsection{${1:Subsubsection Title}}
 \label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 
