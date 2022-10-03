@@ -23,7 +23,7 @@ lspconfig.sumneko_lua.setup{
 		Lua = {
 			diagnostics = {
                 -- recognize certain globals
-				globals = { 'vim', 'fiesta'}
+				globals = { 'vim', 'fiesta', 'fury'}
 			},
             workspace = {
                 -- Make the server aware of Neovim runtime files
