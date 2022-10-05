@@ -150,7 +150,7 @@ vim.g.UltiSnipsRemoveSelectModeMappings = 0
 vim.g.UltiSnipsEditSplit="horizontal"
 
 vim.o.fillchars = 'fold:≣,vert:│,diff:╳'
-vim.o.foldlevelstart=0
+vim.o.foldlevelstart=100
 function _G.custom_fold_text()
     return string.format("[%d]",vim.v.foldend-vim.v.foldstart+1)
 end
@@ -159,14 +159,6 @@ vim.o.foldmethod='indent'
 -- vim.o.foldmethod='expr'
 -- vim.o.foldexpr='nvim_treesitter#foldexpr'
 
--- use // vor c and cpp comments instead of /* */
-vim.cmd [[
-augroup set-commentstring-ag
-autocmd!
-autocmd BufEnter *.cpp,*.h :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
-autocmd BufFilePost *.cpp,*.h :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
-augroup END
-]]
 vim.cmd [[
 augroup highlight_yank
 autocmd!
@@ -189,6 +181,7 @@ vim.o.clipboard='unnamed'
 vim.o.backupcopy='yes'
 vim.o.titlestring="%t %M"
 vim.cmd[[autocmd vimenter * wincmd l]]
+-- vim.cmd[[autocmd User TelescopePreviewerLoaded setlocal foldlevel=100]]
 -- vim.cmd[[
 -- let &t_SI="\<Esc>[5 q"
 -- if v:version > 704
@@ -320,3 +313,12 @@ mapd('n','<Leader>tc',':VimtexCountWords<CR>')
 -- add numbered movements to jumplist
 vim.cmd([[nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k']])
 vim.cmd([[nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j']])
+
+-- use // vor c and cpp comments instead of /* */
+vim.cmd [[
+augroup set-commentstring-ag
+autocmd!
+autocmd BufEnter *.cpp,*.hpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
+autocmd BufFilePost *.cpp,*.hpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
+augroup END
+]]
