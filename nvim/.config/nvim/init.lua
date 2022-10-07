@@ -316,9 +316,18 @@ vim.cmd([[nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j']])
 
 -- use // vor c and cpp comments instead of /* */
 vim.cmd [[
-augroup set-commentstring-ag
-autocmd!
-autocmd BufEnter *.cpp,*.hpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
-autocmd BufFilePost *.cpp,*.hpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
-augroup END
+autocmd FileType cpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
 ]]
+-- vim.cmd [[
+-- autocmd BufEnter *.cpp,*.hpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
+-- ]]
+-- vim.cmd [[
+-- autocmd BufFilePost *.cpp,*.hpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
+-- ]]
+-- vim.cmd [[
+-- augroup set-commentstring-ag
+-- autocmd!
+-- autocmd BufEnter *.cpp,*.hpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
+-- autocmd BufFilePost *.cpp,*.hpp :lua vim.api.nvim_buf_set_option(0, "commentstring", "//%s")
+-- augroup END
+-- ]]
