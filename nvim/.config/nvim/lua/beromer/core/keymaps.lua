@@ -11,6 +11,8 @@ kmap('n', 'Q',       '<nop>')
 kmap('n', 'q:',      '<nop>')
 kmap('i', '<leader>,', '<ESC>')
 
+kmap('n','x','"_x')
+
 -- lsp
 kmap('n', '<leader>gD',      ':lua vim.lsp.buf.declaration()<CR>')
 kmap('n', '<leader>gd',      ':lua vim.lsp.buf.definition()<CR>')
@@ -41,10 +43,10 @@ kmap('',  '<C-l>',   '<C-w>l')
 -- mapd('n', '<Leader>v', ':e $MYVIMRC<CR>')
 -- mapd('n', '<Leader>r', ':so $MYVIMRC<CR>')
 kmap('n', '<Leader>r', ':so $MYVIMRC<CR>')
-kmap('n', '<Leader>q', ':bd<CR>')
+-- kmap('n', '<Leader>q', ':bd<CR>')
 kmap('n', '<Leader>;', 'A;<ESC>')
 kmap('n', '<Leader>m', ':make<CR>')
-kmap('n', '<Leader>w', ':w<CR>')
+-- kmap('n', '<Leader>w', ':w<CR>')
 
 -- surroung visual text with ' or "
 -- mapd('v', "<Leader>'", "s''<esc>P")

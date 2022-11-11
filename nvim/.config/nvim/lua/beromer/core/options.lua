@@ -40,6 +40,7 @@ function _G.custom_fold_text()
 end
 vim.o.foldtext = 'v:lua.custom_fold_text()'
 vim.o.foldmethod='indent'
+
 -- vim.o.foldmethod='expr'
 -- vim.o.foldexpr='nvim_treesitter#foldexpr'
 

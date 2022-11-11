@@ -30,6 +30,8 @@ require('packer').startup(function(use)
     use 'kyazdani42/nvim-tree.lua'
     use 'williamboman/nvim-lsp-installer'
     use 'nvim-treesitter/nvim-treesitter-context'
+    use 'christoomey/vim-tmux-navigator'
+    use 'tpope/vim-surround'
     if packer_bootstrap then
         require('packer').sync()
     end
