@@ -1,7 +1,11 @@
 set nocompatible
-syntax on
+syntax enable
+filetype plugin on
 
+set path+=**
 set wildmenu
+
+let g:netrw_sizestyle= "h"
 
 set backspace=indent,eol,start
 
