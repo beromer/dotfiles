@@ -1,3 +1,0 @@
-text/html; google-chrome %s & sleep 2; test=test -n "$DISPLAY"; nametemplate=%s.html; needsterminal;
-text/html; w3m -I %{charset} -T text/html; copiousoutput;
-application/pdf; /usr/bin/zathura %s
