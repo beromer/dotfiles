@@ -1,6 +1,13 @@
 ;; start fullscreen
 (custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(initial-frame-alist '((fullscreen . maximized)))
+ '(org-agenda-files '("~/notes/todo.org"))
+ '(package-selected-packages
+   '(magit company lua-mode vterm vertico use-package solarized-theme shrink-path marginalia magit-section emacsql-sqlite eglot doom-themes dashboard cdlatex auctex all-the-icons)))
 
 ;; set font
 (set-face-attribute 'default nil :font "Fira Code" :height 150)
@@ -14,8 +21,10 @@
 (package-initialize)
 (require 'use-package)
 
+(load-theme 'solarized-dark t)
+
 ;; (setq display-line-numbers-type 'relative)
-;; (global-display-line-numbers-mode t)
+(global-display-line-numbers-mode t)
 
 ;; fix underline in mode-line
 (setq x-underline-at-descent-line t)
@@ -104,6 +113,11 @@
 
 ;; PACKAGES
 
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+
 (use-package vterm
   :ensure t)
 
@@ -141,3 +155,9 @@
   ;; Must be in the :init section of use-package such that the mode gets
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
