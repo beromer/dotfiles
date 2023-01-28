@@ -1,0 +1,40 @@
+priority -50
+extends c
+priority 10
+snippet print "fmt print" w
+fmt::print("$1\n"$2);$0
+endsnippet
+
+snippet for "for loop" b
+for (${1:auto} ${2:i}=${3:0}; $2<${4:end};${5:++}$2){
+  $0
+}
+endsnippet
+
+snippet for1 "1D for loop" b
+for (int i=0; i<${1:end};++i){
+  $0
+}
+endsnippet
+
+snippet for2 "2D for loop" b
+for (int i=0; i<${1:end};++i){
+  for (int j=0; j<${2:end};++j){
+    $0
+  }
+}
+endsnippet
+
+snippet for3 "3D for loop" b
+for (int i=0; i<${1:end};++i){
+  for (int j=0; j<${2:end};++j){
+	for (int k=0; k<${3:end};++k){
+		$0
+	}
+  }
+}
+endsnippet
+
+snippet dbg "log debug" b
+Log::debug("$1"$2);
+endsnippet
