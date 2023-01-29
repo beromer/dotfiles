@@ -114,6 +114,8 @@
 ;; enable right-click menu
 (context-menu-mode 1)
 
+(setq completion-styles '(basic substring partial-completion flex))
+
 ;; KEYBINDINGS
 (global-set-key (kbd "C-c n") 'next-buffer)
 (global-set-key (kbd "C-c p") 'previous-buffer)
