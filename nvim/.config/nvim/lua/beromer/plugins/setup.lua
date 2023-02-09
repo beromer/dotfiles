@@ -28,14 +28,20 @@ require('packer').startup(function(use)
     use 'hoob3rt/lualine.nvim'
     use 'kyazdani42/nvim-web-devicons'
     use 'kyazdani42/nvim-tree.lua'
-    use 'williamboman/nvim-lsp-installer'
     use 'nvim-treesitter/nvim-treesitter-context'
     use 'christoomey/vim-tmux-navigator'
     use 'tpope/vim-surround'
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
     if packer_bootstrap then
         require('packer').sync()
     end
 end)
+
+require("mason").setup()
+require("mason-lspconfig").setup {
+    ensure_installed = { "sumneko_lua", "clangd", "pyright", "bashls"},
+}
 
 require('beromer.plugins.lsp')
 require('beromer.plugins.treesitter')

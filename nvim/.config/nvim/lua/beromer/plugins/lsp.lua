@@ -18,7 +18,8 @@ lspconfig.pyright.setup{}
 lspconfig.texlab.setup{}
 -- lspconfig.lua.setup{}
 lspconfig.sumneko_lua.setup{
-	cmd = {vim.fn.stdpath("data").."/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"},
+	cmd = {"lua-language-server"},
+	-- cmd = {vim.fn.stdpath("data").."/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"},
 	settings = {
 		Lua = {
 			diagnostics = {
@@ -155,5 +156,4 @@ require'lspconfig'.clangd.setup {
 }
 
 require('lspconfig').bashls.setup{}
-require('lspconfig').julials.setup{}
 
