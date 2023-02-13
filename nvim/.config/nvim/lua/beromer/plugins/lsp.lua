@@ -17,7 +17,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 lspconfig.pyright.setup{}
 lspconfig.texlab.setup{}
 -- lspconfig.lua.setup{}
-lspconfig.sumneko_lua.setup{
+-- lspconfig.sumneko_lua.setup{
+lspconfig.lua_ls.setup{
 	cmd = {"lua-language-server"},
 	-- cmd = {vim.fn.stdpath("data").."/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"},
 	settings = {
