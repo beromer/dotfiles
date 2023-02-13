@@ -26,7 +26,7 @@ vim.o.completeopt='menu,menuone,noselect'
 vim.g.vimtex_view_method='zathura'
 vim.o.conceallevel = 0
 
-vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
+vim.g.UltiSnipsExpandTrigger = '<tab>' --'<Plug>(ultisnips_expand)'
 vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
 vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
 vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
@@ -48,6 +48,19 @@ vim.cmd [[
 augroup highlight_yank
 autocmd!
 au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=700 }
+augroup END
+]]
+
+vim.cmd [[
+function! s:latexSurround()
+    let b:surround_{char2nr("e")}
+    \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+    let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
+endfunction
+
+augroup latexSurround
+    autocmd!
+    autocmd FileType tex call s:latexSurround()
 augroup END
 ]]
 

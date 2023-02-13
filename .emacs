@@ -1,5 +1,8 @@
+(setq url-proxy-services
+   '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+     ("http" . "proxyout.lanl.gov:8080")
+     ("https" . "proxyout.lanl.gov:8080")))
 
-;; start fullscreen
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -7,7 +10,7 @@
  ;; If there is more than one, they won't work right.
  '(global-display-line-numbers-mode t)
  '(initial-frame-alist '((fullscreen . maximized)))
- '(org-agenda-files '("~/notes/todo.org"))
+ '(org-agenda-files '("~/notes/todo.org" "~/notes/capture.org"))
  '(package-selected-packages
    '(magit company lua-mode vterm vertico use-package solarized-theme shrink-path marginalia magit-section emacsql-sqlite eglot doom-themes dashboard cdlatex auctex all-the-icons))
  '(tool-bar-mode nil))
@@ -114,7 +117,11 @@
 ;; enable right-click menu
 (context-menu-mode 1)
 
+;; fuzzy match in vertico
 (setq completion-styles '(basic substring partial-completion flex))
+
+;; setup org capture
+(setq org-default-notes-file "~/notes/capture.org")
 
 ;; KEYBINDINGS
 (global-set-key (kbd "C-c n") 'next-buffer)
