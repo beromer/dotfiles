@@ -1,0 +1,125 @@
+;; (unless (or (fboundp 'helm-mode) (fboundp 'ivy-mode))
+;;   (ido-mode t)
+;;   (setq ido-enable-flex-matching t))
+(setq-default display-line-numbers-width 3)
+
+(unless (memq window-system '(mac ns))
+  (menu-bar-mode -1))
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
+(when (fboundp 'horizontal-scroll-bar-mode)
+  (horizontal-scroll-bar-mode -1))
+
+(autoload 'zap-up-to-char "misc"
+  "Kill up to, but not including ARGth occurrence of CHAR." t)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;; https://www.emacswiki.org/emacs/SavePlace
+(save-place-mode 1)
+
+;; (global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+
+(show-paren-mode 1)
+(setq-default indent-tabs-mode nil)
+(savehist-mode 1)
+(setq save-interprogram-paste-before-kill t
+      apropos-do-all t
+      mouse-yank-at-point t
+      require-final-newline t
+      visible-bell t
+      load-prefer-newer t
+      backup-by-copying t
+      frame-inhibit-implied-resize t
+      ediff-window-setup-function 'ediff-setup-windows-plain
+      custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(unless backup-directory-alist
+  (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
+                                                 "backups")))))
+
+;; (setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
+
+;; fix underline in mode-line
+(setq x-underline-at-descent-line t)
+
+;; increace garbage collection threshhold and special variable limit
+(setq gc-cons-threshold 100000000)
+(setq max-specpdl-size 5000)
+
+;; don't put the w3 validation link when exporting to html from org
+(setq org-html-validation-link nil)
+
+;; smooth scrolling (bad performance)
+;; (pixel-scroll-mode 1)
+(global-goto-address-mode 1)
+
+(setq
+ ;; No need to see GNU agitprop.
+ inhibit-startup-screen t
+ ;; No need to remind me what a scratch buffer is.
+ initial-scratch-message nil
+ ;; Double-spaces after periods is morally wrong.
+ sentence-end-double-space nil
+ ;; Never ding at me, ever.
+ ring-bell-function 'ignore
+ ;; Save existing clipboard text into the kill ring before replacing it.
+ save-interprogram-paste-before-kill t
+ ;; Prompts should go in the minibuffer, not in a GUI.
+ use-dialog-box nil
+ ;; Fix undo in commands affecting the mark.
+ mark-even-if-inactive nil
+ ;; Let C-k delete the whole line.
+ kill-whole-line t
+ ;; accept 'y' or 'n' instead of yes/no
+ use-short-answers t
+ ;; eke out a little more scrolling performance
+ ;; fast-but-imprecise-scrolling t
+ ;; prefer newer elisp files
+ load-prefer-newer t
+ ;; I want to close these fast, so switch to it so I can just hit 'q'
+ help-window-select t
+ ;; this certainly can't hurt anything
+ delete-by-moving-to-trash t
+ ;; keep the point in the same place while scrolling
+ scroll-preserve-screen-position t
+ ;; more info in completions
+ completions-detailed t
+ ;; highlight error messages more aggressively
+ next-error-message-highlight t
+ ;; don't let the minibuffer muck up my window tiling
+ read-minibuffer-restore-windows t
+ ;; scope save prompts to individual projects
+ save-some-buffers-default-predicate 'save-some-buffers-root
+ ;; don't keep duplicate entries in kill ring
+ kill-do-not-save-duplicates t
+ ;; stuff copied from eos
+ redisplay-dont-pause t
+ jit-lock-stealth-time 0.2
+ max-mini-window-height 0.3
+ tooltip-reuse-hidden-frame t
+ ;; Margins
+ left-margin-width 1
+ right-margin-width 1)
+
+;; don't wrap long lines but enable scrolling instead
+(setq mouse-wheel-tilt-scroll t
+      mouse-wheel-flip-direction t)
+(setq-default truncate-lines t)
+
+;; enable right-click menu
+(context-menu-mode 1)
+
+;; fuzzy match
+(setq completion-styles '(basic substring partial-completion flex))

@@ -10,6 +10,8 @@ let g:netrw_sizestyle= "h"
 set backspace=indent,eol,start
 
 set mouse=a
+set tags=tags
+set nu
 
 set hidden autoread
 
