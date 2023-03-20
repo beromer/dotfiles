@@ -1,7 +1,10 @@
 ;; (unless (or (fboundp 'helm-mode) (fboundp 'ivy-mode))
 ;;   (ido-mode t)
 ;;   (setq ido-enable-flex-matching t))
+(load-theme 'misterioso t)
 (setq-default display-line-numbers-width 3)
+
+(set-face-attribute 'default nil :height 160)
 
 (unless (memq window-system '(mac ns))
   (menu-bar-mode -1))
