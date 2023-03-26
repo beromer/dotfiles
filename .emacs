@@ -61,6 +61,10 @@
 (electric-pair-mode 1)
 ;; use spaces, not tabs
 (setq-default indent-tabs-mode nil)
+;; treat camelCase as distinct words
+(global-subword-mode 1)
+;; delete active region when typing over it
+(delete-selection-mode 1)
 
 ;; OTHER/NOT ORGANIZED
 (require 'uniquify)
@@ -71,7 +75,6 @@
 
 ;; remember window configurations (C-c <left> and C-c <right>)
 (winner-mode 1)
-
 
 (savehist-mode 1)
 (setq save-interprogram-paste-before-kill t
