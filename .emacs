@@ -34,6 +34,7 @@
 ;; KEYBINDINGS
 ;; simpler keybinding for moving between windows
 (global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-i") 'imenu)
 ;; easily move to previous and next buffer
 (global-set-key (kbd "C-c n") 'next-buffer)
 (global-set-key (kbd "C-c p") 'previous-buffer)
