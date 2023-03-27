@@ -1,3 +1,8 @@
+;; MELPA
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
 ;; APPEARANCE
 (load-theme 'misterioso t)
 ;; only change the font size
@@ -105,6 +110,8 @@
 (global-goto-address-mode 1)
 
 (setq
+ ;; enable additional search motions (M-<,M-> for first/last result,C-v,M-v for results off-screen)
+ isearch-allow-motion t
  ;; Double-spaces after periods is morally wrong.
  sentence-end-double-space nil
  ;; Never ding at me, ever.
@@ -153,3 +160,12 @@
 
 ;; enable right-click menu
 (context-menu-mode 1)
+
+;; MACHINE CONFIG
+;; load machine specific init file
+;; it looks for a file names <hostname>.el and loads it if present
+;; use it for require-ing different configs for each machine you use
+(setq gilesp-local-filename (concat system-name ".el"))
+(setq gilesp-local-file (expand-file-name gilesp-local-filename user-emacs-directory))
+(when (file-readable-p gilesp-local-file)
+  (load-file gilesp-local-file))
