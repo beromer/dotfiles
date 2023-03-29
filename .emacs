@@ -6,7 +6,7 @@
 ;; APPEARANCE
 (load-theme 'misterioso t)
 ;; only change the font size
-(set-face-attribute 'default nil :height 160)
+(set-face-attribute 'default nil :height 140)
 ;; disable menu-bar on non-mac
 (unless (memq window-system '(mac ns))
   (menu-bar-mode -1))
@@ -34,6 +34,9 @@
 ;; KEYBINDINGS
 ;; simpler keybinding for moving between windows
 (global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-O") (lambda ()
+                                (interactive)
+                                (other-window -1)))
 (global-set-key (kbd "M-i") 'imenu)
 ;; easily move to previous and next buffer
 (global-set-key (kbd "C-c n") 'next-buffer)
@@ -49,6 +52,8 @@
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
+;; M-SPC does cycle-spacing
+(global-set-key [remap just-one-space] 'cycle-spacing)
 
 ;; COMPLETIONS
 ;; enable fido
@@ -124,7 +129,7 @@
  ;; Fix undo in commands affecting the mark.
  mark-even-if-inactive nil
  ;; Let C-k delete the whole line.
- kill-whole-line t
+ ;; kill-whole-line t
  ;; accept 'y' or 'n' instead of yes/no
  use-short-answers t
  ;; eke out a little more scrolling performance
@@ -170,3 +175,12 @@
 (setq gilesp-local-file (expand-file-name gilesp-local-filename user-emacs-directory))
 (when (file-readable-p gilesp-local-file)
   (load-file gilesp-local-file))
+
+
+;; PACKAGES
+;; org mode
+(add-hook 'org-mode-hook #'turn-on-org-cdlatex)
+(setq org-num-max-level 2
+      org-num-skip-tags t
+      org-num-skip-commented t
+      org-num-skip-footnotes t)
