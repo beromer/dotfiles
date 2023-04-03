@@ -4,12 +4,16 @@
 -- end
 
 local kmap = vim.keymap.set
-vim.g.mapleader=","
+vim.keymap.set("n","<Space>","<Nop>",{})
+vim.g.mapleader=" "
+vim.keymap.set("i","kj","<Esc>", {noremap=true})
+-- vim.keymap.set("n","kj","<Esc>", {noremap=true})
+
+kmap("n", "<leader><leader>", ":")
 
 kmap('i', '{<CR>',   '{<CR>}<ESC>O')
-kmap('n', 'Q',       '<nop>')
-kmap('n', 'q:',      '<nop>')
-kmap('i', '<leader>,', '<ESC>')
+kmap('n', 'Q',       '<Nop>')
+kmap('n', 'q:',      '<Nop>')
 
 kmap('n','x','"_x')
 
@@ -32,7 +36,7 @@ kmap('n', 'n',       'nzzzv')
 kmap('n', 'N',       'Nzzzv')
 
 -- navigation
-kmap('n', '<Space>', '<C-f>')
+-- kmap('n', '<Space>', '<C-f>')
 kmap('n', '<Tab>',   ':bn<CR>')
 kmap('n', '<S-Tab>', ':bp<CR>')
 kmap('',  '<C-h>',   '<C-w>h')
@@ -55,20 +59,38 @@ kmap('n', '<Leader>m', ':make<CR>')
 -- ultisnips
 kmap('n','<Leader>ue',':UltiSnipsEdit<CR>')
 
--- tscope
-kmap('n','<Leader>o',':Telescope find_files<CR>')
-kmap('n','<Leader>b',':Telescope buffers<CR>')
-kmap('n','<Leader>f',':Telescope live_grep<CR>')
+-- quit
+kmap('n','<leader>qq',':qa<CR>')
+kmap('n','<leader>wq',':wq<CR>')
+
+-- files
+kmap('n','<Leader>pf',':Telescope find_files<CR>')
+kmap('n','<Leader>ff',':lua search_home_files()<CR>')
+kmap('n','<Leader>fs',':w<CR>')
+kmap('n','<Leader>fr',':e!<CR>')
+
+-- buffers
+kmap('n','<Leader>bo',':Telescope buffers<CR>')
+kmap('n','<Leader>bd',':bdelete<CR>')
+kmap('n','<Leader>bn',':bn<CR>')
+kmap('n','<Leader>bp',':bp<CR>')
+
+-- projects
+kmap('n','<Leader>pg',':Telescope live_grep<CR>')
 kmap('n','<Leader>v',':lua search_dotfiles()<CR>')
 
 -- indent blankline
 kmap('n','<Leader>il',':IndentBlanklineToggle<CR>')
 kmap('n','<Leader>ir',':IndentBlanklineRefresh<CR>')
 
+-- undo highlight
+kmap('n','<leader>no',':noh<CR>')
+
 -- fugitive and gitgutter
 kmap('n','<Leader>gg',':Git<CR>')
 kmap('n','<Leader>gl',':Gclog<CR>')
-kmap('n','<Leader>gp',':G push<Space>')
+kmap('n','<Leader>gP',':G push<Space>')
+kmap('n','<Leader>gp',':G pull<Space>')
 kmap('n','<Leader>hs',':GitGutterStageHunk<CR>"')
 kmap('n','<Leader>hu',':GitGutterUndoHunk<CR>')
 kmap('n','<Leader>hn',':GitGutterNextHunk<CR>')
@@ -80,7 +102,7 @@ kmap('n','<Leader>cq',':ccl<CR>')
 kmap('n','<Leader>cn',':cnext<CR>')
 kmap('n','<Leader>cp',':cprev<CR>')
 
--- local list
+-- location list
 kmap('n','<Leader>lo',':lopen<CR>')
 kmap('n','<Leader>lq',':lcl<CR>')
 kmap('n','<Leader>ln',':lnext<CR>')

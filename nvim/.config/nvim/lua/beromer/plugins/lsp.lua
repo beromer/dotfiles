@@ -159,6 +159,7 @@ cmp.setup( {
         { name = 'buffer' },
         { name = 'path' },
         { name = 'spell' },
+        { name = 'neorg' },
     }
 })
 

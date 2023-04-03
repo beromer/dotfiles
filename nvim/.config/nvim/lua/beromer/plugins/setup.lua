@@ -28,11 +28,37 @@ require('packer').startup(function(use)
     use 'hoob3rt/lualine.nvim'
     use 'kyazdani42/nvim-web-devicons'
     use 'kyazdani42/nvim-tree.lua'
-    use 'nvim-treesitter/nvim-treesitter-context'
+    -- use 'nvim-treesitter/nvim-treesitter-context'
     use 'christoomey/vim-tmux-navigator'
     use 'tpope/vim-surround'
     use 'williamboman/mason.nvim'
     use 'williamboman/mason-lspconfig.nvim'
+    use {'rmagatti/alternate-toggler',
+      config = function()
+      vim.keymap.set("n","<leader>ta","<cmd>lua require('alternate-toggler').toggleAlternate()<CR>")
+      end,
+      event = { "BufReadPost"},
+    }
+    use({
+      "utilyre/barbecue.nvim",
+      tag = "*",
+      requires = {
+        "SmiteshP/nvim-navic",
+        "nvim-tree/nvim-web-devicons", -- optional dependency
+      },
+      after = "nvim-web-devicons", -- keep this if you're using NvChad
+      config = function()
+        require("barbecue").setup()
+      end,
+    })
+    use {
+        "nvim-neorg/neorg",
+        tag = "*",
+        -- ft = "norg",
+        -- after = "nvim-treesitter",
+        -- run = ":Neorg sync-parsers",
+        requires = "nvim-lua/plenary.nvim",
+    }
     if packer_bootstrap then
         require('packer').sync()
     end
@@ -47,20 +73,20 @@ require('beromer.plugins.lsp')
 require('beromer.plugins.treesitter')
 require('beromer.plugins.nvimtree')
 
-require("treesitter-context").setup{
-    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-    min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-    zindex = 20, -- The Z-index of the context window
-    mode = 'topline',  -- Line used to calculate context. Choices: 'cursor', 'topline'
-    -- Separator between context and content. Should be a single character string, like '-'.
-    -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-    -- separator = '═',
-    -- separator = '─',
-    -- separator = '-',
-    separator = nil,
-}
+-- require("treesitter-context").setup{
+--     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+--     max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+--     trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+--     min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+--     zindex = 20, -- The Z-index of the context window
+--     mode = 'topline',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+--     -- Separator between context and content. Should be a single character string, like '-'.
+--     -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+--     -- separator = '═',
+--     -- separator = '─',
+--     -- separator = '-',
+--     separator = nil,
+-- }
 
 local color_scheme = require('solarized')
 local stheme = os.getenv("ITERM_PROFILE")=="Light" and "light" or "dark"
@@ -76,6 +102,15 @@ require('telescope').setup{
         path_display = {"truncate"},
     }
 }
+
+_G.search_home_files = function()
+    require("telescope.builtin").find_files({
+        prompt_title = "< Find Files >",
+        cwd = '~',
+        search_dirs = {"~/"},
+        follow = true,
+    })
+end
 
 _G.search_dotfiles = function()
     require("telescope.builtin").find_files({
@@ -117,4 +152,23 @@ require'lualine'.setup{
         lualine_z = {}
     },
     extensions = {'fugitive'}
+}
+require('neorg').setup {
+    load = {
+        ["core.defaults"] = {}, -- Loads default behaviour
+        ["core.export"] = {},
+        ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.norg.completion"] = {
+            config = {
+                engine = "nvim-cmp",
+            },
+        },
+        ["core.norg.dirman"] = { -- Manages Neorg workspaces
+            config = {
+                workspaces = {
+                    notes = "~/notes",
+                },
+            },
+        }
+    },
 }

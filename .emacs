@@ -4,9 +4,9 @@
 (package-initialize)
 
 ;; APPEARANCE
-(load-theme 'misterioso t)
+(load-theme 'solarized-dark t)
 ;; only change the font size
-(set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil :height 160)
 ;; disable menu-bar on non-mac
 (unless (memq window-system '(mac ns))
   (menu-bar-mode -1))
@@ -179,8 +179,28 @@
 
 ;; PACKAGES
 ;; org mode
+(require 'org-mouse)
 (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
 (setq org-num-max-level 2
       org-num-skip-tags t
       org-num-skip-commented t
       org-num-skip-footnotes t)
+(add-hook 'org-mode-hook #'org-indent-mode)
+(add-hook 'org-mode-hook #'org-bullets-mode)
+
+;; yasnippet
+(yas-global-mode t)
+
+;; company mode
+(global-company-mode t)
+(global-company-fuzzy-mode t)
+
+;; eglot
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(c++-mode . ("clangd" "--completion-style=detailed"))))
+(add-hook 'c-mode-hook 'eglot-ensure)
+(add-hook 'c++-mode-hook 'eglot-ensure)
+;; (add-hook 'eglot-managed-mode-hook (lambda ()
+;;                                       (add-to-list 'company-backends
+;;                                                    '(company-capf :with company-yasnippet))))
