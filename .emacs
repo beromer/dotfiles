@@ -4,6 +4,11 @@
 (package-initialize)
 
 ;; APPEARANCE
+;; (load-theme 'misterioso t)
+(setq solarized-distinct-fringe-background t)
+(setq solarized-high-contrast-mode-line t)
+(setq solarized-scale-org-headlines nil)
+
 (load-theme 'solarized-dark t)
 ;; only change the font size
 (set-face-attribute 'default nil :height 160)
@@ -20,9 +25,11 @@
 (when (fboundp 'horizontal-scroll-bar-mode)
   (horizontal-scroll-bar-mode -1))
 ;; (setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode t)
+;; (global-display-line-numbers-mode t)
 ;; don't automatically adjust window width as line numbers increase
-(setq-default display-line-numbers-width 3)
+;; (setq-default display-line-numbers-width 3)
+;; (global-linum-mode t)
+
 (setq
  ;; fix underline in mode-line
  x-underline-at-descent-line t
@@ -83,6 +90,15 @@
 
 ;; save position of point in buffers
 (save-place-mode 1)
+
+;; always reload buffer if it changes on disk
+(auto-revert-mode 1)
+
+;; always save everything when compiling
+(setq compilation-ask-about-save nil)
+
+;; set default compile command
+(setq compile-command "ninja -C ~/src/fury/build/")
 
 ;; remember window configurations (C-c <left> and C-c <right>)
 (winner-mode 1)
@@ -201,6 +217,7 @@
                '(c++-mode . ("clangd" "--completion-style=detailed"))))
 (add-hook 'c-mode-hook 'eglot-ensure)
 (add-hook 'c++-mode-hook 'eglot-ensure)
+(add-hook 'prog-mode-hook 'linum-mode)
 ;; (add-hook 'eglot-managed-mode-hook (lambda ()
 ;;                                       (add-to-list 'company-backends
 ;;                                                    '(company-capf :with company-yasnippet))))
