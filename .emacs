@@ -5,13 +5,22 @@
 
 ;; APPEARANCE
 ;; (load-theme 'misterioso t)
-(setq solarized-distinct-fringe-background t)
-(setq solarized-high-contrast-mode-line t)
-(setq solarized-scale-org-headlines nil)
 
+;; (setq solarized-distinct-fringe-background t)
+(setq solarized-high-contrast-mode-line t)
+;; (setq solarized-scale-org-headlines nil)
 (load-theme 'solarized-dark t)
+
+;; (load-theme 'wombat t)
+
+;; (setq modus-themes-bold-constructs t
+;;       modus-themes-mode-line '(borderless accented)
+;;       modus-themes-paren-match 'intense
+;;       modus-themes-syntax '(green-strings)
+;;       modus-themes-completions nil)
+;; (load-theme 'modus-vivendi t)
 ;; only change the font size
-(set-face-attribute 'default nil :height 160)
+(set-face-attribute 'default nil :height 140)
 ;; disable menu-bar on non-mac
 (unless (memq window-system '(mac ns))
   (menu-bar-mode -1))
@@ -29,6 +38,8 @@
 ;; don't automatically adjust window width as line numbers increase
 ;; (setq-default display-line-numbers-width 3)
 ;; (global-linum-mode t)
+;; use line-numbers only in programming modes
+(add-hook 'prog-mode-hook 'linum-mode)
 
 (setq
  ;; fix underline in mode-line
@@ -61,6 +72,11 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 ;; M-SPC does cycle-spacing
 (global-set-key [remap just-one-space] 'cycle-spacing)
+(setq
+ mac-command-modifier 'super
+ mac-option-modifier 'meta
+ )
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
 
 ;; COMPLETIONS
 ;; enable fido
@@ -123,9 +139,6 @@
 ;; increace garbage collection threshhold and special variable limit
 (setq gc-cons-threshold 100000000)
 (setq max-specpdl-size 5000)
-
-;; don't put the w3 validation link when exporting to html from org
-(setq org-html-validation-link nil)
 
 ;; smooth scrolling (bad performance)
 ;; (pixel-scroll-mode 1)
@@ -203,9 +216,20 @@
       org-num-skip-footnotes t)
 (add-hook 'org-mode-hook #'org-indent-mode)
 (add-hook 'org-mode-hook #'org-bullets-mode)
+;; don't put the w3 validation link when exporting to html from org
+(setq org-html-validation-link nil)
+;; RETURN will follow links in org-mode files
+(setq org-return-follows-link  t)
 
 ;; yasnippet
 (yas-global-mode t)
+
+;; latex
+(add-hook 'LaTeX-mode-hook #'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
+(add-hook 'LaTeX-mode-hook #'flyspell-mode)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
 
 ;; company mode
 (global-company-mode t)
@@ -217,7 +241,6 @@
                '(c++-mode . ("clangd" "--completion-style=detailed"))))
 (add-hook 'c-mode-hook 'eglot-ensure)
 (add-hook 'c++-mode-hook 'eglot-ensure)
-(add-hook 'prog-mode-hook 'linum-mode)
 ;; (add-hook 'eglot-managed-mode-hook (lambda ()
 ;;                                       (add-to-list 'company-backends
 ;;                                                    '(company-capf :with company-yasnippet))))
