@@ -1,14 +1,28 @@
 ;; MELPA
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+;; (eval-and-compile
+;;   (setq use-package-always-ensure t
+;;         use-package-expand-minimally t))
+(require 'use-package)
+;; tell use-package to install a package if it's not already installed
+(setq use-package-always-ensure t)
+
+
 
 ;; APPEARANCE
 ;; (load-theme 'misterioso t)
 
-;; (setq solarized-distinct-fringe-background t)
+(unless (package-installed-p `solarized-theme) (package-install `solarized-theme))
+(setq solarized-distinct-fringe-background t)
 (setq solarized-high-contrast-mode-line t)
-;; (setq solarized-scale-org-headlines nil)
+(setq solarized-scale-org-headlines nil)
 (load-theme 'solarized-dark t)
 
 ;; (load-theme 'wombat t)
@@ -19,8 +33,11 @@
 ;;       modus-themes-syntax '(green-strings)
 ;;       modus-themes-completions nil)
 ;; (load-theme 'modus-vivendi t)
+
 ;; only change the font size
 (set-face-attribute 'default nil :height 140)
+(if (display-graphic-p)
+    (progn
 ;; disable menu-bar on non-mac
 (unless (memq window-system '(mac ns))
   (menu-bar-mode -1))
@@ -33,6 +50,7 @@
 ;; disable horizontal scroll bar
 (when (fboundp 'horizontal-scroll-bar-mode)
   (horizontal-scroll-bar-mode -1))
+))
 ;; (setq display-line-numbers-type 'relative)
 ;; (global-display-line-numbers-mode t)
 ;; don't automatically adjust window width as line numbers increase
@@ -40,6 +58,7 @@
 ;; (global-linum-mode t)
 ;; use line-numbers only in programming modes
 (add-hook 'prog-mode-hook 'linum-mode)
+;; (global-tab-line-mode)
 
 (setq
  ;; fix underline in mode-line
@@ -108,7 +127,8 @@
 (save-place-mode 1)
 
 ;; always reload buffer if it changes on disk
-(auto-revert-mode 1)
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
 
 ;; always save everything when compiling
 (setq compilation-ask-about-save nil)
@@ -205,42 +225,127 @@
 (when (file-readable-p gilesp-local-file)
   (load-file gilesp-local-file))
 
-
 ;; PACKAGES
-;; org mode
-(require 'org-mouse)
-(add-hook 'org-mode-hook #'turn-on-org-cdlatex)
-(setq org-num-max-level 2
-      org-num-skip-tags t
-      org-num-skip-commented t
-      org-num-skip-footnotes t)
-(add-hook 'org-mode-hook #'org-indent-mode)
-(add-hook 'org-mode-hook #'org-bullets-mode)
-;; don't put the w3 validation link when exporting to html from org
-(setq org-html-validation-link nil)
-;; RETURN will follow links in org-mode files
-(setq org-return-follows-link  t)
+(use-package markdown-mode
+  :mode ("\\.md\\'" . markdown-mode))
+(use-package magit
+  :bind (("C-x g" . magit)))
+(use-package lua-mode)
+(use-package python-mode)
 
-;; yasnippet
-(yas-global-mode t)
+;; ;; org mode
+;; (require 'org-mouse)
+;; (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
+;; (setq org-num-max-level 2
+;;       org-num-skip-tags t
+;;       org-num-skip-commented t
+;;       org-num-skip-footnotes t)
+;; (add-hook 'org-mode-hook #'org-indent-mode)
+;; (add-hook 'org-mode-hook #'org-bullets-mode)
+;; ;; don't put the w3 validation link when exporting to html from org
+;; (setq org-html-validation-link nil)
+;; ;; RETURN will follow links in org-mode files
+;; (setq org-return-follows-link  t)
+
+;; ;; yasnippet
+;; (yas-global-mode t)
+(use-package yasnippet
+  :config
+  (use-package yasnippet-snippets)
+  (yas-global-mode t)
+  (yas-reload-all))
 
 ;; latex
+(unless (package-installed-p `auctex) (package-install `auctex))
+(unless (package-installed-p `cdlatex) (package-install `cdlatex))
 (add-hook 'LaTeX-mode-hook #'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
-(add-hook 'LaTeX-mode-hook #'flyspell-mode)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'TeX-interactive-mode)
+(add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'linum-mode)
+(setq reftex-plug-into-AUCTeX t)
 
-;; company mode
-(global-company-mode t)
-(global-company-fuzzy-mode t)
+(use-package git-gutter
+  :ensure git-gutter-fringe
+  :after magit
+  :init
+  (global-git-gutter-mode 1)
+  (setq-default left-fringe-width 20)
+  :hook
+  (magit-post-refresh . git-gutter:update-all-windows))
 
-;; eglot
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs
-               '(c++-mode . ("clangd" "--completion-style=detailed"))))
-(add-hook 'c-mode-hook 'eglot-ensure)
-(add-hook 'c++-mode-hook 'eglot-ensure)
-;; (add-hook 'eglot-managed-mode-hook (lambda ()
-;;                                       (add-to-list 'company-backends
-;;                                                    '(company-capf :with company-yasnippet))))
+;; ;; company mode
+;; (global-company-mode t)
+;; (global-company-fuzzy-mode t)
+(unless (package-installed-p `company) (package-install `company))
+(unless (package-installed-p `company-fuzzy) (package-install `company-fuzzy))
+(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'after-init-hook 'global-company-fuzzy-mode)
+
+;; ;; eglot
+;; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs
+;;                '(c++-mode . ("clangd" "--completion-style=detailed"))))
+;; (add-hook 'c-mode-hook 'eglot-ensure)
+;; (add-hook 'c++-mode-hook 'eglot-ensure)
+;; ;; (add-hook 'eglot-managed-mode-hook (lambda ()
+;; ;;                                       (add-to-list 'company-backends
+;; ;;                                                    '(company-capf :with company-yasnippet))))
+
+(use-package all-the-icons)
+
+(use-package projectile)
+(use-package dashboard
+;;   :after (all-the-icons dashboard-hackernews helm-system-packages)
+  :ensure t
+  :init
+  (dashboard-setup-startup-hook)
+
+  :custom
+  ;; (dashboard-banner-logo-title "Let's get stuff done!")
+  (dashboard-startup-banner 'logo)
+  (dashboard-center-content t)
+  (dashboard-set-navigator t)
+;;   (dashboard-navigator-buttons '((("⤓" " Install system package" " Install system package" (lambda (&rest _) (helm-system-packages))))))
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-items '((projects . 10)
+                     (recents . 15)
+                     (hackernews . 5))))
+(use-package dashboard-hackernews)
+
+(use-package which-key
+     :ensure t
+     :custom
+     (which-key-idle-delay 2)
+     :config
+     (which-key-mode))
+
+;; Outline-minor-mode key map Source: https://www.emacswiki.org/emacs/OutlineMinorMode
+(define-prefix-command 'cm-map nil "Outline-")
+; HIDE
+(define-key cm-map "q" 'hide-sublevels)    ; Hide everything but the top-level headings
+(define-key cm-map "t" 'hide-body)         ; Hide everything but headings (all body lines)
+(define-key cm-map "o" 'hide-other)        ; Hide other branches
+(define-key cm-map "c" 'hide-entry)        ; Hide this entry's body
+(define-key cm-map "l" 'hide-leaves)       ; Hide body lines in this entry and sub-entries
+(define-key cm-map "d" 'hide-subtree)      ; Hide everything in this entry and sub-entries
+;; SHOW
+(define-key cm-map "a" 'show-all)          ; Show (expand) everything
+(define-key cm-map "e" 'show-entry)        ; Show this heading's body
+(define-key cm-map "i" 'show-children)     ; Show this heading's immediate child sub-headings
+(define-key cm-map "k" 'show-branches)     ; Show all sub-headings under this heading
+(define-key cm-map "s" 'show-subtree)      ; Show (expand) everything in this heading & below
+;; MOVE
+(define-key cm-map "u" 'outline-up-heading)                ; Up
+(define-key cm-map "n" 'outline-next-visible-heading)      ; Next
+(define-key cm-map "p" 'outline-previous-visible-heading)  ; Previous
+(define-key cm-map "f" 'outline-forward-same-level)        ; Forward - same level
+(define-key cm-map "b" 'outline-backward-same-level)       ; Backward - same level
+(global-set-key (kbd "C-c o") cm-map)
