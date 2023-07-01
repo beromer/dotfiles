@@ -19,11 +19,13 @@
 ;; APPEARANCE
 ;; (load-theme 'misterioso t)
 
-(unless (package-installed-p `solarized-theme) (package-install `solarized-theme))
-(setq solarized-distinct-fringe-background t)
-(setq solarized-high-contrast-mode-line t)
-(setq solarized-scale-org-headlines nil)
-(load-theme 'solarized-dark t)
+;; (unless (package-installed-p `solarized-theme) (package-install `solarized-theme))
+;; (setq solarized-distinct-fringe-background t)
+;; (setq solarized-high-contrast-mode-line t)
+;; (setq solarized-scale-org-headlines nil)
+;; (load-theme 'solarized-dark t)
+
+(load-theme 'doom-solarized-dark-high-contrast t)
 
 ;; (load-theme 'wombat t)
 
@@ -35,7 +37,9 @@
 ;; (load-theme 'modus-vivendi t)
 
 ;; only change the font size
-(set-face-attribute 'default nil :height 140)
+;; (set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil :family "Fira Code" :height 160)
+
 (if (display-graphic-p)
     (progn
 ;; disable menu-bar on non-mac
@@ -57,8 +61,10 @@
 ;; (setq-default display-line-numbers-width 3)
 ;; (global-linum-mode t)
 ;; use line-numbers only in programming modes
-(add-hook 'prog-mode-hook 'linum-mode)
-;; (global-tab-line-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(global-tab-line-mode)
+
+(setq display-line-numbers-width-start 3)
 
 (setq
  ;; fix underline in mode-line
@@ -134,7 +140,8 @@
 (setq compilation-ask-about-save nil)
 
 ;; set default compile command
-(setq compile-command "ninja -C ~/src/fury/build/")
+(setq compile-command "ninja -C build/")
+(setq compilation-scroll-output t)
 
 ;; remember window configurations (C-c <left> and C-c <right>)
 (winner-mode 1)
@@ -233,19 +240,19 @@
 (use-package lua-mode)
 (use-package python-mode)
 
-;; ;; org mode
-;; (require 'org-mouse)
-;; (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
-;; (setq org-num-max-level 2
-;;       org-num-skip-tags t
-;;       org-num-skip-commented t
-;;       org-num-skip-footnotes t)
-;; (add-hook 'org-mode-hook #'org-indent-mode)
-;; (add-hook 'org-mode-hook #'org-bullets-mode)
-;; ;; don't put the w3 validation link when exporting to html from org
-;; (setq org-html-validation-link nil)
-;; ;; RETURN will follow links in org-mode files
-;; (setq org-return-follows-link  t)
+;; org mode
+(require 'org-mouse)
+(add-hook 'org-mode-hook #'turn-on-org-cdlatex)
+(setq org-num-max-level 2
+      org-num-skip-tags t
+      org-num-skip-commented t
+      org-num-skip-footnotes t)
+(add-hook 'org-mode-hook #'org-indent-mode)
+(add-hook 'org-mode-hook #'org-bullets-mode)
+;; don't put the w3 validation link when exporting to html from org
+(setq org-html-validation-link nil)
+;; RETURN will follow links in org-mode files
+(setq org-return-follows-link  t)
 
 ;; ;; yasnippet
 ;; (yas-global-mode t)
@@ -273,11 +280,11 @@
 
 (use-package git-gutter
   :ensure git-gutter-fringe
-  :after magit
+  ;; :after magit
   :init
-  (global-git-gutter-mode 1)
   (setq-default left-fringe-width 20)
   :hook
+  (prog-mode . git-gutter-mode)
   (magit-post-refresh . git-gutter:update-all-windows))
 
 ;; ;; company mode
@@ -300,7 +307,12 @@
 
 (use-package all-the-icons)
 
-(use-package projectile)
+(use-package projectile
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ("M-p" . projectile-command-map)))
+
 (use-package dashboard
 ;;   :after (all-the-icons dashboard-hackernews helm-system-packages)
   :ensure t
@@ -317,8 +329,9 @@
   (dashboard-set-file-icons t)
   (dashboard-items '((projects . 10)
                      (recents . 15)
-                     (hackernews . 5))))
-(use-package dashboard-hackernews)
+                     ;; (hackernews . 5)
+                     )))
+;; (use-package dashboard-hackernews)
 
 (use-package which-key
      :ensure t
