@@ -72,6 +72,19 @@ require("mason-lspconfig").setup {
 require('beromer.plugins.lsp')
 require('beromer.plugins.treesitter')
 require('beromer.plugins.nvimtree')
+require('neorg').setup {
+    load = {
+        ["core.defaults"] = {}, -- Loads default behaviour
+        ["core.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+                workspaces = {
+                    notes = "~/notes",
+                },
+            },
+        }
+    },
+}
 
 -- require("treesitter-context").setup{
 --     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -105,9 +118,10 @@ require('telescope').setup{
 
 _G.search_home_files = function()
     require("telescope.builtin").find_files({
-        prompt_title = "< Find Files >",
+        prompt_title = "Files",
         cwd = '~',
-        search_dirs = {"~/"},
+        search_dirs = {'/users/beromer'},
+        hidden = false,
         follow = true,
     })
 end
@@ -153,22 +167,8 @@ require'lualine'.setup{
     },
     extensions = {'fugitive'}
 }
-require('neorg').setup {
-    load = {
-        ["core.defaults"] = {}, -- Loads default behaviour
-        ["core.export"] = {},
-        ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-        ["core.norg.completion"] = {
-            config = {
-                engine = "nvim-cmp",
-            },
-        },
-        ["core.norg.dirman"] = { -- Manages Neorg workspaces
-            config = {
-                workspaces = {
-                    notes = "~/notes",
-                },
-            },
-        }
-    },
-}
+
+-- disable symantic highlighting (new in vim 0.9) TODO: update colorscheme to support symantic highlighting
+for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+    vim.api.nvim_set_hl(0, group, {})
+end

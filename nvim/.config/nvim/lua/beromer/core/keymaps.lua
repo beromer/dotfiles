@@ -7,6 +7,15 @@ local kmap = vim.keymap.set
 vim.keymap.set("n","<Space>","<Nop>",{})
 vim.g.mapleader=" "
 vim.keymap.set("i","kj","<Esc>", {noremap=true})
+vim.keymap.set("i","jk","<Esc>", {noremap=true})
+
+-- basic emacs combos for insert mode
+vim.keymap.set("i","<C-a>","<Esc>I")
+vim.keymap.set("i","<C-e>","<Esc>A")
+vim.keymap.set("i","<M-f>","<Esc><Space>wi", {noremap=true})
+vim.keymap.set("i","<M-b>","<Esc>bi", {noremap=true})
+vim.keymap.set("i","<M-d>","<Esc><Space>cw", {noremap=true})
+vim.keymap.set("i","<M-BS>","<C-W>", {noremap=true})
 -- vim.keymap.set("n","kj","<Esc>", {noremap=true})
 
 kmap("n", "<leader><leader>", ":")
@@ -21,6 +30,7 @@ kmap('n','x','"_x')
 kmap('n', '<leader>gD',      ':lua vim.lsp.buf.declaration()<CR>')
 kmap('n', '<leader>gd',      ':lua vim.lsp.buf.definition()<CR>')
 kmap('n', '<leader>gi',      ':lua vim.lsp.buf.implementation()<CR>')
+kmap('n', '<leader>ga',      ':lua vim.lsp.buf.code_action()<CR>')
 kmap('n', '<leader>en',      ':lua vim.diagnostic.goto_next()<CR>')
 kmap('n', '<leader>ep',      ':lua vim.diagnostic.goto_prev()<CR>')
 kmap('n', '<leader>eu',      ':lua vim.lsp.buf.references()<CR>')

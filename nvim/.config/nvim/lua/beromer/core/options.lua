@@ -23,7 +23,7 @@ vim.o.expandtab = true
 vim.o.smartindent = true
 
 vim.o.completeopt='menu,menuone,noselect'
-vim.g.vimtex_view_method='zathura'
+vim.g.vimtex_view_method='general'
 vim.o.conceallevel = 0
 
 vim.g.UltiSnipsExpandTrigger = '<tab>' --'<Plug>(ultisnips_expand)'
