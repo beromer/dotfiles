@@ -17,7 +17,7 @@
 
 
 ;; APPEARANCE
-;; (load-theme 'misterioso t)
+;; (load-themel 'misterioso t)
 
 ;; (unless (package-installed-p `solarized-theme) (package-install `solarized-theme))
 ;; (setq solarized-distinct-fringe-background t)
@@ -25,15 +25,16 @@
 ;; (setq solarized-scale-org-headlines nil)
 ;; (load-theme 'solarized-dark t)
 
-(load-theme 'doom-solarized-dark-high-contrast t)
+;; (load-theme 'doom-solarized-dark-high-contrast t)
 
 ;; (load-theme 'wombat t)
 
-;; (setq modus-themes-bold-constructs t
-;;       modus-themes-mode-line '(borderless accented)
-;;       modus-themes-paren-match 'intense
-;;       modus-themes-syntax '(green-strings)
-;;       modus-themes-completions nil)
+(setq modus-themes-bold-constructs t
+      modus-themes-mode-line '(borderless accented)
+      modus-themes-paren-match 'intense
+      modus-themes-syntax '(green-strings)
+      modus-themes-completions nil)
+(load-theme 'modus-operandi t)
 ;; (load-theme 'modus-vivendi t)
 
 ;; only change the font size
@@ -102,6 +103,10 @@
  mac-option-modifier 'meta
  )
 (global-set-key [remap dabbrev-expand] 'hippie-expand)
+
+;; DIRED
+(setq dired-isearch-filenames t
+      dired-kill-when-opening-new-dired-buffer t)
 
 ;; COMPLETIONS
 ;; enable fido
