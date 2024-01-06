@@ -1,3 +1,24 @@
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("a44e2d1636a0114c5e407a748841f6723ed442dc3a0ed086542dc71b92a87aee" "b1acc21dcb556407306eccd73f90eb7d69664380483b18496d9c5ccc5968ab43" "f4d1b183465f2d29b7a2e9dbe87ccc20598e79738e5d29fc52ec8fb8c576fcfd" "e9d47d6d41e42a8313c81995a60b2af6588e9f01a1cf19ca42669a7ffd5c2fde" default))
+ '(org-agenda-files
+   '("~/notes/titans.org" "/Users/beromer/notes/one-on-one-2024.org" "/Users/beromer/notes/general.org" "/Users/beromer/org/notes.org" "/Users/beromer/notes/fury/fury.org" "/Users/beromer/notes/planner-2024.org" "/Users/beromer/notes/tnburn/tnburn.org" "/Users/beromer/notes/whisk/whisk.org"))
+ '(org-agenda-restore-windows-after-quit t)
+ '(org-agenda-window-setup 'current-window)
+ '(package-selected-packages
+   '(cyberpunk-theme yasnippet-snippets which-key vterm treemacs python-mode projectile org-bullets neotree markdown-mode magit lua-mode git-gutter-fringe doom-themes dashboard company-fuzzy cmake-mode cdlatex auctex all-the-icons))
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Fira Code" :foundry "nil" :slant normal :weight medium :height 141 :width normal)))))
+
 ;; MELPA
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
@@ -25,21 +46,25 @@
 ;; (setq solarized-scale-org-headlines nil)
 ;; (load-theme 'solarized-dark t)
 
-;; (load-theme 'doom-solarized-dark-high-contrast t)
+(load-theme 'doom-solarized-dark-high-contrast t)
 
 ;; (load-theme 'wombat t)
+;; (load-theme 'cyberpunk t)
 
-(setq modus-themes-bold-constructs t
-      modus-themes-mode-line '(borderless accented)
-      modus-themes-paren-match 'intense
-      modus-themes-syntax '(green-strings)
-      modus-themes-completions nil)
-(load-theme 'modus-operandi t)
+;; (setq modus-themes-bold-constructs t
+;;       modus-themes-mode-line '(accented)
+;;       ;; modus-themes-mode-line '(borderless accented)
+;;       ;; modus-themes-paren-match 'intense
+;;       modus-themes-syntax '(green-strings)
+;;       modus-themes-completions nil)
+;; (load-theme 'modus-operandi t)
 ;; (load-theme 'modus-vivendi t)
+;; (global-set-key [f7] 'modus-themes-toggle)
+;; (global-set-key (kbd "C-c y") 'modus-themes-toggle)
 
 ;; only change the font size
 ;; (set-face-attribute 'default nil :height 140)
-(set-face-attribute 'default nil :family "Fira Code" :height 160)
+;; (set-face-attribute 'default nil :family "Fira Code" :height 160)
 
 (if (display-graphic-p)
     (progn
@@ -98,11 +123,16 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 ;; M-SPC does cycle-spacing
 (global-set-key [remap just-one-space] 'cycle-spacing)
-(setq
- mac-command-modifier 'super
- mac-option-modifier 'meta
- )
 (global-set-key [remap dabbrev-expand] 'hippie-expand)
+
+;; Mac keybindings
+(setq mac-command-modifier 'super
+      mac-option-modifier 'meta)
+;; (setq mac-option-modifier nil
+;;       mac-command-key-is-meta t
+;;       mac-command-modifier 'meta
+;;       mac-option-modifier 'super
+;;       )
 
 ;; DIRED
 (setq dired-isearch-filenames t
@@ -161,7 +191,8 @@
       backup-by-copying t
       frame-inhibit-implied-resize t
       ediff-window-setup-function 'ediff-setup-windows-plain
-      custom-file (expand-file-name "custom.el" user-emacs-directory))
+      ;; custom-file (expand-file-name "custom.el" user-emacs-directory)
+      )
 
 (unless backup-directory-alist
   (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
@@ -228,6 +259,11 @@
 ;; enable right-click menu
 (context-menu-mode 1)
 
+;; location data
+(setq calendar-latitude 35.88)
+(setq calendar-longitude -106.32)
+(setq calendar-location-name "Los Alamos, NM")
+
 ;; MACHINE CONFIG
 ;; load machine specific init file
 ;; it looks for a file names <hostname>.el and loads it if present
@@ -244,22 +280,54 @@
   :bind (("C-x g" . magit)))
 (use-package lua-mode)
 (use-package python-mode)
+(use-package neotree
+    :bind (("C-c t" . neotree-toggle)))
+
 
 ;; org mode
 (require 'org-mouse)
-(add-hook 'org-mode-hook #'turn-on-org-cdlatex)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (setq org-num-max-level 2
       org-num-skip-tags t
       org-num-skip-commented t
       org-num-skip-footnotes t)
+(add-hook 'org-mode-hook #'turn-on-org-cdlatex)
 (add-hook 'org-mode-hook #'org-indent-mode)
-(add-hook 'org-mode-hook #'org-bullets-mode)
+;; (add-hook 'org-mode-hook #'org-bullets-mode)
+(add-hook 'org-mode-hook #'visual-line-mode)
+;; (use-package org
+;;   :hook (org-mode . (lambda () (visual-line-mode))))
+  
+;; (use-package org-bullets
+;;   :hook(( org-mode ) . org-bullets-mode))
+
 ;; don't put the w3 validation link when exporting to html from org
 (setq org-html-validation-link nil)
 ;; RETURN will follow links in org-mode files
 (setq org-return-follows-link  t)
 
-;; ;; yasnippet
+;; org keybinds
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
+
+(setq org-default-notes-file "~/notes/general.org")
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/notes/general.org" "Tasks")
+         "* TODO %?\n%i")
+        ("j" "Journal" entry (file+datetree "~/notes/journal.org")
+         "* %?\n%i")))
+(setq org-refile-targets '((nil :maxlevel . 9)
+                                (org-agenda-files :maxlevel . 9)))
+(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "M-n") #'org-next-link)
+  (define-key org-mode-map (kbd "M-p") #'org-previous-link))
+
+;; yasnippet
 ;; (yas-global-mode t)
 (use-package yasnippet
   :config
@@ -292,6 +360,9 @@
   (prog-mode . git-gutter-mode)
   (magit-post-refresh . git-gutter:update-all-windows))
 
+(use-package vterm
+  :init
+  (setq-default vterm-max-scrollback 100000))
 ;; ;; company mode
 ;; (global-company-mode t)
 ;; (global-company-fuzzy-mode t)
@@ -300,15 +371,19 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook 'global-company-fuzzy-mode)
 
-;; ;; eglot
-;; (with-eval-after-load 'eglot
-;;   (add-to-list 'eglot-server-programs
-;;                '(c++-mode . ("clangd" "--completion-style=detailed"))))
-;; (add-hook 'c-mode-hook 'eglot-ensure)
-;; (add-hook 'c++-mode-hook 'eglot-ensure)
-;; ;; (add-hook 'eglot-managed-mode-hook (lambda ()
-;; ;;                                       (add-to-list 'company-backends
-;; ;;                                                    '(company-capf :with company-yasnippet))))
+;; eglot
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(c++-mode . ("clangd"
+                             "--completion-style=detailed"
+                             "-j=4"
+                             "--background-index"
+                             "--header-insertion=never"))))
+(add-hook 'c-mode-hook 'eglot-ensure)
+(add-hook 'c++-mode-hook 'eglot-ensure)
+;; (add-hook 'eglot-managed-mode-hook (lambda ()
+;;                                       (add-to-list 'company-backends
+;;                                                    '(company-capf :with company-yasnippet))))
 
 (use-package all-the-icons)
 
