@@ -10,7 +10,7 @@
  '(org-agenda-restore-windows-after-quit t)
  '(org-agenda-window-setup 'current-window)
  '(package-selected-packages
-   '(ef-themes yaml-mode company yasnippet cyberpunk-theme yasnippet-snippets which-key vterm treemacs python-mode projectile org-bullets neotree markdown-mode magit lua-mode git-gutter-fringe doom-themes dashboard company-fuzzy cmake-mode cdlatex auctex all-the-icons))
+   '(vterm-toggle ef-themes yaml-mode company yasnippet cyberpunk-theme yasnippet-snippets which-key vterm treemacs python-mode projectile org-bullets neotree markdown-mode magit lua-mode git-gutter-fringe doom-themes dashboard company-fuzzy cmake-mode cdlatex auctex all-the-icons))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -79,8 +79,8 @@
 (if (display-graphic-p)
     (progn
 ;; disable menu-bar on non-mac
-(unless (memq window-system '(mac ns))
-  (menu-bar-mode -1))
+;; (unless (memq window-system '(mac ns))
+;;   (menu-bar-mode -1))
 ;; disable toolbar
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -98,7 +98,7 @@
 ;; (global-linum-mode t)
 ;; use line-numbers only in programming modes
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-;; (global-tab-line-mode)
+(global-tab-line-mode)
 (setq display-line-numbers-width-start 3)
 
 (setq
@@ -379,7 +379,24 @@
 
 (use-package vterm
   :init
-  (setq-default vterm-max-scrollback 100000))
+  (setq-default vterm-max-scrollback 100000)
+  (setq vterm-clear-scrollback-when-clearing t)
+  (setq vterm-kill-buffer-on-exit t)
+  (setq vterm-copy-exclude-prompt t)
+  ;; (setq vterm-buffer-name-string "vterm %s")
+  (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
+  )
+
+;; add this to .bashrc
+;; if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+;;     && [[ -n ${EMACS_VTERM_PATH} ]] \
+;;     && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh ]]; then
+;;     source ${EMACS_VTERM_PATH}/etc/emacs-vterm-bash.sh
+;;     find_file() {
+;;         vterm_cmd find-file "$(realpath "${@:-.}")"
+;;     }
+;; fi
+
 ;; ;; company mode
 ;; (global-company-mode t)
 ;; (global-company-fuzzy-mode t)
