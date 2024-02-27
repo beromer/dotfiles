@@ -384,6 +384,7 @@
   (setq vterm-kill-buffer-on-exit t)
   (setq vterm-copy-exclude-prompt t)
   ;; (setq vterm-buffer-name-string "vterm %s")
+  :config
   (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
   )
 
