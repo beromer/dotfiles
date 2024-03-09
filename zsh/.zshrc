@@ -75,7 +75,7 @@ fi
 alias emacs='emacs -nw'
 
 ### local config ###
-if[ -f ~/.zsh.local ]; then
-    source ~/.zsh.local
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
 fi
 
