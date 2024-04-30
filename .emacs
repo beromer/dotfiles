@@ -4,21 +4,21 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("ae7aede615d12f126a7b6b0d8c1e0af2af1ab63fb21d80a130a5f701fdbb23fe" "4c326abbf8b85c85e114691d3892cbbfe889b2b064dadd284cf5eccca3eecbff" "7819a530936ad2204a35340498da6341f66d816a92b8c71af138f73814b269ec" "91fed8cade0d85d1f5a5621e72ac6e720945be79493465a79f020e673f7e2d24" "c49f79bfea991ed384cc0dc33328c8d812c413bf27cff0bc24ad58af2cdbccb4" "a73cd17e5b490a5558a0ca13186cccb85ff74b2160f77e65ff36024bc66089b4" "e546768f3da4b394adc8c460106a7d220af130a3a2a0518d265c832d015a4385" "46a843168cc83b28b740735516e6eea4f97769d848c79b5acab32f7a278f793a" "28d5b595e4724ad44b52eb1ab9bd6fbf1cca747109e2dc5ff4073a07d1b50946" "ca934a76aae4ff950288e082be75a68eb7bac6e8d3dd58b28649993540412ed6" "01aef17f41edea53c665cb57320bd80393761f836be5ab0bd53292afc94bd14d" "73c55f5fd22b6fd44f1979b6374ca7cc0a1614ee8ca5d4f1366a0f67da255627" "5e05db868f138062a3aedcccefe623eee18ec703ae25d4e5aebd65f892ac5bcc" "5f92b9fc442528b6f106eaefa18bb5e7bfa0d737164e18f1214410fef2a6678d" "8ea6a46120abb34bf6a664b76d78014e0dd1f2b740a0976ec41313612421712f" "7d10494665024176a90895ff7836a8e810d9549a9872c17db8871900add93d5c" "38cb7d03fec58c860d5e92ee756aa80bdb2d78ef7ac726317e78c5c844e04f3a" "4de156ea6aa06640e3d16da41dfbdee85aea2fb969f620e601a982c6e237b396" "65809263a533c5151d522570b419f1a653bfd8fb97e85166cf4278e38c39e00e" "65af8e8d704bcd9745a4f191db756995de6b1fdd15cf2eb41befaae75f7b045d" "67a0f6cdf628610987cf7f0d38f0ae68ed3a5ab6816ff3da5f66d7b09d03f470" "205bb9accecaf0ae5e8cb5f09773be4f1175aca71322ba4fd44b539cd48463b6" "c73ce0e82bfbf5f186756001eeaaf26f0b461851a8b421d1ff5ec35e10f300ed" "704f75d46620d87bb246e2ec1abb129437764b0e84ac0fff6b968311cc046918" "7dc1c6210efe106a8c6cd47009a2ffd0069826b550dda379e8e4ef6105384cba" "a6a979c8b7ccb1d4536f4fa74a6e47674a3ce65feea3fecdf1d9dc448fac47e0" "7a259016d8fe61ef450895a01d842c4353dabc873ee46e250c933995f7f004cf" "df42062cdd672acecac9b5a1229c45f74c0cc2bc0362f9ad41054af6ac355021" "7ca04d620046f5807d0740f265844d45e53b864138c246f48f663bea8fba5c5d" "b0b29575dda28e1948e31f40e7693fa8483d7a9b1b7aff069fa8a1b7193cd1ab" "a44e2d1636a0114c5e407a748841f6723ed442dc3a0ed086542dc71b92a87aee" "b1acc21dcb556407306eccd73f90eb7d69664380483b18496d9c5ccc5968ab43" "f4d1b183465f2d29b7a2e9dbe87ccc20598e79738e5d29fc52ec8fb8c576fcfd" "e9d47d6d41e42a8313c81995a60b2af6588e9f01a1cf19ca42669a7ffd5c2fde" default))
+   '("3cf1845f34a1180b390a94e7cef30912f60c152c520e03d08868cc7b70aaa9c8" "79a8c85692a05a0ce0502168bb0e00d25f021a75d8b0136b46978bddf25e3b72" "2777f300b438d2d061560c6a1afac9723e7f840413b12a471055428269ee17dd" "ae7aede615d12f126a7b6b0d8c1e0af2af1ab63fb21d80a130a5f701fdbb23fe" "4c326abbf8b85c85e114691d3892cbbfe889b2b064dadd284cf5eccca3eecbff" "7819a530936ad2204a35340498da6341f66d816a92b8c71af138f73814b269ec" "91fed8cade0d85d1f5a5621e72ac6e720945be79493465a79f020e673f7e2d24" "c49f79bfea991ed384cc0dc33328c8d812c413bf27cff0bc24ad58af2cdbccb4" "a73cd17e5b490a5558a0ca13186cccb85ff74b2160f77e65ff36024bc66089b4" "e546768f3da4b394adc8c460106a7d220af130a3a2a0518d265c832d015a4385" "46a843168cc83b28b740735516e6eea4f97769d848c79b5acab32f7a278f793a" "28d5b595e4724ad44b52eb1ab9bd6fbf1cca747109e2dc5ff4073a07d1b50946" "ca934a76aae4ff950288e082be75a68eb7bac6e8d3dd58b28649993540412ed6" "01aef17f41edea53c665cb57320bd80393761f836be5ab0bd53292afc94bd14d" "73c55f5fd22b6fd44f1979b6374ca7cc0a1614ee8ca5d4f1366a0f67da255627" "5e05db868f138062a3aedcccefe623eee18ec703ae25d4e5aebd65f892ac5bcc" "5f92b9fc442528b6f106eaefa18bb5e7bfa0d737164e18f1214410fef2a6678d" "8ea6a46120abb34bf6a664b76d78014e0dd1f2b740a0976ec41313612421712f" "7d10494665024176a90895ff7836a8e810d9549a9872c17db8871900add93d5c" "38cb7d03fec58c860d5e92ee756aa80bdb2d78ef7ac726317e78c5c844e04f3a" "4de156ea6aa06640e3d16da41dfbdee85aea2fb969f620e601a982c6e237b396" "65809263a533c5151d522570b419f1a653bfd8fb97e85166cf4278e38c39e00e" "65af8e8d704bcd9745a4f191db756995de6b1fdd15cf2eb41befaae75f7b045d" "67a0f6cdf628610987cf7f0d38f0ae68ed3a5ab6816ff3da5f66d7b09d03f470" "205bb9accecaf0ae5e8cb5f09773be4f1175aca71322ba4fd44b539cd48463b6" "c73ce0e82bfbf5f186756001eeaaf26f0b461851a8b421d1ff5ec35e10f300ed" "704f75d46620d87bb246e2ec1abb129437764b0e84ac0fff6b968311cc046918" "7dc1c6210efe106a8c6cd47009a2ffd0069826b550dda379e8e4ef6105384cba" "a6a979c8b7ccb1d4536f4fa74a6e47674a3ce65feea3fecdf1d9dc448fac47e0" "7a259016d8fe61ef450895a01d842c4353dabc873ee46e250c933995f7f004cf" "df42062cdd672acecac9b5a1229c45f74c0cc2bc0362f9ad41054af6ac355021" "7ca04d620046f5807d0740f265844d45e53b864138c246f48f663bea8fba5c5d" "b0b29575dda28e1948e31f40e7693fa8483d7a9b1b7aff069fa8a1b7193cd1ab" "a44e2d1636a0114c5e407a748841f6723ed442dc3a0ed086542dc71b92a87aee" "b1acc21dcb556407306eccd73f90eb7d69664380483b18496d9c5ccc5968ab43" "f4d1b183465f2d29b7a2e9dbe87ccc20598e79738e5d29fc52ec8fb8c576fcfd" "e9d47d6d41e42a8313c81995a60b2af6588e9f01a1cf19ca42669a7ffd5c2fde" default))
  '(delete-selection-mode nil)
  '(org-agenda-files
-   '("/home/beromer/notes/titans.org" "/home/beromer/notes/one-on-one-2024.org" "/home/beromer/notes/general.org" "/home/beromer/notes/fury/fury.org" "/home/beromer/notes/planner-2024.org" "/home/beromer/notes/tnburn/tnburn.org" "/home/beromer/notes/whisk/whisk.org"))
+   '("/Users/beromer/notes/vug.org" "/Users/beromer/notes/cpp/cpp.org" "/home/beromer/notes/titans.org" "/home/beromer/notes/one-on-one-2024.org" "/home/beromer/notes/general.org" "/home/beromer/notes/fury/fury.org" "/home/beromer/notes/planner-2024.org" "/home/beromer/notes/tnburn/tnburn.org" "/home/beromer/notes/whisk/whisk.org"))
  '(org-agenda-restore-windows-after-quit t)
  '(org-agenda-window-setup 'current-window)
  '(package-selected-packages
-   '(pdf-tools company-auctex auctex-latexmk tex vterm-toggle ef-themes yaml-mode company yasnippet cyberpunk-theme yasnippet-snippets which-key vterm treemacs python-mode projectile org-bullets neotree markdown-mode magit lua-mode git-gutter-fringe doom-themes dashboard company-fuzzy cmake-mode cdlatex auctex all-the-icons))
+   '(dired-subtree orderless corfu breadcrumb pdf-tools company-auctex auctex-latexmk tex vterm-toggle ef-themes yaml-mode company yasnippet cyberpunk-theme yasnippet-snippets which-key vterm treemacs python-mode projectile org-bullets neotree markdown-mode magit lua-mode git-gutter-fringe doom-themes dashboard company-fuzzy cmake-mode cdlatex auctex all-the-icons))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code" :foundry "nil" :slant normal :weight medium :height 111 :width normal)))))
+ '(default ((t (:family "Fira Code" :foundry "nil" :slant normal :weight medium :height 130 :width normal)))))
 
 ;; MELPA
 (require 'package)
@@ -53,25 +53,26 @@
 
 ;; (load-theme 'wombat t)
 ;; (load-theme 'cyberpunk t)
-(use-package ef-themes
-  :ensure t
-  :config
-  (load-theme 'ef-night t)
-  (setq ef-themes-to-toggle '(ef-night ef-day))
-  (global-set-key [f7] 'ef-themes-toggle)
-  )
+;; (use-package ef-themes
+;;   :ensure t
+;;   :config
+;;   (load-theme 'ef-night t)
+;;   (setq ef-themes-to-toggle '(ef-night ef-day))
+;;   (global-set-key [f7] 'ef-themes-toggle)
+;;   )
+;; (load-theme 'wombat t)
 
 
-;; (setq modus-themes-bold-constructs t
-;;       modus-themes-mode-line '(accented)
-;;       ;; modus-themes-mode-line '(borderless accented)
-;;       ;; modus-themes-paren-match 'intense
-;;       modus-themes-syntax '(green-strings)
-;;       modus-themes-completions nil)
+(setq modus-themes-bold-constructs t
+      modus-themes-mode-line '(accented)
+      ;; modus-themes-mode-line '(borderless accented)
+      ;; modus-themes-paren-match 'intense
+      modus-themes-syntax '(green-strings)
+      modus-themes-completions nil)
 ;; (load-theme 'modus-operandi t)
-;; (load-theme 'modus-vivendi t)
-;; (global-set-key [f7] 'modus-themes-toggle)
-;; (global-set-key (kbd "C-c y") 'modus-themes-toggle)
+(load-theme 'modus-vivendi t)
+(global-set-key [f7] 'modus-themes-toggle)
+(global-set-key (kbd "C-c y") 'modus-themes-toggle)
 
 ;; only change the font size
 ;; (set-face-attribute 'default nil :height 140)
@@ -99,7 +100,7 @@
 ;; (global-linum-mode t)
 ;; use line-numbers only in programming modes
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(global-tab-line-mode)
+;; (global-tab-line-mode)
 (setq display-line-numbers-width-start 3)
 
 (setq
@@ -112,10 +113,10 @@
 
 ;; KEYBINDINGS
 ;; simpler keybinding for moving between windows
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-O") (lambda ()
-                                (interactive)
-                                (other-window -1)))
+;; (global-set-key (kbd "M-o") 'other-window)
+;; (global-set-key (kbd "M-O") (lambda ()
+;;                                 (interactive)
+;;                                 (other-window -1)))
 (global-set-key (kbd "M-i") 'imenu)
 ;; easily move to previous and next buffer
 (global-set-key (kbd "C-c n") 'next-buffer)
@@ -170,12 +171,15 @@
 ;; delete active region when typing over it
 (delete-selection-mode 1)
 
+
 ;; OTHER/NOT ORGANIZED
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
 ;; save position of point in buffers
 (save-place-mode 1)
+
+(repeat-mode 1)
 
 ;; always reload buffer if it changes on disk
 (global-auto-revert-mode 1)
@@ -292,14 +296,25 @@
   (set-window-dedicated-p (selected-window) sticky-buffer-mode))
 
 ;; PACKAGES
+;; (use-package treesit-auto
+;;   :custom
+;;   (treesit-auto-install 'prompt)
+;;   :config
+;;   (treesit-auto-add-to-auto-mode-alist 'all)
+;;   (global-treesit-auto-mode))
+
 (use-package markdown-mode
   :mode ("\\.md\\'" . markdown-mode))
-(use-package magit
-  :bind (("C-x g" . magit)))
+;; (use-package magit
+;;   :bind (("C-x g" . magit)))
 (use-package lua-mode)
 (use-package python-mode)
-(use-package neotree
-    :bind (("C-c t" . neotree-toggle)))
+(use-package cmake-mode
+  :ensure t
+  )
+
+;; (use-package neotree
+;;     :bind (("C-c t" . neotree-toggle)))
 
 
 ;; org mode
@@ -347,11 +362,11 @@
 
 ;; yasnippet
 ;; (yas-global-mode t)
-(use-package yasnippet
-  :config
-  (use-package yasnippet-snippets)
-  (yas-global-mode t)
-  (yas-reload-all))
+;; (use-package yasnippet
+;;   :config
+;;   (use-package yasnippet-snippets)
+;;   (yas-global-mode t)
+;;   (yas-reload-all))
 
 (use-package pdf-tools
   :mode ("\\.pdf\\'" . pdf-tools-modes)
@@ -406,11 +421,11 @@
 (use-package cdlatex
   :ensure t)
 
-(use-package company-auctex
-  :pin melpa
-  :after tex
-  :init
-  (company-auctex-init))
+;; (use-package company-auctex
+;;   :pin melpa
+;;   :after tex
+;;   :init
+;;   (company-auctex-init))
 
 ;; (unless (package-installed-p `auctex) (package-install `auctex))
 ;; (unless (package-installed-p `cdlatex) (package-install `cdlatex))
@@ -427,14 +442,14 @@
 ;; (add-hook 'LaTeX-mode-hook 'linum-mode)
 ;; (setq reftex-plug-into-AUCTeX t)
 
-(use-package git-gutter
-  :ensure git-gutter-fringe
-  ;; :after magit
-  :init
-  (setq-default left-fringe-width 20)
-  :hook
-  (prog-mode . git-gutter-mode)
-  (magit-post-refresh . git-gutter:update-all-windows))
+;; (use-package git-gutter
+;;   :ensure git-gutter-fringe
+;;   ;; :after magit
+;;   :init
+;;   (setq-default left-fringe-width 20)
+;;   :hook
+;;   (prog-mode . git-gutter-mode)
+;;   (magit-post-refresh . git-gutter:update-all-windows))
 
 (use-package vterm
   :init
@@ -460,8 +475,8 @@
 ;; ;; company mode
 ;; (global-company-mode t)
 ;; (global-company-fuzzy-mode t)
-(unless (package-installed-p `company) (package-install `company))
-(unless (package-installed-p `company-fuzzy) (package-install `company-fuzzy))
+;; (unless (package-installed-p `company) (package-install `company))
+;; (unless (package-installed-p `company-fuzzy) (package-install `company-fuzzy))
 ;; (add-hook 'after-init-hook 'global-company-mode)
 ;; (add-hook 'after-init-hook 'global-company-fuzzy-mode)
 
@@ -474,71 +489,84 @@
                              "--background-index"
                              "--header-insertion=never"))))
 (add-hook 'c-mode-hook 'eglot-ensure)
-(add-hook 'c-mode-hook 'company-mode)
+;; (add-hook 'c-mode-hook 'company-mode)
 (add-hook 'c++-mode-hook 'eglot-ensure)
-(add-hook 'c++-mode-hook 'company-mode)
+;; (add-hook 'c++-mode-hook 'company-mode)
 ;; (add-hook 'eglot-managed-mode-hook (lambda ()
 ;;                                       (add-to-list 'company-backends
 ;;                                                    '(company-capf :with company-yasnippet))))
 
-(use-package all-the-icons)
-
-(use-package projectile
-  :init
-  (projectile-mode +1)
-  :bind (:map projectile-mode-map
-              ("M-p" . projectile-command-map)))
-
-(use-package dashboard
-;;   :after (all-the-icons dashboard-hackernews helm-system-packages)
-  :ensure t
-  :init
-  (dashboard-setup-startup-hook)
-
+(use-package corfu
+  ;; Optional customizations
   :custom
-  ;; (dashboard-banner-logo-title "Let's get stuff done!")
-  (dashboard-startup-banner 'logo)
-  (dashboard-center-content t)
-  (dashboard-set-navigator t)
-;;   (dashboard-navigator-buttons '((("⤓" " Install system package" " Install system package" (lambda (&rest _) (helm-system-packages))))))
-  (dashboard-set-heading-icons t)
-  (dashboard-set-file-icons t)
-  (dashboard-items '((projects . 10)
-                     (recents . 15)
-                     ;; (hackernews . 5)
-                     )))
-;; (use-package dashboard-hackernews)
+  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  (corfu-quit-no-match 'separator)      ;; Never quit, even if there is no match
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
 
-(use-package cmake-mode
-  :ensure t
-  )
+  ;; Enable Corfu only for certain modes.
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
 
-(use-package which-key
-     :ensure t
-     :custom
-     (which-key-idle-delay 2)
-     :config
-     (which-key-mode))
+  ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
+  ;; be used globally (M-/).  See also the customization variable
+  ;; `global-corfu-modes' to exclude certain modes.
+  :init
+  (global-corfu-mode)
+  (corfu-popupinfo-mode))
 
-;; ;; Outline-minor-mode key map Source: https://www.emacswiki.org/emacs/OutlineMinorMode
-;; (define-prefix-command 'cm-map nil "Outline-")
-;; ; HIDE
-;; (define-key cm-map "q" 'hide-sublevels)    ; Hide everything but the top-level headings
-;; (define-key cm-map "t" 'hide-body)         ; Hide everything but headings (all body lines)
-;; (define-key cm-map "o" 'hide-other)        ; Hide other branches
-;; (define-key cm-map "c" 'hide-entry)        ; Hide this entry's body
-;; (define-key cm-map "l" 'hide-leaves)       ; Hide body lines in this entry and sub-entries
-;; (define-key cm-map "d" 'hide-subtree)      ; Hide everything in this entry and sub-entries
-;; ;; SHOW
-;; (define-key cm-map "a" 'show-all)          ; Show (expand) everything
-;; (define-key cm-map "e" 'show-entry)        ; Show this heading's body
-;; (define-key cm-map "i" 'show-children)     ; Show this heading's immediate child sub-headings
-;; (define-key cm-map "k" 'show-branches)     ; Show all sub-headings under this heading
-;; (define-key cm-map "s" 'show-subtree)      ; Show (expand) everything in this heading & below
-;; ;; MOVE
-;; (define-key cm-map "u" 'outline-up-heading)                ; Up
-;; (define-key cm-map "n" 'outline-next-visible-heading)      ; Next
-;; (define-key cm-map "p" 'outline-previous-visible-heading)  ; Previous
-;; (define-key cm-map "f" 'outline-forward-same-level)        ; Forward - same level
-;; (define-key cm-map "b" 'outline-backward-same-level)       ; Backward - same level
-;; (global-set-key (kbd "C-c o") cm-map)
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; TAB cycle if there are only few candidates
+  ;; (setq completion-cycle-threshold 3)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete)
+
+  ;; Emacs 30 and newer: Disable Ispell completion function. As an alternative,
+  ;; try `cape-dict'.
+  (setq text-mode-ispell-word-completion nil)
+
+  ;; Emacs 28 and newer: Hide commands in M-x which do not apply to the current
+  ;; mode.  Corfu commands are hidden, since they are not used via M-x. This
+  ;; setting is useful beyond Corfu.
+  (setq read-extended-command-predicate #'command-completion-default-include-p))
+
+;; (use-package projectile
+;;   :init
+;;   (projectile-mode +1)
+;;   :bind (:map projectile-mode-map
+;;               ("M-p" . projectile-command-map)))
+
+;; (use-package dashboard
+;;   :ensure t
+;;   :init
+;;   (dashboard-setup-startup-hook)
+
+;;   :custom
+;;   (dashboard-startup-banner 'logo)
+;;   (dashboard-center-content t)
+;;   (dashboard-set-navigator t)
+;;   (dashboard-set-heading-icons nil)
+;;   (dashboard-set-file-icons nil)
+;;   (dashboard-display-icons-p nil)
+;;   (dashboard-items '((projects . 10)
+;;                      (recents . 15)
+;;                      )))
+
+;; (use-package which-key
+;;      :ensure t
+;;      :custom
+;;      (which-key-idle-delay 2)
+;;      :config
+;;      (which-key-mode))
+;;;; ;;;; ;;;; ;;;; ;;;; ;;;;
+
