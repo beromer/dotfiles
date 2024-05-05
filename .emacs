@@ -1,88 +1,25 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("3cf1845f34a1180b390a94e7cef30912f60c152c520e03d08868cc7b70aaa9c8" "79a8c85692a05a0ce0502168bb0e00d25f021a75d8b0136b46978bddf25e3b72" "2777f300b438d2d061560c6a1afac9723e7f840413b12a471055428269ee17dd" "ae7aede615d12f126a7b6b0d8c1e0af2af1ab63fb21d80a130a5f701fdbb23fe" "4c326abbf8b85c85e114691d3892cbbfe889b2b064dadd284cf5eccca3eecbff" "7819a530936ad2204a35340498da6341f66d816a92b8c71af138f73814b269ec" "91fed8cade0d85d1f5a5621e72ac6e720945be79493465a79f020e673f7e2d24" "c49f79bfea991ed384cc0dc33328c8d812c413bf27cff0bc24ad58af2cdbccb4" "a73cd17e5b490a5558a0ca13186cccb85ff74b2160f77e65ff36024bc66089b4" "e546768f3da4b394adc8c460106a7d220af130a3a2a0518d265c832d015a4385" "46a843168cc83b28b740735516e6eea4f97769d848c79b5acab32f7a278f793a" "28d5b595e4724ad44b52eb1ab9bd6fbf1cca747109e2dc5ff4073a07d1b50946" "ca934a76aae4ff950288e082be75a68eb7bac6e8d3dd58b28649993540412ed6" "01aef17f41edea53c665cb57320bd80393761f836be5ab0bd53292afc94bd14d" "73c55f5fd22b6fd44f1979b6374ca7cc0a1614ee8ca5d4f1366a0f67da255627" "5e05db868f138062a3aedcccefe623eee18ec703ae25d4e5aebd65f892ac5bcc" "5f92b9fc442528b6f106eaefa18bb5e7bfa0d737164e18f1214410fef2a6678d" "8ea6a46120abb34bf6a664b76d78014e0dd1f2b740a0976ec41313612421712f" "7d10494665024176a90895ff7836a8e810d9549a9872c17db8871900add93d5c" "38cb7d03fec58c860d5e92ee756aa80bdb2d78ef7ac726317e78c5c844e04f3a" "4de156ea6aa06640e3d16da41dfbdee85aea2fb969f620e601a982c6e237b396" "65809263a533c5151d522570b419f1a653bfd8fb97e85166cf4278e38c39e00e" "65af8e8d704bcd9745a4f191db756995de6b1fdd15cf2eb41befaae75f7b045d" "67a0f6cdf628610987cf7f0d38f0ae68ed3a5ab6816ff3da5f66d7b09d03f470" "205bb9accecaf0ae5e8cb5f09773be4f1175aca71322ba4fd44b539cd48463b6" "c73ce0e82bfbf5f186756001eeaaf26f0b461851a8b421d1ff5ec35e10f300ed" "704f75d46620d87bb246e2ec1abb129437764b0e84ac0fff6b968311cc046918" "7dc1c6210efe106a8c6cd47009a2ffd0069826b550dda379e8e4ef6105384cba" "a6a979c8b7ccb1d4536f4fa74a6e47674a3ce65feea3fecdf1d9dc448fac47e0" "7a259016d8fe61ef450895a01d842c4353dabc873ee46e250c933995f7f004cf" "df42062cdd672acecac9b5a1229c45f74c0cc2bc0362f9ad41054af6ac355021" "7ca04d620046f5807d0740f265844d45e53b864138c246f48f663bea8fba5c5d" "b0b29575dda28e1948e31f40e7693fa8483d7a9b1b7aff069fa8a1b7193cd1ab" "a44e2d1636a0114c5e407a748841f6723ed442dc3a0ed086542dc71b92a87aee" "b1acc21dcb556407306eccd73f90eb7d69664380483b18496d9c5ccc5968ab43" "f4d1b183465f2d29b7a2e9dbe87ccc20598e79738e5d29fc52ec8fb8c576fcfd" "e9d47d6d41e42a8313c81995a60b2af6588e9f01a1cf19ca42669a7ffd5c2fde" default))
- '(delete-selection-mode nil)
- '(org-agenda-files
-   '("/Users/beromer/notes/vug.org" "/Users/beromer/notes/cpp/cpp.org" "/home/beromer/notes/titans.org" "/home/beromer/notes/one-on-one-2024.org" "/home/beromer/notes/general.org" "/home/beromer/notes/fury/fury.org" "/home/beromer/notes/planner-2024.org" "/home/beromer/notes/tnburn/tnburn.org" "/home/beromer/notes/whisk/whisk.org"))
- '(org-agenda-restore-windows-after-quit t)
- '(org-agenda-window-setup 'current-window)
- '(package-selected-packages
-   '(dired-subtree orderless corfu breadcrumb pdf-tools company-auctex auctex-latexmk tex vterm-toggle ef-themes yaml-mode company yasnippet cyberpunk-theme yasnippet-snippets which-key vterm treemacs python-mode projectile org-bullets neotree markdown-mode magit lua-mode git-gutter-fringe doom-themes dashboard company-fuzzy cmake-mode cdlatex auctex all-the-icons))
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code" :foundry "nil" :slant normal :weight medium :height 130 :width normal)))))
-
 ;; MELPA
 (require 'package)
 (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
-;; (unless (package-installed-p 'use-package)
-;;   (package-refresh-contents)
-;;   (package-install 'use-package))
-;; ;; (eval-and-compile
-;; ;;   (setq use-package-always-ensure t
-;; ;;         use-package-expand-minimally t))
-;; (require 'use-package)
-;; ;; tell use-package to install a package if it's not already installed
 (setq use-package-always-ensure t)
 
 ;; APPEARANCE
-;; (load-themel 'misterioso t)
-
-;; (unless (package-installed-p `solarized-theme) (package-install `solarized-theme))
-;; (setq solarized-distinct-fringe-background t)
-;; (setq solarized-high-contrast-mode-line t)
-;; (setq solarized-scale-org-headlines nil)
-;; (load-theme 'solarized-dark t)
-
-;; (use-package doom-themes
-;;   :ensure t
-;;   :config
-;;   (load-theme 'doom-solarized-dark-high-contrast t)
-;;   )
-
-;; (load-theme 'wombat t)
-;; (load-theme 'cyberpunk t)
-;; (use-package ef-themes
-;;   :ensure t
-;;   :config
-;;   (load-theme 'ef-night t)
-;;   (setq ef-themes-to-toggle '(ef-night ef-day))
-;;   (global-set-key [f7] 'ef-themes-toggle)
-;;   )
-;; (load-theme 'wombat t)
-
-
-(setq modus-themes-bold-constructs t
-      modus-themes-mode-line '(accented)
-      ;; modus-themes-mode-line '(borderless accented)
-      ;; modus-themes-paren-match 'intense
-      modus-themes-syntax '(green-strings)
-      modus-themes-completions nil)
-;; (load-theme 'modus-operandi t)
-(load-theme 'modus-vivendi t)
-(global-set-key [f7] 'modus-themes-toggle)
-(global-set-key (kbd "C-c y") 'modus-themes-toggle)
-
-;; only change the font size
-;; (set-face-attribute 'default nil :height 140)
-;; (set-face-attribute 'default nil :family "Fira Code" :height 160)
+(use-package ef-themes
+  :ensure t
+  :config
+  (load-theme 'ef-night t)
+  (setq ef-themes-to-toggle '(ef-night ef-day))
+  (global-set-key [f7] 'ef-themes-toggle)
+  )
 
 (if (display-graphic-p)
     (progn
 ;; disable menu-bar on non-mac
-;; (unless (memq window-system '(mac ns))
-;;   (menu-bar-mode -1))
+(unless (memq window-system '(mac ns))
+  (menu-bar-mode -1))
 ;; disable toolbar
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -93,15 +30,11 @@
 (when (fboundp 'horizontal-scroll-bar-mode)
   (horizontal-scroll-bar-mode -1))
 ))
-;; (setq display-line-numbers-type 'relative)
-;; (global-display-line-numbers-mode t)
-;; don't automatically adjust window width as line numbers increase
-;; (setq-default display-line-numbers-width 3)
-;; (global-linum-mode t)
 ;; use line-numbers only in programming modes
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-;; (global-tab-line-mode)
 (setq display-line-numbers-width-start 3)
+;; (global-tab-line-mode)
+(global-tab-line-mode 1)
 
 (setq
  ;; fix underline in mode-line
@@ -113,10 +46,10 @@
 
 ;; KEYBINDINGS
 ;; simpler keybinding for moving between windows
-;; (global-set-key (kbd "M-o") 'other-window)
-;; (global-set-key (kbd "M-O") (lambda ()
-;;                                 (interactive)
-;;                                 (other-window -1)))
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-O") (lambda ()
+                                (interactive)
+                                (other-window -1)))
 (global-set-key (kbd "M-i") 'imenu)
 ;; easily move to previous and next buffer
 (global-set-key (kbd "C-c n") 'next-buffer)
@@ -137,19 +70,21 @@
 (global-set-key [remap dabbrev-expand] 'hippie-expand)
 
 ;; Mac keybindings
-(setq mac-command-modifier 'super
-      mac-option-modifier 'meta)
-;; (setq mac-option-modifier nil
-;;       mac-command-key-is-meta t
-;;       mac-command-modifier 'meta
-;;       mac-option-modifier 'super
-;;       )
+;; if swapping opt and cmd
+;; (setq mac-command-modifier 'super
+;;       mac-option-modifier 'meta)
+;; if not swapping opt and cmd
+(setq mac-option-modifier nil
+      mac-command-key-is-meta t
+      mac-command-modifier 'meta
+      mac-option-modifier 'super
+      )
 
 ;; DIRED
 (setq dired-isearch-filenames t
       dired-kill-when-opening-new-dired-buffer t)
 
-;; COMPLETIONS
+;; MINIBUFFER
 ;; enable fido
 (fido-mode 1)
 ;; present completions vertically (C-n, C-p to select)
@@ -171,7 +106,6 @@
 ;; delete active region when typing over it
 (delete-selection-mode 1)
 
-
 ;; OTHER/NOT ORGANIZED
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -179,6 +113,7 @@
 ;; save position of point in buffers
 (save-place-mode 1)
 
+;; use modifier only once for repetitive commands
 (repeat-mode 1)
 
 ;; always reload buffer if it changes on disk
@@ -205,12 +140,14 @@
       backup-by-copying t
       frame-inhibit-implied-resize t
       ediff-window-setup-function 'ediff-setup-windows-plain
-      ;; custom-file (expand-file-name "custom.el" user-emacs-directory)
       )
 
-
-(setq backup-directory-alist
-      `(("." . ,(concat user-emacs-directory "/backups/"))))
+;; don't litter
+(setq backup-inhibited t
+      auto-save-default nil
+      create-lockfiles nil)
+;; (setq backup-directory-alist
+;;       `(("." . ,(concat user-emacs-directory "/backups/"))))
 ;; (setq auto-save-file-name-transforms
 ;;       `(("." ,(concat user-emacs-directory "/backups/") t )))
 
@@ -288,6 +225,8 @@
 (setq gilesp-local-file (expand-file-name gilesp-local-filename user-emacs-directory))
 (when (file-readable-p gilesp-local-file)
   (load-file gilesp-local-file))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory)
+      )
 
 ;; Custom functions
 (define-minor-mode sticky-buffer-mode
@@ -296,28 +235,21 @@
   (set-window-dedicated-p (selected-window) sticky-buffer-mode))
 
 ;; PACKAGES
-;; (use-package treesit-auto
-;;   :custom
-;;   (treesit-auto-install 'prompt)
-;;   :config
-;;   (treesit-auto-add-to-auto-mode-alist 'all)
-;;   (global-treesit-auto-mode))
 
 (use-package markdown-mode
   :mode ("\\.md\\'" . markdown-mode))
-;; (use-package magit
-;;   :bind (("C-x g" . magit)))
+(use-package magit
+  :bind (("C-x g" . magit)))
 (use-package lua-mode)
 (use-package python-mode)
-(use-package cmake-mode
-  :ensure t
-  )
-
-;; (use-package neotree
-;;     :bind (("C-c t" . neotree-toggle)))
+(use-package cmake-mode)
+(use-package clang-format)
 
 
 ;; org mode
+(use-package org-bullets
+  :hook(( org-mode ) . org-bullets-mode))
+
 (require 'org-mouse)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (setq org-num-max-level 2
@@ -326,14 +258,10 @@
       org-num-skip-footnotes t)
 (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
 (add-hook 'org-mode-hook #'org-indent-mode)
-;; (add-hook 'org-mode-hook #'org-bullets-mode)
+(add-hook 'org-mode-hook #'org-bullets-mode)
 (add-hook 'org-mode-hook #'visual-line-mode)
 ;; (use-package org
 ;;   :hook (org-mode . (lambda () (visual-line-mode))))
-  
-;; (use-package org-bullets
-;;   :hook(( org-mode ) . org-bullets-mode))
-
 ;; don't put the w3 validation link when exporting to html from org
 (setq org-html-validation-link nil)
 ;; RETURN will follow links in org-mode files
@@ -421,35 +349,14 @@
 (use-package cdlatex
   :ensure t)
 
-;; (use-package company-auctex
-;;   :pin melpa
-;;   :after tex
-;;   :init
-;;   (company-auctex-init))
-
-;; (unless (package-installed-p `auctex) (package-install `auctex))
-;; (unless (package-installed-p `cdlatex) (package-install `cdlatex))
-;; (add-hook 'LaTeX-mode-hook #'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
-;; (setq TeX-auto-save t)
-;; (setq TeX-parse-self t)
-;; (setq-default TeX-master nil)
-;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-;; (add-hook 'LaTeX-mode-hook 'TeX-interactive-mode)
-;; (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-;; (add-hook 'LaTeX-mode-hook 'linum-mode)
-;; (setq reftex-plug-into-AUCTeX t)
-
-;; (use-package git-gutter
-;;   :ensure git-gutter-fringe
-;;   ;; :after magit
-;;   :init
-;;   (setq-default left-fringe-width 20)
-;;   :hook
-;;   (prog-mode . git-gutter-mode)
-;;   (magit-post-refresh . git-gutter:update-all-windows))
+(use-package git-gutter
+  :ensure git-gutter-fringe
+  :after magit
+  :init
+  (setq-default left-fringe-width 20)
+  :hook
+  (prog-mode . git-gutter-mode)
+  (magit-post-refresh . git-gutter:update-all-windows))
 
 (use-package vterm
   :init
@@ -472,14 +379,6 @@
 ;;     }
 ;; fi
 
-;; ;; company mode
-;; (global-company-mode t)
-;; (global-company-fuzzy-mode t)
-;; (unless (package-installed-p `company) (package-install `company))
-;; (unless (package-installed-p `company-fuzzy) (package-install `company-fuzzy))
-;; (add-hook 'after-init-hook 'global-company-mode)
-;; (add-hook 'after-init-hook 'global-company-fuzzy-mode)
-
 ;; eglot
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
@@ -489,12 +388,7 @@
                              "--background-index"
                              "--header-insertion=never"))))
 (add-hook 'c-mode-hook 'eglot-ensure)
-;; (add-hook 'c-mode-hook 'company-mode)
 (add-hook 'c++-mode-hook 'eglot-ensure)
-;; (add-hook 'c++-mode-hook 'company-mode)
-;; (add-hook 'eglot-managed-mode-hook (lambda ()
-;;                                       (add-to-list 'company-backends
-;;                                                    '(company-capf :with company-yasnippet))))
 
 (use-package corfu
   ;; Optional customizations
@@ -540,33 +434,51 @@
   ;; setting is useful beyond Corfu.
   (setq read-extended-command-predicate #'command-completion-default-include-p))
 
-;; (use-package projectile
-;;   :init
-;;   (projectile-mode +1)
-;;   :bind (:map projectile-mode-map
-;;               ("M-p" . projectile-command-map)))
+(use-package projectile
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ("M-p" . projectile-command-map)))
 
-;; (use-package dashboard
-;;   :ensure t
-;;   :init
-;;   (dashboard-setup-startup-hook)
+(use-package dashboard
+  :ensure t
+  :init
+  (dashboard-setup-startup-hook)
 
-;;   :custom
-;;   (dashboard-startup-banner 'logo)
-;;   (dashboard-center-content t)
-;;   (dashboard-set-navigator t)
-;;   (dashboard-set-heading-icons nil)
-;;   (dashboard-set-file-icons nil)
-;;   (dashboard-display-icons-p nil)
-;;   (dashboard-items '((projects . 10)
-;;                      (recents . 15)
-;;                      )))
+  :custom
+  (dashboard-startup-banner 'logo)
+  (dashboard-center-content t)
+  (dashboard-set-navigator t)
+  (dashboard-set-heading-icons nil)
+  (dashboard-set-file-icons nil)
+  (dashboard-display-icons-p nil)
+  (dashboard-items '((projects . 5)
+                     (recents . 5)
+                     (bookmarks . 5)
+                     (agenda    . 5)
 
-;; (use-package which-key
-;;      :ensure t
-;;      :custom
-;;      (which-key-idle-delay 2)
-;;      :config
-;;      (which-key-mode))
+                     )))
+
+(use-package which-key
+     :ensure t
+     :custom
+     (which-key-idle-delay 2)
+     :config
+     (which-key-mode))
+
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  ;; The :init section is always executed.
+  :init
+
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
+
 ;;;; ;;;; ;;;; ;;;; ;;;; ;;;;
-
